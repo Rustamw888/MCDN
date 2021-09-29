@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1632870490322" stop="1632870626978" version="1.5.2" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>Описание API Эмиссии КМ</name>
+    <description type="text"></description>
+    <test-cases>
+        <test-case start="1632870490447" stop="1632870626978" status="broken">
+            <name>Метод «Проверить доступность», проверка формата ответа на запрос</name>
+            <title>Метод «Проверить доступность», проверка формата ответа на запрос</title>
+            <description type="text"></description>
+            <failure>
+                <message>Test was interrupted</message>
+            </failure>
+            <labels>
+                <label name="story" value="Метод «Проверить доступность», проверка формата ответа на запрос"/>
+                <label name="feature" value="Описание API Эмиссии КМ"/>
+                <label name="host" value="DESKTOP-M4IIQTH"/>
+                <label name="thread" value="5332@DESKTOP-M4IIQTH.main(1)"/>
+                <label name="framework" value="CucumberJVM"/>
+            </labels>
+        </test-case>
+        <test-case start="1632870490322" stop="1632870626978" status="broken">
+            <name>Описание API Эмиссии КМ</name>
+            <title>Описание API Эмиссии КМ</title>
+            <failure>
+                <message>Test suite was interrupted, some test cases may be lost</message>
+            </failure>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="feature" value="Описание API Эмиссии КМ"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>

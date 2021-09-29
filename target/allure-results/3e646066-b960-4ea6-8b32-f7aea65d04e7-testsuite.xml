@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1632845628792" stop="1632845632882" version="1.5.2" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>Описание API Эмиссии КМ</name>
+    <description type="text"></description>
+    <test-cases>
+        <test-case start="1632845628930" stop="1632845632844" status="passed">
+            <name>Метод «Проверить доступность»</name>
+            <title>Метод «Проверить доступность»</title>
+            <description type="text"></description>
+            <steps>
+                <step start="1632845628942" stop="1632845632841" status="passed">
+                    <name>Когда выполнен GET запрос на URL "/api/mcdn/ping" с параметрами из таблицы. Ожидается код ответа: 200</name>
+                    <title>Когда выполнен GET запрос на URL "/api/mcdn/ping" с параметрами из таблицы. Ожидается код ответа: 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+            <labels>
+                <label name="story" value="Метод «Проверить доступность»"/>
+                <label name="feature" value="Описание API Эмиссии КМ"/>
+                <label name="host" value="DESKTOP-M4IIQTH"/>
+                <label name="thread" value="17600@DESKTOP-M4IIQTH.main(1)"/>
+                <label name="framework" value="CucumberJVM"/>
+            </labels>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="feature" value="Описание API Эмиссии КМ"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>
