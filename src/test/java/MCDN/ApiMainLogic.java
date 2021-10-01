@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.junit.Assert;
 import org.openqa.selenium.Cookie;
 
 import java.io.File;
@@ -18,50 +19,62 @@ import static io.restassured.RestAssured.given;
 
 public class ApiMainLogic extends Base {
 
-    public static Map<String, String> vars = new HashMap<>();
-    public static Map<String, Response> varsForFullAnswer = new HashMap<>(); //// ???????
-    public static Map<String, List<String>> varsForArrays = new HashMap<>();
+    public static Map<String, String> vars = new HashMap<>(); // для сохранения обычной пары ключ/значение
+    public static Map<String, Response> varsForFullAnswer = new HashMap<>(); // Переменная для сохранения ответов из запросов
+    public static Map<String, List<String>> varsForArrays = new HashMap<>(); // Переменная для сохранения массивов
     CreateJson createJson = new CreateJson();
     private String[] arrProjectID;
 
     public static JSONObject takeJsonToSend(String jsonFileName) {
         File file = new File(pathToJsons() + jsonFileName + ".json");
-        JSONObject signUpFile = null;
-        if (jsonFileName.equals("signUpWebMaster") | jsonFileName.equals("signUpAgent") | jsonFileName.equals("signUpType-9")) {
-            try {
-                TestContext.correctPhone = UserData.correctPhoneNumber;
-                TestContext.generatedEmail = UserData.getRandomEmail();
-                if (jsonFileName.equals("signUpType-9")) {
-                    TestContext.loginType9ForOtherCases = TestContext.generatedEmail;
-                }
-                signUpFile = (JSONObject) readJsonSimpleDemo(file);
-                signUpFile.replace("partner_phone", TestContext.correctPhone);
-                signUpFile.replace("email", TestContext.generatedEmail);
-                return signUpFile;
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            /*
-            if (jsonFileName.equals("signInType-9")){
-                try {
-                signUpFile = (JSONObject) readJsonSimpleDemo(file);
-                signUpFile.replace("login", TestContext.loginType9ForOtherCases);
-                return signUpFile;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            */
-            try {
-                return (JSONObject) readJsonSimpleDemo(file);
-            } catch (Exception ignored) {
-
-            }
+        try {
+            return (JSONObject) readJsonSimpleDemo(file);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
+
+//    public static JSONObject takeJsonToSend(String jsonFileName) {
+//        File file = new File(pathToJsons() + jsonFileName + ".json");
+//        JSONObject signUpFile = null;
+//        if (jsonFileName.equals("signUpWebMaster") | jsonFileName.equals("signUpAgent") | jsonFileName.equals("signUpType-9")) {
+//            try {
+//                TestContext.correctPhone = UserData.correctPhoneNumber;
+//                TestContext.generatedEmail = UserData.getRandomEmail();
+//                if (jsonFileName.equals("signUpType-9")) {
+//                    TestContext.loginType9ForOtherCases = TestContext.generatedEmail;
+//                }
+//                signUpFile = (JSONObject) readJsonSimpleDemo(file);
+//                signUpFile.replace("partner_phone", TestContext.correctPhone);
+//                signUpFile.replace("email", TestContext.generatedEmail);
+//                return signUpFile;
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            /*
+//            if (jsonFileName.equals("signInType-9")){
+//                try {
+
+//                signUpFile = (JSONObject) readJsonSimpleDemo(file);
+//                signUpFile.replace("login", TestContext.loginType9ForOtherCases);
+//                return signUpFile;
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            */
+//            try {
+//                return (JSONObject) readJsonSimpleDemo(file);
+//            } catch (Exception ignored) {
+//
+//            }
+//        }
+//        return null;
+//    }
 
     private static String invoke(String aClass, String aMethod) throws Exception {
         String resp = "";
@@ -94,15 +107,6 @@ public class ApiMainLogic extends Base {
         return PROPERTIES.getProperty("baseURI") + PROPERTIES.getProperty(endPoint);
     }
 
-//        private String urlValue(String endPoint) {
-//        if (endPoint.startsWith("http"))
-//            return endPoint;
-//        Properties PROPERTIES = Paths.getPropertiesInstance();
-//        if (PROPERTIES.getProperty(endPoint).startsWith("http"))
-//            return PROPERTIES.getProperty(endPoint);
-//        return PROPERTIES.getProperty("baseURI") + PROPERTIES.getProperty(endPoint);
-//    }
-
     private static Object readJsonSimpleDemo(File file) throws Exception {
         FileReader reader = new FileReader(file);
         JSONParser jsonParser = new JSONParser();
@@ -112,12 +116,13 @@ public class ApiMainLogic extends Base {
     public void sendPOSTRequestAndCheckStatus(String url,
                                               int code,
                                               Map<String, ?> header,
+                                              Map<String, ?> params,
                                               JSONObject jsonObject) {
         String urlValue = urlValue(url);
         RequestSpecification requestSpecification =
                 given().log().all()
                         .headers(header)
-                        .contentType("application/json\r\n")
+                        .queryParams(params)
                         .body(jsonObject.toString());
         Response response =
                 requestSpecification.when().post(urlValue);
@@ -157,13 +162,14 @@ public class ApiMainLogic extends Base {
                                                           String value,
                                                           String var,
                                                           int code,
+                                                          Map<String, ?> params,
                                                           Map<String, ?> header,
                                                           JSONObject jsonObject) {
         String urlValue = urlValue(url);
         RequestSpecification requestSpecification =
                 given().log().headers().log().body()
                         .headers(header)
-                        .contentType("application/json\r\n")
+                        .queryParams(params)
                         .body(jsonObject.toString());
         Response response =
                 requestSpecification.when().post(urlValue);
@@ -177,6 +183,53 @@ public class ApiMainLogic extends Base {
         System.out.println(vars.get(var));
     }
 
+    public void sendPOSTRequestCheckAndSaveAnswer (String url,
+                      String value,
+                      String var,
+                      int code,
+                      Map<String, ?> params,
+                      Map<String, ?> header,
+                      JSONObject jsonObject) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().body()
+                        .headers(header)
+                        .queryParams(params)
+                        .body(jsonObject.toString());
+        Response response =
+                requestSpecification.when().post(urlValue);
+
+        response.then().log().body()
+                .statusCode(code);
+        String rbody = response.asString();
+        JsonPath jp = new JsonPath(rbody);
+        String valueOfKey = jp.getString(value);
+        valueOfKey = valueOfKey.replace("[", "").replace("]", "").replace("{","").replace("}","");
+        vars.put(var, valueOfKey);
+        System.out.println(vars.get(var));
+    }
+
+    public void sendPOSTRequestAndCheckStatusAndSaveAnswer(String url,
+                                                           String var,
+                                                           int code,
+                                                           Map<String, ?> params,
+                                                           Map<String, ?> header,
+                                                           JSONObject jsonObject) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().body()
+                        .headers(header)
+                        .queryParams(params)
+                        .body(jsonObject.toString());
+        Response response =
+                requestSpecification.when().post(urlValue);
+
+        response.then().log().body()
+                .statusCode(code);
+        varsForFullAnswer.put(var, (Response) response.getBody());
+        System.out.println(varsForFullAnswer.get(var));
+    }
+
     public void sendGETRequestAndCheckStatusAndSaveValue(String url,
                                                          String value,
                                                          String var,
@@ -187,22 +240,39 @@ public class ApiMainLogic extends Base {
         RequestSpecification requestSpecification =
                 given().log().headers().log().all()
                         .queryParams(parameters)
-                        .headers(header)
-                        .contentType("application/json\r\n");
+                        .headers(header);
         Response response =
                 requestSpecification.when().get(urlValue);
-
         response.then().log().body()
                 .statusCode(code);
         String rbody = response.asString();
         JsonPath jp = new JsonPath(rbody);
-        String str = jp.getString(value);
-        str = str.replace("[", "").replace("]", "").replace("{","").replace("}","");
-        String [] words = str.split(", ");
-        List<String> valueOfKey = Arrays.asList(words);
-        //List<String> valueOfKey = jp.getList(value);
-        varsForArrays.put(var, valueOfKey);
-        System.out.println(varsForArrays.get(var));
+        String valueOfKey = jp.getString(value);
+        vars.put(var, valueOfKey);
+        System.out.println(vars.get(var));
+    }
+
+    public void sendGETRequestCheckAndSaveAnswer(String url,
+                                                 String value,
+                                                 String var,
+                                                 int code,
+                                                 Map<String, ?> parameters,
+                                                 Map<String, ?> header) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().all()
+                        .queryParams(parameters)
+                        .headers(header);
+        Response response =
+                requestSpecification.when().get(urlValue);
+        response.then().log().body()
+                .statusCode(code);
+        String rbody = response.asString();
+        JsonPath jp = new JsonPath(rbody);
+        String valueOfKey = jp.getString(value);
+        valueOfKey = valueOfKey.replace("[", "").replace("]", "").replace("{","").replace("}","");
+        vars.put(var, valueOfKey);
+        System.out.println(vars.get(var));
     }
 
     public void sendGETRequestAndCheckStatusAndSaveAnswer(String url,
@@ -216,10 +286,8 @@ public class ApiMainLogic extends Base {
                 given().log().headers().log().all()
                         .queryParams(parameters)
                         .headers(header);
-//                        .contentType("application/json\r\n");
         Response response =
                 requestSpecification.when().get(urlValue);
-
         response.then().log().body()
                 .statusCode(code);
         varsForFullAnswer.put(var, (Response) response.getBody());
@@ -231,6 +299,15 @@ public class ApiMainLogic extends Base {
         String str = jPath.getString(jp);
         str = str.replace("[", "").replace("]", "").replace("{","").replace("}","");
         vars.put(var, str);
+    }
+
+    public void checkAnswerWithAssert(String varResp, String varValue){
+        Assert.assertEquals(varValue, vars.get(varResp));
+    }
+
+    public void checkAnswerWithLength(String varResp, String varValue){
+        String result = String.valueOf(vars.get(varResp).length());
+        Assert.assertEquals(result, varValue);
     }
 
     public void sendDELEATERequestAndCheckStatus(String url,
@@ -246,7 +323,6 @@ public class ApiMainLogic extends Base {
                         .contentType("application/json\r\n");
         Response response =
                 requestSpecification.when().delete(urlValue + "/" + delete);
-
         response.then().log().body()
                 .statusCode(code);
     }
@@ -259,12 +335,8 @@ public class ApiMainLogic extends Base {
                         .headers(header);
         Response response =
                 requestSpecification.when().get(urlValue);
-
         response.then().log().all();
         response.then().assertThat().statusCode(code);
-        //        .statusCode(code);
-        //response.then().assertThat().body(matchesJsonSchema(Paths.pathToJsons() + "forCheckResponses" + "findByStatus.json"));
-        //matchesJsonSchemaInClasspath("findByStatus.json"));
     }
 
     public void sendGETRequestAndCheckStatus(String url, int code) {
@@ -273,10 +345,7 @@ public class ApiMainLogic extends Base {
                 given().log().all();
         Response response =
                 requestSpecification.when().get(urlValue);
-
         response.then().log().body()
                 .statusCode(code);
-        //response.then().assertThat().body(matchesJsonSchema(Paths.pathToJsons() + "forCheckResponses" + "findByStatus.json"));
-        //matchesJsonSchemaInClasspath("findByStatus.json"));
     }
 }

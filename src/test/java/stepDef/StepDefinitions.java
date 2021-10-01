@@ -44,7 +44,7 @@ public class StepDefinitions {
     public void sendPOSTRequest(String url, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, Objects.requireNonNull(ApiMainLogic.takeJsonToSend(nameOfJson)));
+        apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, ApiMainLogic.takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. значение из \"([^\"]*)\" сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -52,7 +52,23 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, headers, Objects.requireNonNull(ApiMainLogic.takeJsonToSend(nameOfJson)));
+        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, ApiMainLogic.takeJsonToSend(nameOfJson));
+    }
+
+    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
+    public void sendPOSTRequestCheckAndSaveAnswer(String url, String value, String var, int code, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, ApiMainLogic.takeJsonToSend(nameOfJson));
+    }
+
+    @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
+    public void sendGETRequestCheckAndSaveAnswer(String url, String value, String var, int code, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        apiMainLogic.sendGETRequestCheckAndSaveAnswer(url, value, var, code, params, headers);
     }
 
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. значение из \"([^\"]*)\" сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -71,9 +87,27 @@ public class StepDefinitions {
         apiMainLogic.sendGETRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers);
     }
 
+    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
+    public void sendPOSTRequestAndSaveAnswer(String url, String var, int code, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers, ApiMainLogic.takeJsonToSend(nameOfJson));
+    }
+
     @Когда("^значение из \"([^\"]*)\" присутствует в ответе в переменной (.*) Сохранить в другую переменную (.*)$")
     public void checkAnswer(String jp, String varResp, String var){
         apiMainLogic.checkAnswer(jp, varResp, var);
+    }
+
+    @Когда("^значение в переменной (.*) и равно (.*)")
+    public void checkAnswerWithAssert(String varResp, String varValue){
+        apiMainLogic.checkAnswerWithAssert(varResp, varValue);
+    }
+
+    @Когда("^рандомное значение в переменной (.*) соответствует формату, длина равна (.*)")
+    public void checkAnswerWithLength(String varResp, String varValue){
+        apiMainLogic.checkAnswerWithLength(varResp, varValue);
     }
 
     @Когда("^выполнен DELETE запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ожидаемый код ответа: (.*)$")

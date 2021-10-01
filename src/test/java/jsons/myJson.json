@@ -1,0 +1,19 @@
+{
+  "gtin": "01334567894339",
+  "quantity": 3,
+  "serialNumberType": "SELF_MADE",
+  "serialNumbers": [
+    "XT6c84e39gXjW",
+    "2kY39OmdmHTwx",
+    "X4ebssJPznnLg"
+  ],
+  "cisType": "BUNDLE",
+  "releaseMethodType": "IMPORT",
+  "attributes": {
+    "additionalProp1": {},
+    "additionalProp2": {},
+    "additionalProp3": {}
+  },
+  "productGroup": "water",
+  "productionOrderId": "123456"
+}
