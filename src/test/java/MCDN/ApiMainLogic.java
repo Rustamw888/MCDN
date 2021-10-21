@@ -198,7 +198,7 @@ public class ApiMainLogic extends Base {
                         .body(jsonObject.toString());
         Response response =
                 requestSpecification.when().post(urlValue);
-
+        System.out.println("\nЗапрос: " + urlValue + "?" + params.toString().replace("{", "").replace("}", "") + "\nHEADERS: " + header + "\nJSON: " + jsonObject + "\nОтвет сервера: " + response.body());
         response.then().log().body()
                 .statusCode(code);
         String rbody = response.asString();
@@ -336,6 +336,7 @@ public class ApiMainLogic extends Base {
         Response response =
                 requestSpecification.when().get(urlValue);
         response.then().log().all();
+        System.out.println("\nЗапрос: " + urlValue + "?" + map.toString().replace("{", "").replace("}", "") + "\nHEADERS: " + header + "\nОтвет сервера: " + response.body());
         response.then().assertThat().statusCode(code);
     }
 
