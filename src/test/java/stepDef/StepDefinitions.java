@@ -2,11 +2,16 @@ package stepDef;
 
 import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
-import cucumber.api.java.ru.Когда;
 import cucumber.api.DataTable;
-import paths.Paths;
+import cucumber.api.java.ru.Когда;
+import io.restassured.RestAssured;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static MCDN.ApiMainLogic.takeJsonToSend;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class StepDefinitions {
 
@@ -44,7 +49,7 @@ public class StepDefinitions {
     public void sendPOSTRequest(String url, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, ApiMainLogic.takeJsonToSend(nameOfJson));
+        apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. значение из \"([^\"]*)\" сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -52,7 +57,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, ApiMainLogic.takeJsonToSend(nameOfJson));
+        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -60,7 +65,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, ApiMainLogic.takeJsonToSend(nameOfJson));
+        apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -92,7 +97,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers, ApiMainLogic.takeJsonToSend(nameOfJson));
+        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^значение из \"([^\"]*)\" присутствует в ответе в переменной (.*) Сохранить в другую переменную (.*)$")
@@ -133,4 +138,19 @@ public class StepDefinitions {
     public void preparationCookiesForSeleniumMethod() {
         apiMainLogic.preparationCookiesForSelenium();
     }
+
+    @Когда("проверяем JSON ответ из переменной совпадает со схемой JSON файла")
+    public void testJsonSchema() {
+
+        RestAssured.given()
+                .when()
+                .get("https://jsonplaceholder.typicode.com/comments?postId=1")
+                .then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("src/test/java/jsons/kMOrders.json"));
+
+    }
+//    public void testJsonSchema() {
+//    matchesJsonSchemaInClasspath("src/test/java/jsons/kMOrders.json");
+//    }
 }

@@ -3,6 +3,7 @@ package MCDN;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import net.javacrumbs.jsonunit.core.Option;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
@@ -11,11 +12,16 @@ import org.openqa.selenium.Cookie;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import static MCDN.Paths.getPropertiesInstance;
 import static MCDN.Paths.pathToJsons;
 import static io.restassured.RestAssured.given;
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.json;
 
 public class ApiMainLogic extends Base {
 
@@ -336,8 +342,12 @@ public class ApiMainLogic extends Base {
         Response response =
                 requestSpecification.when().get(urlValue);
         response.then().log().all();
-        System.out.println("\nЗапрос: " + urlValue + "?" + map.toString().replace("{", "").replace("}", "") + "\nHEADERS: " + header + "\nОтвет сервера: " + response.body());
+//        System.out.println("\nЗапрос: " + urlValue + "?" + map.toString().replace("{", "").replace("}", "") + "\nHEADERS: " + header + "\nОтвет сервера: " + response.body());
         response.then().assertThat().statusCode(code);
+        String test = response.getBody().asString();
+        assertThatJson(test)
+                .when(Option.IGNORING_VALUES)
+                .isEqualTo(json(takeJsonToSend("kMOrders")));
     }
 
     public void sendGETRequestAndCheckStatus(String url, int code) {
