@@ -3,11 +3,11 @@
   "quantity": 3,
   "serialNumberType": "SELF_MADE",
   "serialNumbers": [
-    "XT6c84e39gXjW",
-    "2kY39OmdmHTwx",
-    "X4ebssJPznnLg"
+    "XT6c8",
+    "2kY39",
+    "X4ebs"
   ],
-  "cisType": "BUNDLE",
+  "cisType": "UNIT",
   "releaseMethodType": "IMPORT",
   "attributes": {
     "additionalProp1": {},

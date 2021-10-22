@@ -342,7 +342,6 @@ public class ApiMainLogic extends Base {
         Response response =
                 requestSpecification.when().get(urlValue);
         response.then().log().all();
-//        System.out.println("\nЗапрос: " + urlValue + "?" + map.toString().replace("{", "").replace("}", "") + "\nHEADERS: " + header + "\nОтвет сервера: " + response.body());
         response.then().assertThat().statusCode(code);
         String test = response.getBody().asString();
         assertThatJson(test)

@@ -4,14 +4,12 @@ import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
 import cucumber.api.DataTable;
 import cucumber.api.java.ru.Когда;
-import io.restassured.RestAssured;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static MCDN.ApiMainLogic.takeJsonToSend;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class StepDefinitions {
 
@@ -139,18 +137,4 @@ public class StepDefinitions {
         apiMainLogic.preparationCookiesForSelenium();
     }
 
-    @Когда("проверяем JSON ответ из переменной совпадает со схемой JSON файла")
-    public void testJsonSchema() {
-
-        RestAssured.given()
-                .when()
-                .get("https://jsonplaceholder.typicode.com/comments?postId=1")
-                .then()
-                .assertThat()
-                .body(matchesJsonSchemaInClasspath("src/test/java/jsons/kMOrders.json"));
-
-    }
-//    public void testJsonSchema() {
-//    matchesJsonSchemaInClasspath("src/test/java/jsons/kMOrders.json");
-//    }
 }
