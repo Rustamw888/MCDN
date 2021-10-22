@@ -333,7 +333,7 @@ public class ApiMainLogic extends Base {
                 .statusCode(code);
     }
 
-    public void sendGETRequestWithParamAndCheckStatus(String url, int code, Map<String, ?> map, Map<String, ?> header) {
+    public void sendGETRequestWithParamAndCheckStatus(String url, int code, Map<String, ?> map, Map<String, ?> header, String jsonFileName) {
         String urlValue = urlValue(url);
         RequestSpecification requestSpecification =
                 given().log().all()
@@ -347,7 +347,7 @@ public class ApiMainLogic extends Base {
         String test = response.getBody().asString();
         assertThatJson(test)
                 .when(Option.IGNORING_VALUES)
-                .isEqualTo(json(takeJsonToSend("kMOrders")));
+                .isEqualTo(json(takeJsonToSend(jsonFileName)));
     }
 
     public void sendGETRequestAndCheckStatus(String url, int code) {

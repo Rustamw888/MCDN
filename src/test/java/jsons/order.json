@@ -1,0 +1,19 @@
+{
+  "orderInfos": [
+    {
+      "orderId": "${json-unit.ignore}",
+      "productionOrderId": "${json-unit.ignore}",
+      "omsId": "${json-unit.ignore}",
+      "orderStatus": "${json-unit.ignore}",
+      "gtin": "${json-unit.ignore}",
+      "leftInBuffer": "${json-unit.ignore}",
+      "totalCodes": "${json-unit.ignore}",
+      "rejectedCodes": "${json-unit.ignore}",
+      "rejectedParts": "${json-unit.ignore}",
+      "createdTimestamp": "${json-unit.ignore}",
+      "declineReason": "${json-unit.ignore}",
+      "productGroup": "${json-unit.ignore}",
+      "ownerId": "${json-unit.ignore}"
+    }
+  ]
+}

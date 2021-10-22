@@ -1,5 +1,5 @@
 {
-  "codes1": ["${json-unit.ignore}"],
+  "codes": ["${json-unit.ignore}"],
   "ownerId": "${json-unit.ignore}",
   "expiredDate": "${json-unit.ignore}",
   "productionOrderId": "${json-unit.ignore}"

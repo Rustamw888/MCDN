@@ -122,11 +122,11 @@ public class StepDefinitions {
         apiMainLogic.sendDELEATERequestAndCheckStatus(url, code, params, headers, endPointForDelete);
     }
 
-    @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ожидаемый код ответа: (.*)$")
-    public void sendGETRequest(String url, int code, DataTable arg) {
+    @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ожидаемый код ответа: (.*), ожидаемая структура ответа: (.*)$")
+    public void sendGETRequest(String url, int code, String jsonFileName, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
         prepareData(table);
-        apiMainLogic.sendGETRequestWithParamAndCheckStatus(url, code, params, headers);
+        apiMainLogic.sendGETRequestWithParamAndCheckStatus(url, code, params, headers, jsonFileName);
     }
 
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\". Ожидаемый код ответа: (.*)$")
