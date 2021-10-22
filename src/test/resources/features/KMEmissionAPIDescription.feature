@@ -65,13 +65,14 @@
 
   @id-8
   Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки»
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "omsId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | myJson |
     Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | orderId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | closeOrder |
-    Когда значение в переменной mainResp и равно 741
+    Когда значение в переменной mainResp и равно 10

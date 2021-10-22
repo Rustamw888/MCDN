@@ -27,7 +27,11 @@ public class StepDefinitions {
                     nameOfJson = strings.get(2);
                     break;
                 case ("PARAMS"):
-                    params.put(strings.get(1), strings.get(2));
+                    if (strings.get(2).equals("mainResp")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp"));
+                    } else {
+                        params.put(strings.get(1), strings.get(2));
+                    }
                     break;
                 case ("HEADER"):
                     if (ApiMainLogic.vars.containsKey(strings.get(2)) && ApiMainLogic.vars.containsKey("token")) {
