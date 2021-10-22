@@ -88,20 +88,35 @@
 
   @id-10
   Сценарий: Метод «Отправить отчет об агрегации КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-#    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | ownerId | mainResp |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | agregationOrderSending |
+    Когда рандомное значение в переменной secondResp соответствует формату, длина равна 36
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | ownerId | mainResp |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | agregationOrderSending |
+    Когда значение в переменной secondResp и равно 2
+
+  @id-11
+  Сценарий: Метод «Отправить отчет об использовании (нанесении) КМ»
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+#    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
 #      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
 #      | PARAMS | ownerId | mainResp |
 #      | HEADER | Content-Type  | application/json;charset=UTF-8 |
 #      | BODY |  | agregationOrderSending |
 #    Когда рандомное значение в переменной mainResp соответствует формату, длина равна 36
-#    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+#    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
 #      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
 #      | PARAMS | ownerId | mainResp |
 #      | HEADER | Content-Type  | application/json;charset=UTF-8 |
 #      | BODY |  | agregationOrderSending |
-#    Когда значение в переменной mainResp и равно 2
-#    подставляет не верный ордер айди в запрос
-

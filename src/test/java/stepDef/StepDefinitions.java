@@ -29,6 +29,8 @@ public class StepDefinitions {
                 case ("PARAMS"):
                     if (strings.get(2).equals("mainResp")) {
                         params.put(strings.get(1), ApiMainLogic.vars.get("mainResp"));
+                    } else if (strings.get(2).equals("secondResp")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("secondResp"));
                     } else {
                         params.put(strings.get(1), strings.get(2));
                     }
