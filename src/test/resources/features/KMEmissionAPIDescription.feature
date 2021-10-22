@@ -41,7 +41,7 @@
     Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Значение из "recipientOrderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | BODY |  | betweenProviders |
+      | BODY |  | betweenProviders |
     Когда значение в переменной mainResp и равно 77f791ed-2d6d-407d-970b-dd4b87377e5e
       #    выполнить проверку ответа с существующими данными
 
