@@ -120,3 +120,4 @@
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
+#    блокер, не верный формат КМ
