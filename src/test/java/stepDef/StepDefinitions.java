@@ -109,9 +109,9 @@ public class StepDefinitions {
         apiMainLogic.checkAnswer(jp, varResp, var);
     }
 
-    @Когда("^значение в переменной (.*) и равно (.*)")
+    @Когда("^значение в переменной (.*) и равно (.*)$")
     public void checkAnswerWithAssert(String varResp, String varValue){
-        apiMainLogic.checkAnswerWithAssert(varResp, varValue);
+        apiMainLogic.checkAnswerWithAssert(varResp, varValue.replace("[", "").replace("]", "").replace("{","").replace("}",""));
     }
 
     @Когда("^рандомное значение в переменной (.*) соответствует формату, длина равна (.*)")
@@ -131,6 +131,13 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         prepareData(table);
         apiMainLogic.sendGETRequestWithParamAndCheckStatus(url, code, params, headers, jsonFileName);
+    }
+
+    @Когда("^POST запрос выполнен на URL \"([^\"]*)\" с параметрами из таблицы. Ожидаемый код ответа: (.*), ожидаемая структура ответа: (.*)$")
+    public void sendPOSTRequestWithJsonChecking(String url, int code, String jsonFileName, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        prepareData(table);
+        apiMainLogic.sendPOSTRequestWithParamAndCheckStatus(url, code, params, headers, jsonFileName, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\". Ожидаемый код ответа: (.*)$")

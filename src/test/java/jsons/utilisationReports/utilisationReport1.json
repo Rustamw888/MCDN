@@ -1,0 +1,20 @@
+{
+  "orderId": "1cecc8fb-fb47-4c8a-af3d-d34c1ead8c4f",
+  "productGroup": "milk",
+  "sntins":
+  [
+    {
+      "code":"SNTIN1",
+      "quality":"A"
+    },
+    {
+      "code":"SNTIN2",
+      "quality":"A"
+    }
+  ],
+  "usageType": "PRINTED",
+  "attributes": {
+    "expDate": "210816",
+    "cisType": "UNIT"
+  }
+}

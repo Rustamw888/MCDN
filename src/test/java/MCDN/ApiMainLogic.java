@@ -349,6 +349,23 @@ public class ApiMainLogic extends Base {
                 .isEqualTo(json(takeJsonToSend(jsonFileName)));
     }
 
+    public void sendPOSTRequestWithParamAndCheckStatus(String url, int code, Map<String, ?> params, Map<String, ?> header, String jsonFileName, JSONObject jsonObject) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().body()
+                        .headers(header)
+                        .queryParams(params)
+                        .body(jsonFileName);
+        Response response =
+                requestSpecification.when().post(urlValue);
+        response.then().log().body()
+                .statusCode(code);
+        String test = response.getBody().asString();
+        assertThatJson(test)
+                .when(Option.IGNORING_VALUES)
+                .isEqualTo(json(takeJsonToSend(jsonFileName)));
+    }
+
     public void sendGETRequestAndCheckStatus(String url, int code) {
         String urlValue = urlValue(url);
         RequestSpecification requestSpecification =

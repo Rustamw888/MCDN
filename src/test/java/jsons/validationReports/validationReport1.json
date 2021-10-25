@@ -1,0 +1,20 @@
+{
+  "productGroup": "milk",
+  "attributes": {
+    "additionalProp1": {},
+    "additionalProp2": {},
+    "additionalProp3": {}
+  },
+  "orderId": "dd3bb528-22f7-4e2b-a460-5513e5c75f34",
+  "sntins": [
+    {
+      "code": "010133456789433921i7RAGfsaWLTnA",
+      "quality": "A"
+    },
+    {
+      "code": "010133456789433921bRwqoIwHtxzoM",
+      "quality": "A"
+    }
+  ],
+  "usageType": "PRINTED"
+}
