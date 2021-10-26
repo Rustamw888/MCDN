@@ -3,9 +3,12 @@ package stepDef;
 import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
 import cucumber.api.DataTable;
+import cucumber.api.java.ru.Затем;
 import cucumber.api.java.ru.Когда;
 import data.IncorrectData;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
@@ -182,34 +185,41 @@ public class StepDefinitions {
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с замененными вышеперечисленными полями некорректными данными$")
-    public void sendPOSTRequestWithIncorrectDataThenCheckAndSaveAnswer(
-            String url,
-//            String value, String var, int code,
-            DataTable arg
-    ) {
+    public void sendPOSTRequestWithIncorrectDataThenCheckAndSaveAnswer(String url, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
         Field[] fields = IncorrectData.class.getFields();
-        try {
-            for (Field field: fields) {
-                System.out.println("\nПоле типа " + field.getType() + ": " + field.get(new IncorrectData()));
-                JSONObject jsonObject = takeJsonToSend(nameOfJson);
-                for (String jsonField: this.fields) {
-                    String[] path = jsonField.split("\\.");
-                    switch (path.length) {
-                        case (1):
-                            jsonObject.remove(path[0]);
-                            jsonObject.put(path[0], field.get(new IncorrectData()));
-                            break;
-//                        case (2):
-//                            jsonObject.getJSONObject()
+
+        for (Field field: fields) {
+            JSONObject jsonObject = takeJsonToSend(nameOfJson);
+            Object data = null;
+            try {
+                data = field.get(new IncorrectData());
+            } catch (Exception ignored) {}
+            for (String jsonField: this.fields) {
+                String[] path = jsonField.split("\\.");
+                JSONObject middleWay = jsonObject;
+                for (int i = 0; i < path.length - 1; i++) {
+                    try {
+                        middleWay = (JSONObject) middleWay.get(path[i]);
+                    } catch (Exception e) {
+                        middleWay = (JSONObject) ((JSONArray) middleWay.get(path[i])).get(0);
                     }
                 }
-                apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response", 400, params, headers, jsonObject);
+                middleWay.put(path[path.length - 1], data);
             }
-        } catch (Exception ignored) {
+            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.", "") + "_type_value", 0, params, headers, jsonObject);
         }
+    }
+
+    @Когда("проверить ответы сервера")
+    public void checkserversAnswers(Map<String, String> table) {
+        Map<String, String> responses = new HashMap<>();
+        for (String key: ApiMainLogic.varsForFullAnswer.keySet()) {
+            responses.put(key, ApiMainLogic.varsForFullAnswer.get(key).getBody().asString().replace("\\n", ""));
+        }
+        Assert.assertEquals(responses, table);
     }
 
 }

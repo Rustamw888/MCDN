@@ -241,8 +241,10 @@ public class ApiMainLogic extends Base {
         Response response =
                 requestSpecification.when().post(urlValue);
 
-        response.then().log().body()
-                .statusCode(code);
+        if (code != 0) {
+            response.then().log().body().statusCode(code);
+        }
+
         varsForFullAnswer.put(var, (Response) response.getBody());
         System.out.println(varsForFullAnswer.get(var));
     }
