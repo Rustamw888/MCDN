@@ -292,8 +292,9 @@
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
-    Когда проверить коды ответов
-      |500|400|400|400|400|400|
+    Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
+      |null|целое число|дробное число|пустая строка|строка|значение логического типа|
+      |500 |400        |400          |400          |400   |400                      |
     Когда проверить ответы сервера
       |response_with_boolean_type_value|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
       |response_with_double_type_value |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|

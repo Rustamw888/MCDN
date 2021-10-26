@@ -182,9 +182,13 @@ public class StepDefinitions {
         apiMainLogic.sendIncorrectData(fields, url, nameOfJson, params, headers);
     }
 
-    @Когда("проверить коды ответов")
+    @Когда("проверить коды ответов для замененных значений полей значениями некорректных типов данных")
     public void checkAnswersCodes(DataTable dataTable) {
-        List<Integer> codes = dataTable.asLists(Integer.class).get(0);
+        List<String> strCodes = dataTable.asLists(String.class).get(1);
+        List<Integer> codes = new ArrayList<>();
+        for (String code: strCodes) {
+            codes.add(Integer.parseInt(code));
+        }
         Assert.assertEquals(codes, ApiMainLogic.codes);
     }
 
