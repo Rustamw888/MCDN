@@ -41,6 +41,17 @@ public class ApiMainLogic extends Base {
         }
         return null;
     }
+//
+//    public static JSONObject takeIncorrectJsonToSend(String jsonFileName) {
+//        File file = new File(pathToJsons() + "incorrectData" + jsonFileName + ".json");
+//
+//        try {
+//            return (JSONObject) readJsonSimpleDemo(file);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 //    public static JSONObject takeJsonToSend(String jsonFileName) {
 //        File file = new File(pathToJsons() + jsonFileName + ".json");

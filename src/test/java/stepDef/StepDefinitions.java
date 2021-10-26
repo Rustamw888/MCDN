@@ -4,11 +4,16 @@ import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
 import cucumber.api.DataTable;
 import cucumber.api.java.ru.Когда;
+import data.IncorrectData;
+import org.json.simple.JSONObject;
 
+import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//import static MCDN.ApiMainLogic.takeIncorrectJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonToSend;
 
 public class StepDefinitions {
@@ -16,15 +21,23 @@ public class StepDefinitions {
     ApiMainLogic apiMainLogic = new ApiMainLogic();
     CreateJson createJson = new CreateJson();
     String nameOfJson = null;
+    boolean isDataCorrect = true;
     Map<String, String> headers = new HashMap<>();
     Map<String, Object> params = new HashMap<>();
     String endPointForDelete = null;
+    List<String> fields = Collections.emptyList();
 
     private void prepareData(List<List<String>> table) {
         for (List<String> strings : table) {
             switch (strings.get(0)) {
                 case ("BODY"):
-                    nameOfJson = strings.get(2);
+//                    if (strings.get(1).equals("incorrect data")) {
+//                        isDataCorrect = false;
+//                    }
+//                    else {
+                        nameOfJson = strings.get(2);
+//                    }
+
                     break;
                 case ("PARAMS"):
                     if (strings.get(2).equals("mainResp")) {
@@ -53,7 +66,10 @@ public class StepDefinitions {
     public void sendPOSTRequest(String url, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeJsonToSend(nameOfJson));
+//        if (isDataCorrect)
+            apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeJsonToSend(nameOfJson));
+//        else
+//            apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeIncorrectJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. значение из \"([^\"]*)\" сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -61,7 +77,10 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
+//        if (isDataCorrect)
+            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
+//        else
+//            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeIncorrectJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -69,7 +88,10 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
+//        if (isDataCorrect)
+            apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
+//        else
+//            apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, takeIncorrectJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -101,7 +123,10 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers, takeJsonToSend(nameOfJson));
+//        if (isDataCorrect)
+            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers, takeJsonToSend(nameOfJson));
+//        else
+//            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers, takeIncorrectJsonToSend(nameOfJson));
     }
 
     @Когда("^значение из \"([^\"]*)\" присутствует в ответе в переменной (.*) Сохранить в другую переменную (.*)$")
@@ -141,6 +166,43 @@ public class StepDefinitions {
     @Когда("^подтягиваются куки в браузер$")
     public void preparationCookiesForSeleniumMethod() {
         apiMainLogic.preparationCookiesForSelenium();
+    }
+
+    @Когда("выбираем следующие поля JSONа для замены некорректными данными")
+    public void selectFields(DataTable dataTable) {
+        fields = dataTable.asLists(String.class).get(0);
+        System.out.println("\nСписок данных: " + fields);
+    }
+
+    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с замененными вышеперечисленными полями некорректными данными$")
+    public void sendPOSTRequestWithIncorrectDataThenCheckAndSaveAnswer(
+            String url,
+//            String value, String var, int code,
+            DataTable arg
+    ) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        Field[] fields = IncorrectData.class.getFields();
+        try {
+            for (Field field: fields) {
+                System.out.println("\nПоле типа " + field.getType() + ": " + field.get(new IncorrectData()));
+                JSONObject jsonObject = takeJsonToSend(nameOfJson);
+                for (String jsonField: this.fields) {
+                    String[] path = jsonField.split("\\.");
+                    switch (path.length) {
+                        case (1):
+                            jsonObject.remove(path[0]);
+                            jsonObject.put(path[0], field.get(new IncorrectData()));
+                            break;
+//                        case (2):
+//                            jsonObject.getJSONObject()
+                    }
+                }
+                apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response", 400, params, headers, jsonObject);
+            }
+        } catch (Exception ignored) {
+        }
     }
 
 }

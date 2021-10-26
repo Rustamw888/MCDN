@@ -121,3 +121,16 @@
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
 #    блокер, не верный формат КМ
+
+  @id-12
+  Сценарий: Тестирование некорректных данных
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+    Когда выбираем следующие поля JSONа для замены некорректными данными
+      |name|surname|age|sex|address|
+    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с замененными вышеперечисленными полями некорректными данными
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | ownerId | mainResp |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | agregationOrderSending |
