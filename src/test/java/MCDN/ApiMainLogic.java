@@ -43,26 +43,25 @@ public class ApiMainLogic extends Base {
         return null;
     }
 
-    public void sendIncorrectData(List<String> fields, String url, String nameOfJson, Map<String, Object> params, Map<String, String> headers) {
+    public void sendIncorrectData(String jsonField, String url, String nameOfJson, Map<String, Object> params, Map<String, String> headers) {
         Field[] incorrectFields = IncorrectData.class.getFields();
+        codes.clear();
         for (Field field: incorrectFields) {  // Перечисляем некорректные типы данных в цикле
             JSONObject jsonObject = takeJsonToSend(nameOfJson);
             Object data = null;
             try {
                 data = field.get(new IncorrectData());  // Получаем значения полей класса с некорректными данными
             } catch (Exception ignored) {}
-            for (String jsonField: fields) {  // Перечисляем выбранные для замены поля JSONа
-                String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
-                JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
-                for (int i = 0; i < path.length - 1; i++) {
-                    try {
-                        middleWay = (JSONObject) middleWay.get(path[i]);
-                    } catch (Exception e) {
-                        middleWay = (JSONObject) ((JSONArray) middleWay.get(path[i])).get(0);
-                    }
+            String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
+            JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
+            for (int i = 0; i < path.length - 1; i++) {
+                try {
+                    middleWay = (JSONObject) middleWay.get(path[i]);
+                } catch (Exception e) {
+                    middleWay = (JSONObject) ((JSONArray) middleWay.get(path[i])).get(0);
                 }
-                middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
             }
+            middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
             sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value", 0, params, headers, jsonObject);
         }
     }

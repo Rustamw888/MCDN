@@ -281,23 +281,27 @@
 #  "errorText": "JSON parse error: Unrecognized token 'aggregationCodesIgnore': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false'); nested exception is com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'aggregationCodesIgnore': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: (PushbackInputStream); line: 1, column: 23]"
 #  }
   @id-21
-  Сценарий: Тестирование некорректных данных
+  Структура сценария: Тестирование некорректных данных
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
     Когда выбираем следующие поля JSONа для замены некорректными данными
-      |orderId|aggregationUnits.sntins.code|
+      |<Поле>|
     Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с замененными вышеперечисленными полями некорректными данными
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
-      |null|целое число|дробное число|пустая строка|строка|значение логического типа|
-      |500 |400        |400          |400          |400   |400                      |
+      |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
+      |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
     Когда проверить ответы сервера
-      |response_with_boolean_type_value|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-      |response_with_double_type_value |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-      |response_with_int_type_value    |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-      |response_with_string_type_value |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-      |response_with_null_type_value   |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|
+      |response_with_boolean_type_value|<response_with_boolean_type_value>|
+      |response_with_double_type_value |<response_with_double_type_value> |
+      |response_with_int_type_value    |<response_with_int_type_value>    |
+      |response_with_string_type_value |<response_with_string_type_value> |
+      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Примеры:
+      |Поле                        |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
+      |orderId                     |400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"orderId: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
+      |aggregationUnits.sntins.code|500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|

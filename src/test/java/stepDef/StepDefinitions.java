@@ -19,7 +19,7 @@ public class StepDefinitions {
     Map<String, String> headers = new HashMap<>();
     Map<String, Object> params = new HashMap<>();
     String endPointForDelete = null;
-    List<String> fields = Collections.emptyList();
+    String field = "";
 
     private void prepareData(List<List<String>> table) {
         for (List<String> strings : table) {
@@ -171,7 +171,7 @@ public class StepDefinitions {
 
     @Когда("выбираем следующие поля JSONа для замены некорректными данными")
     public void selectFields(DataTable dataTable) {
-        fields = dataTable.asLists(String.class).get(0);
+        field = dataTable.asLists(String.class).get(0).get(0);
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с замененными вышеперечисленными полями некорректными данными$")
@@ -179,7 +179,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendIncorrectData(fields, url, nameOfJson, params, headers);
+        apiMainLogic.sendIncorrectData(field, url, nameOfJson, params, headers);
     }
 
     @Когда("проверить коды ответов для замененных значений полей значениями некорректных типов данных")
