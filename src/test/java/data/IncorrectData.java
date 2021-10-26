@@ -1,7 +1,7 @@
 package data;
 
 public class IncorrectData {
-    public final String nullValue = null;
+    public final Object nullValue = null;
     public final int intValue = 0;
     public final double fractionalNumberValue = 0.0;
     public final String emptyStrValue = "";

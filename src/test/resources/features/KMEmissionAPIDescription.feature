@@ -292,8 +292,11 @@
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
+    Когда проверить коды ответов
+      |500|400|400|400|400|400|
     Когда проверить ответы сервера
       |response_with_boolean_type_value|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
       |response_with_double_type_value |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
       |response_with_int_type_value    |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-      |response_with_String_type_value |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+      |response_with_string_type_value |{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+      |response_with_null_type_value   |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|

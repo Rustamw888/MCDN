@@ -11,10 +11,7 @@ import org.json.simple.JSONObject;
 import org.junit.Assert;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //import static MCDN.ApiMainLogic.takeIncorrectJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonToSend;
@@ -209,17 +206,31 @@ public class StepDefinitions {
                 }
                 middleWay.put(path[path.length - 1], data);
             }
-            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.", "") + "_type_value", 0, params, headers, jsonObject);
+            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value", 0, params, headers, jsonObject);
         }
     }
 
+    @Когда("проверить коды ответов")
+    public void checkAnswersCodes(DataTable dataTable) {
+        List<Integer> codes = dataTable.asLists(Integer.class).get(0);
+        Assert.assertEquals(codes, ApiMainLogic.codes);
+    }
+
     @Когда("проверить ответы сервера")
-    public void checkserversAnswers(Map<String, String> table) {
+    public void checkServersAnswers(Map<String, String> table) {
         Map<String, String> responses = new HashMap<>();
-        for (String key: ApiMainLogic.varsForFullAnswer.keySet()) {
+        ArrayList<String> keys = new ArrayList(ApiMainLogic.varsForFullAnswer.keySet());
+        Collections.sort(keys);
+        for (String key: keys) {
             responses.put(key, ApiMainLogic.varsForFullAnswer.get(key).getBody().asString().replace("\\n", ""));
         }
-        Assert.assertEquals(responses, table);
+        ArrayList<String> tableKeys = new ArrayList(table.keySet());
+        Collections.sort(tableKeys);
+        Map<String, String> tableData = new HashMap<>();
+        for (String key: tableKeys) {
+            tableData.put(key, table.get(key));
+        }
+        Assert.assertEquals(responses, tableData);
     }
 
 }

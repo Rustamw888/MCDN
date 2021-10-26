@@ -12,10 +12,7 @@ import org.openqa.selenium.Cookie;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import static MCDN.Paths.getPropertiesInstance;
 import static MCDN.Paths.pathToJsons;
@@ -28,6 +25,7 @@ public class ApiMainLogic extends Base {
     public static Map<String, String> vars = new HashMap<>(); // для сохранения обычной пары ключ/значение
     public static Map<String, Response> varsForFullAnswer = new HashMap<>(); // Переменная для сохранения ответов из запросов
     public static Map<String, List<String>> varsForArrays = new HashMap<>(); // Переменная для сохранения массивов
+    public static List<Integer> codes = new ArrayList<>();
     CreateJson createJson = new CreateJson();
     private String[] arrProjectID;
 
@@ -243,6 +241,8 @@ public class ApiMainLogic extends Base {
 
         if (code != 0) {
             response.then().log().body().statusCode(code);
+        } else {
+            codes.add(response.getStatusCode());
         }
 
         varsForFullAnswer.put(var, (Response) response.getBody());
