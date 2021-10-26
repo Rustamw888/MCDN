@@ -1,0 +1,23 @@
+{
+  "productGroup": "${json-unit.ignore}",
+  "attributes": {
+    "additionalProp1": {},
+    "additionalProp2": {},
+    "additionalProp3": {}
+  },
+  "orderId": "${json-unit.ignore}",
+  "sntins": [
+    [
+      {
+        "code": "${json-unit.ignore}",
+        "quality": "${json-unit.ignore}",
+        "index": "${json-unit.ignore}"
+      },
+      {
+        "code": "${json-unit.ignore}",
+        "quality": "${json-unit.ignore}",
+        "index": "${json-unit.ignore}"
+      }
+    ]
+  ]
+}
