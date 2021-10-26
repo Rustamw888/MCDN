@@ -3,14 +3,8 @@ package stepDef;
 import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
 import cucumber.api.DataTable;
-import cucumber.api.java.ru.Затем;
 import cucumber.api.java.ru.Когда;
-import data.IncorrectData;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.junit.Assert;
-
-import java.lang.reflect.Field;
 import java.util.*;
 
 //import static MCDN.ApiMainLogic.takeIncorrectJsonToSend;
@@ -178,7 +172,6 @@ public class StepDefinitions {
     @Когда("выбираем следующие поля JSONа для замены некорректными данными")
     public void selectFields(DataTable dataTable) {
         fields = dataTable.asLists(String.class).get(0);
-        System.out.println("\nСписок данных: " + fields);
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с замененными вышеперечисленными полями некорректными данными$")
@@ -186,28 +179,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        Field[] fields = IncorrectData.class.getFields();
-
-        for (Field field: fields) {
-            JSONObject jsonObject = takeJsonToSend(nameOfJson);
-            Object data = null;
-            try {
-                data = field.get(new IncorrectData());
-            } catch (Exception ignored) {}
-            for (String jsonField: this.fields) {
-                String[] path = jsonField.split("\\.");
-                JSONObject middleWay = jsonObject;
-                for (int i = 0; i < path.length - 1; i++) {
-                    try {
-                        middleWay = (JSONObject) middleWay.get(path[i]);
-                    } catch (Exception e) {
-                        middleWay = (JSONObject) ((JSONArray) middleWay.get(path[i])).get(0);
-                    }
-                }
-                middleWay.put(path[path.length - 1], data);
-            }
-            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value", 0, params, headers, jsonObject);
-        }
+        apiMainLogic.sendIncorrectData(fields, url, nameOfJson, params, headers);
     }
 
     @Когда("проверить коды ответов")

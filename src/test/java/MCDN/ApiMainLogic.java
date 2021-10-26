@@ -1,9 +1,11 @@
 package MCDN;
 
+import data.IncorrectData;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import net.javacrumbs.jsonunit.core.Option;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
@@ -11,6 +13,7 @@ import org.openqa.selenium.Cookie;
 
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -38,6 +41,30 @@ public class ApiMainLogic extends Base {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void sendIncorrectData(List<String> fields, String url, String nameOfJson, Map<String, Object> params, Map<String, String> headers) {
+        Field[] incorrectFields = IncorrectData.class.getFields();
+        for (Field field: incorrectFields) {  // Перечисляем некорректные типы данных в цикле
+            JSONObject jsonObject = takeJsonToSend(nameOfJson);
+            Object data = null;
+            try {
+                data = field.get(new IncorrectData());  // Получаем значения полей класса с некорректными данными
+            } catch (Exception ignored) {}
+            for (String jsonField: fields) {  // Перечисляем выбранные для замены поля JSONа
+                String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
+                JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
+                for (int i = 0; i < path.length - 1; i++) {
+                    try {
+                        middleWay = (JSONObject) middleWay.get(path[i]);
+                    } catch (Exception e) {
+                        middleWay = (JSONObject) ((JSONArray) middleWay.get(path[i])).get(0);
+                    }
+                }
+                middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
+            }
+            sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value", 0, params, headers, jsonObject);
+        }
     }
 //
 //    public static JSONObject takeIncorrectJsonToSend(String jsonFileName) {
