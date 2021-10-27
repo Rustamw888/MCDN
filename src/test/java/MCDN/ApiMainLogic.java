@@ -320,6 +320,51 @@ public class ApiMainLogic extends Base {
         System.out.println(vars.get(var));
     }
 
+    public void test (String url,
+                                                 String value,
+                                                 String var,
+                                                 int code,
+                                                 Map<String, ?> parameters,
+                                                 Map<String, ?> header) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().all()
+                        .queryParams(parameters)
+                        .headers(header);
+        Response response =
+                requestSpecification.when().get(urlValue);
+        response.then().log().body()
+                .statusCode(code);
+        String rbody = response.asString();
+        JsonPath jp = new JsonPath(rbody);
+        String valueOfKey = jp.getString(value);
+        valueOfKey = valueOfKey.replace("[", "").replace("]", "").replace("]", "").replace("{","").replace("}","");
+//        String[] split1 = rbody.split(":");
+//        split = split1.asString().replace("[", "").replace("]", "").replace("]", "").replace("{","").replace("}","").replace("\"","").replace("}","");
+//        System.out.println(split);
+        vars.put(var, valueOfKey);
+        System.out.println(vars.get(var));
+    }
+
+    public void sendGETRequestCheckWrongKey(String url,
+                                                 String value,
+                                                 int code,
+                                                 Map<String, ?> parameters,
+                                                 Map<String, ?> header) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().all()
+                        .queryParams(parameters)
+                        .headers(header);
+        Response response =
+                requestSpecification.when().get(urlValue);
+        response.then().log().body()
+                .statusCode(code);
+        String rbody = response.asString();
+        JsonPath jp = new JsonPath(rbody);
+        Assert.assertFalse(Boolean.parseBoolean(jp.getString(value)));
+    }
+
     public void sendGETRequestAndCheckStatusAndSaveAnswer(String url,
                                                          String var,
                                                          int code,
@@ -348,6 +393,10 @@ public class ApiMainLogic extends Base {
 
     public void checkAnswerWithAssert(String varResp, String varValue){
         Assert.assertEquals(varValue, vars.get(varResp));
+    }
+
+    public void checkAnswerWithAssertNotEquals(String varResp, String varValue){
+        Assert.assertNotEquals(varValue, vars.get(varResp));
     }
 
     public void checkAnswerWithLength(String varResp, String varValue){

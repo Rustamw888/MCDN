@@ -96,6 +96,23 @@ public class StepDefinitions {
         apiMainLogic.sendGETRequestCheckAndSaveAnswer(url, value, var, code, params, headers);
     }
 
+    @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. 1Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
+    public void test(String url, String value, String var, int code, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        apiMainLogic.test(url, value, var, code, params, headers);
+    }
+
+    @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значения из проверочной таблицы присутствуют. Ожидаемый код ответа: (.*)$")
+    public void sendGETRequestCheckWrongKey(String url, DataTable dataTable, int code, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        field = dataTable.asLists(String.class).get(0).get(0);
+        apiMainLogic.sendGETRequestCheckWrongKey(url, field, code, params, headers);
+    }
+
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. значение из \"([^\"]*)\" сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
     public void sendGETRequestAndSaveValue(String url, String value, String var, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
@@ -110,6 +127,14 @@ public class StepDefinitions {
         System.out.println(table);
         prepareData(table);
         apiMainLogic.sendGETRequestAndCheckStatusAndSaveAnswer(url, var, code, params, headers);
+    }
+
+    @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ключ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
+    public void sendGETRequestCheckWrongKey(String url, String var, int code, DataTable arg) {
+        List<List<String>> table = arg.asLists(String.class);
+        System.out.println(table);
+        prepareData(table);
+        apiMainLogic.sendGETRequestCheckWrongKey(url, var, code, params, headers);
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -171,6 +196,12 @@ public class StepDefinitions {
 
     @Когда("выбираем следующие поля JSONа для замены некорректными данными")
     public void selectFields(DataTable dataTable) {
+        field = dataTable.asLists(String.class).get(0).get(0);
+    }
+
+    @Когда("^значение в переменной (.*) не равно$")
+    public void selectFieldsForGet(String varResp, DataTable dataTable) {
+        apiMainLogic.checkAnswerWithAssertNotEquals(varResp, field.replace("[", "").replace("]", "").replace("{","").replace("}",""));
         field = dataTable.asLists(String.class).get(0).get(0);
     }
 
