@@ -163,6 +163,11 @@ public class StepDefinitions {
         apiMainLogic.checkAnswerWithLength(varResp, varValue);
     }
 
+    @Когда("^рандомное значение в переменной (.*) не соответствует формату, длина не равна (.*)")
+    public void checkAnswerWithLengthFalse(String varResp, String varValue){
+        apiMainLogic.checkAnswerWithLengthFalse(varResp, varValue);
+    }
+
     @Когда("^выполнен DELETE запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ожидаемый код ответа: (.*)$")
     public void sendDELEATERequest(String url, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);

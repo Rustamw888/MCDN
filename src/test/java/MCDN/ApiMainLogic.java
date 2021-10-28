@@ -404,6 +404,11 @@ public class ApiMainLogic extends Base {
         Assert.assertEquals(result, varValue);
     }
 
+    public void checkAnswerWithLengthFalse(String varResp, String varValue){
+        String result = String.valueOf(vars.get(varResp).length());
+        Assert.assertNotEquals(result, varValue);
+    }
+
     public void sendDELEATERequestAndCheckStatus(String url,
                                                  int code,
                                                  Map<String, ?> map,
