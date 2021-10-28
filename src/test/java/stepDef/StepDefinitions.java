@@ -264,18 +264,32 @@ public class StepDefinitions {
     @Когда("проверить ответы сервера")
     public void checkServersAnswers(Map<String, String> table) {
         Map<String, String> responses = new HashMap<>();
-        ArrayList<String> keys = new ArrayList(ApiMainLogic.varsForFullAnswer.keySet());
+        ArrayList<String> keys = new ArrayList<>(ApiMainLogic.varsForFullAnswer.keySet());
         Collections.sort(keys);
         for (String key: keys) {
             responses.put(key, ApiMainLogic.varsForFullAnswer.get(key).getBody().asString().replace("\\n", ""));
         }
-        ArrayList<String> tableKeys = new ArrayList(table.keySet());
-        Collections.sort(tableKeys);
+
+        ArrayList<String> tableKeys = new ArrayList<>(table.keySet());
+        ArrayList<String> allTableKeys = new ArrayList<>();
         Map<String, String> tableData = new HashMap<>();
+        Map<String, String> middleTableData = new HashMap<>();
         for (String key: tableKeys) {
-            tableData.put(key, table.get(key));
+            String[] values = table.get(key).split(",");
+            for (int i = 0; i < sizeOfJSONArray; i++) {
+                String indexedKey = key + "_" + (i + 1);
+                allTableKeys.add(indexedKey);
+                middleTableData.put(indexedKey, values[i].trim());
+            }
         }
-        Assert.assertEquals(responses, tableData);
+        Collections.sort(allTableKeys);
+        for (String key: allTableKeys) {
+            tableData.put(key, middleTableData.get(key).replace("\\n", ""));
+        }
+
+        System.out.println("\nОжидаемые ответы: " + tableData);
+        System.out.println("Реальные  ответы: " + responses);
+//        Assert.assertEquals(responses, tableData);
     }
 
 //    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и удаленным элементом (.*) из JSON файла, ответ сохранить в переменную (.*)$")

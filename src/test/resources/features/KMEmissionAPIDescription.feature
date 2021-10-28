@@ -52,16 +52,16 @@
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-#    Когда проверить ответы сервера
-#      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-#      |response_with_double_type_value |<response_with_double_type_value> |
-#      |response_with_int_type_value    |<response_with_int_type_value>    |
-#      |response_with_string_type_value |<response_with_string_type_value> |
-#      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Когда проверить ответы сервера
+      |response_with_boolean_type_value|<response_with_boolean_type_value>|
+      |response_with_double_type_value |<response_with_double_type_value> |
+      |response_with_int_type_value    |<response_with_int_type_value>    |
+      |response_with_string_type_value |<response_with_string_type_value> |
+      |response_with_null_type_value   |<response_with_null_type_value>   |
     Примеры:
       |Поле        |Код null   |Код int    |Код double |Код string |Код empty string|Код bool   |response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |cisType     |400,400,400|200,200,200|400,400,400|400,400,400|400, 400, 400   |400,400,400|{"errorCode":9991,"errorText":"cisType: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
-      |productGroup|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+      |cisType     |400,400,400|200,200,200|400,400,400|400,400,400|400, 400, 400   |400,400,400|{1}, {2}, {3}                  |{1}, {2}, {3}  |{1}, {2}, {3}     |{1}, {2}, {3}  |{1}, {2}, {3}   |
+#      |productGroup|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
 
 #    нужен фикс бага для кейса №2, + подобрать ошибки + внести возможность менять cisType для каждого джейсона с индивидуальными ошибками
 
