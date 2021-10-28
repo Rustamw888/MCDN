@@ -250,8 +250,8 @@ public class ApiMainLogic extends Base {
                         .body(jsonObject.toString());
         Response response =
                 requestSpecification.when().post(urlValue);
-//        response.then().log().body()
-//                .statusCode(code);
+        response.then().log().body()
+                .statusCode(code);
         String rbody = response.asString();
         JsonPath jp = new JsonPath(rbody);
         String valueOfKey = jp.getString(value);
