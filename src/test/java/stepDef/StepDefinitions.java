@@ -7,9 +7,9 @@ import cucumber.api.java.ru.Когда;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
+
 import java.util.*;
 
-//import static MCDN.ApiMainLogic.takeIncorrectJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonsTosend;
 
@@ -292,20 +292,50 @@ public class StepDefinitions {
 //        Assert.assertEquals(responses, tableData);
     }
 
+//    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и удаленным элементом (.*) из JSON файла, ответ сохранить в переменную (.*)$")
+//    public void jSONRowDeleting(String url, String jsonField, String var, DataTable dataTable) {
+//        List<List<String>> table = dataTable.asLists(String.class);
+//        System.out.println(table);
+//        prepareData(table);
+//        JSONArray jsonArray = takeJsonsTosend(nameOfJson);
+//        if (jsonArray != null) {
+//            for (int i = 0; i < jsonArray.size(); i++) {
+//                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
+//            }
+//        } else
+//            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
+//        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
+//    }
+
+
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и удаленным элементом (.*) из JSON файла, ответ сохранить в переменную (.*)$")
     public void jSONRowDeleting(String url, String jsonField, String var, DataTable dataTable) {
         List<List<String>> table = dataTable.asLists(String.class);
         System.out.println(table);
         prepareData(table);
         JSONArray jsonArray = takeJsonsTosend(nameOfJson);
+        JSONObject test = new JSONObject(takeJsonToSend(nameOfJson));
+        Object test1 = test.remove(jsonField);
+//        System.out.println(test1);
+
         if (jsonArray != null) {
             for (int i = 0; i < jsonArray.size(); i++) {
                 apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
             }
         } else
-            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
+            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, test);
         System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
     }
+
+
+//        if (jsonArray != null) {
+//            for (int i = 0; i < jsonArray.size(); i++) {
+//                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
+//            }
+//        } else
+//            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(test));
+//        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
+//    }
 
 //    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и удаленным элементом (.*) из JSON файла, ответ сохранить в переменную (.*)$")
 //    public void jSONRowDeleting(String url, String jsonField, String var, DataTable dataTable) {
