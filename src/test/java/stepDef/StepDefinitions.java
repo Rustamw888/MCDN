@@ -299,12 +299,27 @@ public class StepDefinitions {
         System.out.println(table);
         prepareData(table);
         JSONArray jsonArray = takeJsonsTosend(nameOfJson);
-        if (jsonArray != null) {
-            for (int i = 0; i < jsonArray.size(); i++) {
-                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
-            }
-        } else
-            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) Objects.requireNonNull(takeJsonToSend(nameOfJson)).remove(jsonField));
-        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
+
+        ArrayList<String> list = new ArrayList<>();
+        String[] array = list.toArray(new String[0]);
+        for (int i = 0; i < list.size(); i++) {
+            list.add(jsonField);
+        }
+//        if (jsonArray != null) {
+//            for (int i = 0; i < jsonArray.size(); i++) {
+////                delete jsonArray[i].jsonField;
+//                JSONObject test = (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField);
+//                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var + (i + 1), params, headers, test);
+//            }
+//        } else {
+//            JSONObject test = (JSONObject) Objects.requireNonNull(takeJsonToSend(nameOfJson)).remove(jsonField);
+////            StringBuffer test = "fdfgdf";
+////            test.delete(jsonField);
+////            deserializeJson(doc, input);
+////        JsonObject crew = doc["Survivors"];
+////        crew.remove("Ellis");
+////        serializeJsonPrety(object, Serial);
+//            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, test);
+//        }
     }
 }

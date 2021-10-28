@@ -1,25 +1,19 @@
 {
-  "productionOrderId": "example-1596792681987",
-  "gtin": "04685567894339",
-  "quantity": 10,
+  "gtin": "01334567894339",
+  "quantity": 3,
   "serialNumberType": "SELF_MADE",
   "serialNumbers": [
-    "Z9bmNYR", "8i8Pajf", "JTyZqlr", "cXypxls",
-    "Gdjfbvh", "5SIMakf", "s6oi9Dp",
-    "3TgycS6", "B4ZHoMa", "5rnFx38"
+    "XT6c84e39gXj",
+    "2kY39OmdmHTw",
+    "X4ebssJPznnL"
   ],
-  "productGroup": "otp",
-  "releaseMethodType": "PRODUCTION",
   "cisType": "UNIT",
-  "attributes":{
-    "factoryId":"Identifier",
-    "factoryName":"Alt Tobacco Factory",
-    "factoryAddress":"Address",
-    "factoryCountry":"Country",
-    "productionLineId":"1",
-    "productCode":"6789",
-    "productDescription":"Simple",
-    "poNumber":"123",
-    "expectedStartDate":"2020-09-01"
-  }
+  "releaseMethodType": "IMPORT",
+  "attributes": {
+    "additionalProp1": {},
+    "additionalProp2": {},
+    "additionalProp3": {}
+  },
+  "productGroup": "water",
+  "productionOrderId": "123456"
 }

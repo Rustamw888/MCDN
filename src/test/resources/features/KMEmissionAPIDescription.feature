@@ -103,13 +103,13 @@
       |Поле             | Код  | Текст ошибки  |
       |gtin             |      |               |
       |quantity         |      |               |
-#      |serialNumberType |      |               |
-#      |serialNumbers    |      |               |
-#      |cisType          |      |               |
-#      |releaseMethodType|      |               |
-#      |attributes       |      |               |
-#      |productGroup     |      |               |
-#      |productionOrderId|      |               |
+      |serialNumberType |      |               |
+      |serialNumbers    |      |               |
+      |cisType          |      |               |
+      |releaseMethodType|      |               |
+      |attributes       |      |               |
+      |productGroup     |      |               |
+      |productionOrderId|      |               |
 
   @id-3
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок
