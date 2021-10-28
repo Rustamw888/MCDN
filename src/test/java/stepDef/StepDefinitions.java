@@ -154,8 +154,13 @@ public class StepDefinitions {
     }
 
     @Когда("^значение в переменной (.*) и равно (.*)$")
-    public void checkAnswerWithAssert(String varResp, String varValue){
+    public void checkStrippedAnswerWithAssert(String varResp, String varValue){
         apiMainLogic.checkAnswerWithAssert(varResp, varValue.replace("[", "").replace("]", "").replace("{","").replace("}",""));
+    }
+
+    @Когда("^ответ сервера, сохраненный в переменную (.*) равен (.*)$")
+    public void checkAnswerWithAssert(String varResp, String varValue){
+        apiMainLogic.checkFullAnswerWithAssert(varResp, varValue);
     }
 
     @Когда("^рандомное значение в переменной (.*) соответствует формату, длина равна (.*)")

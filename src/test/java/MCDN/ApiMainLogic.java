@@ -381,7 +381,7 @@ public class ApiMainLogic extends Base {
         response.then().log().body()
                 .statusCode(code);
         varsForFullAnswer.put(var, (Response) response.getBody());
-        System.out.println(varsForFullAnswer.get(var));
+        System.out.println("\nЭто ответ: " + varsForFullAnswer.get(var).asString());
     }
 
     public void checkAnswer(String jp, String varResp, String var){
@@ -393,6 +393,10 @@ public class ApiMainLogic extends Base {
 
     public void checkAnswerWithAssert(String varResp, String varValue){
         Assert.assertEquals(varValue, vars.get(varResp));
+    }
+
+    public void checkFullAnswerWithAssert(String varResp, String varValue){
+        Assert.assertEquals(varValue, varsForFullAnswer.get(varResp).asString());
     }
 
     public void checkAnswerWithAssertNotEquals(String varResp, String varValue){
