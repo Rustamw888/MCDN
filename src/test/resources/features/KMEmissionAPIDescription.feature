@@ -93,23 +93,44 @@
 # + добавить проверки на ключи
 
   @id-2.3
-  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах)
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и удаленным элементом <Поле> из JSON файла, ответ сохранить в переменную mainResp
+  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с удалением)
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и удаленным элементом <field> из JSON файла, ответ сохранить в переменную mainResp
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
+    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <code> и <text error>
     Примеры:
-      |Поле             | Код  | Текст ошибки  |
-      |gtin             |      |               |
-      |quantity         |      |               |
-      |serialNumberType |      |               |
-      |serialNumbers    |      |               |
-      |cisType          |      |               |
-      |releaseMethodType|      |               |
-      |attributes       |      |               |
-      |productGroup     |      |               |
-      |productionOrderId|      |               |
+      |field            |  code | text error  |
+      |gtin             |  400  |{"errorCode": 9991,"errorText": "gtin: не должно равняться null"}|
+      |quantity         |  400  |{"errorCode": 9991,"errorText": "quantity: должно быть не меньше 1"}|
+      |serialNumberType |  400  |{"errorCode": 9991,"errorText": "serialNumberType: не должно равняться null"}|
+      |serialNumbers    |  400  |{"errorCode": 9991,"errorText": "При значении \"Пользователем (SELF_MADE)\" параметра \"Способ формирования серийного номера\" {serialNumberType} должны быть указаны серийные номера"}|
+      |cisType          |  400  |{"errorCode": 9991,"errorText": "Не указан тип КМ"}|
+      |releaseMethodType|  400  |{"errorCode": 9991,"errorText": "ReleaseMethodType не указан"}|
+      |attributes       |  200  |               |
+      |productGroup     |  400  |{"errorCode": 9991,"errorText": "productGroup: не должно равняться null"}|
+      |productionOrderId|  200  |               |
+
+  @id-2.4
+  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой на некорректные значения)
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | BODY |  | orderCreation/myJson |
+    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <changingValue>, <code> и <text error>
+    Примеры:
+      |field            |changingValue|  code | text error  |
+      |gtin             |      ""     |  400  |{"errorCode": 9991,"errorText": "gtin: должно соответствовать \"^[0-9]{14}$\""}|
+      |quantity         |      0      |  400  |{"errorCode": 9991,"errorText": "quantity: должно быть не меньше 1"}|
+      |serialNumberType |   OPERATOR  |  400  |{"errorCode": 9991,"errorText": "При значении \"Автоматически (OPERATOR)\" параметра \"Способ формирования серийного номера\" {serialNumberType} не должны быть указаны серийные номера"}|
+      |serialNumbers    |      ""     |  400  |{"errorCode": 9991,"errorText": "Количество серийных номеров не соответствует количеству КМ в заказе"}|
+      |cisType          |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.CisType` value (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.CisType` value (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 10, column: 14] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"cisType\"])"}|
+      |releaseMethodType|      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.ReleaseMethodType` value (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.ReleaseMethodType` value (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 11, column: 24] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"releaseMethodType\"])"}|
+      |attributes       |      ""     |  200  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to element of `java.util.LinkedHashMap<java.lang.String,java.lang.Object>` (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to element of `java.util.LinkedHashMap<java.lang.String,java.lang.Object>` (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 12, column: 17] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"attributes\"])"}|
+      |productGroup     |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot construct instance of `codes.mcdn.common.model.ProductGroupType`, problem: `java.lang.IllegalArgumentException`; nested exception is com.fasterxml.jackson.databind.exc.ValueInstantiationException: Cannot construct instance of `codes.mcdn.common.model.ProductGroupType`, problem: `java.lang.IllegalArgumentException`\n at [Source: (PushbackInputStream); line: 17, column: 19] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"productGroup\"])"}|
+      |productionOrderId|      ""     |  200  |{"errorCode": 9991,"errorText": "productionOrderId: должно соответствовать \"^([^\\x00-\\x1F]{1,256})$\""}|
 
   @id-3
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок
