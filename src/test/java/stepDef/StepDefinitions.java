@@ -4,11 +4,14 @@ import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
 import cucumber.api.DataTable;
 import cucumber.api.java.ru.Когда;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.junit.Assert;
 import java.util.*;
 
 //import static MCDN.ApiMainLogic.takeIncorrectJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonToSend;
+import static MCDN.ApiMainLogic.takeJsonsTosend;
 
 public class StepDefinitions {
 
@@ -82,10 +85,15 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-//        if (isDataCorrect)
+        JSONArray jsonArray = takeJsonsTosend(nameOfJson);
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.size(); i++) {
+                System.out.println("\nЗапрос на сервер:" + jsonArray.get(i));
+                apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var + (i + 1), code, params, headers, (JSONObject) jsonArray.get(i));
+            }
+        } else
             apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
-//        else
-//            apiMainLogic.sendPOSTRequestCheckAndSaveAnswer(url, value, var, code, params, headers, takeIncorrectJsonToSend(nameOfJson));
+        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
     }
 
     @Когда("^выполнен GET запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")

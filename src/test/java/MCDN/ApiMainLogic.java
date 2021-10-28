@@ -43,6 +43,17 @@ public class ApiMainLogic extends Base {
         return null;
     }
 
+    public static JSONArray takeJsonsTosend(String jsonFileName) {
+        File file = new File(pathToJsons() + jsonFileName + ".json");
+
+        try {
+            return (JSONArray) readJsonSimpleDemo(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void sendIncorrectData(String jsonField, String url, String nameOfJson, Map<String, Object> params, Map<String, String> headers) {
         Field[] incorrectFields = IncorrectData.class.getFields();
         codes.clear();
@@ -239,9 +250,8 @@ public class ApiMainLogic extends Base {
                         .body(jsonObject.toString());
         Response response =
                 requestSpecification.when().post(urlValue);
-        System.out.println("\nЗапрос: " + urlValue + "?" + params.toString().replace("{", "").replace("}", "") + "\nHEADERS: " + header + "\nJSON: " + jsonObject + "\nОтвет сервера: " + response.body());
-        response.then().log().body()
-                .statusCode(code);
+//        response.then().log().body()
+//                .statusCode(code);
         String rbody = response.asString();
         JsonPath jp = new JsonPath(rbody);
         String valueOfKey = jp.getString(value);
@@ -392,7 +402,10 @@ public class ApiMainLogic extends Base {
     }
 
     public void checkAnswerWithAssert(String varResp, String varValue){
-        Assert.assertEquals(varValue, vars.get(varResp));
+        for (String key: vars.keySet()) {
+            if (key.contains(varResp))
+                Assert.assertEquals(varValue, vars.get(key));
+        }
     }
 
     public void checkFullAnswerWithAssert(String varResp, String varValue){
@@ -404,8 +417,12 @@ public class ApiMainLogic extends Base {
     }
 
     public void checkAnswerWithLength(String varResp, String varValue){
-        String result = String.valueOf(vars.get(varResp).length());
-        Assert.assertEquals(result, varValue);
+        for (String key: vars.keySet()) {
+            if (key.contains(varResp)) {
+                String result = String.valueOf(vars.get(key).length());
+                Assert.assertEquals(result, varValue);
+            }
+        }
     }
 
     public void checkAnswerWithLengthFalse(String varResp, String varValue){

@@ -57,55 +57,49 @@
       | 12 |
 
   @id-2
-  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки»
+  Сценарий: Метод «Создать заявку на эмиссию кодов маркировки»
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "omsId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-      | BODY |  | <Jsons> |
+      | BODY |  | orderCreation/myJson |
     Когда значение в переменной mainResp и равно a2a16a41-42b0-4309-9ae1-c19d53cc544f
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-      | BODY |  | <Jsons> |
+      | BODY |  | orderCreation/myJson |
     Когда рандомное значение в переменной mainResp соответствует формату, длина равна 36
-    Примеры:
-    |Jsons|
-    |orderCreation/myJson1|
-    |orderCreation/myJson2|
-    |orderCreation/myJson3|
-    |orderCreation/myJson4|
-#    блокер 500-ая ошибка, "could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet"
 
-#  @id-2.1
-#  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, проверка ответов сервера на некорректные данные)
-#    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-#      | BODY |  | <Jsons> |
-#    Когда выбираем следующие поля JSONа для замены некорректными данными
-#      |<Поле>|
-#    Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
-#      |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
-#      |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-#    Когда проверить ответы сервера
-#      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-#      |response_with_double_type_value |<response_with_double_type_value> |
-#      |response_with_int_type_value    |<response_with_int_type_value>    |
-#      |response_with_string_type_value |<response_with_string_type_value> |
-#      |response_with_null_type_value   |<response_with_null_type_value>   |
-#    Примеры:
-#      |Поле        |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-#      |cisType     |400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"cisType: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
-#      |productGroup|500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-#    Примеры:
-#      |Jsons|
-#      |orderCreation/myJson1|
-#      |orderCreation/myJson2|
-#      |orderCreation/myJson3|
-#      |orderCreation/myJson4|
+
+  @id-2.1
+  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, проверка ответов сервера на некорректные данные)
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | BODY |  | <Jsons> |
+    Когда выбираем следующие поля JSONа для замены некорректными данными
+      |<Поле>|
+    Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
+      |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
+      |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
+    Когда проверить ответы сервера
+      |response_with_boolean_type_value|<response_with_boolean_type_value>|
+      |response_with_double_type_value |<response_with_double_type_value> |
+      |response_with_int_type_value    |<response_with_int_type_value>    |
+      |response_with_string_type_value |<response_with_string_type_value> |
+      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Примеры:
+      |Поле        |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
+      |cisType     |400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"cisType: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
+      |productGroup|500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+    Примеры:
+      |Jsons|
+      |orderCreation/myJson1|
+      |orderCreation/myJson2|
+      |orderCreation/myJson3|
+      |orderCreation/myJson4|
 #    нужен фикс бага для кейса №2, + подобрать ошибки + внести возможность менять cisType для каждого джейсона с индивидуальными ошибками
 
 #  @id-2.2
