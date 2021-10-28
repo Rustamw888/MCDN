@@ -260,6 +260,24 @@ public class ApiMainLogic extends Base {
         System.out.println(vars.get(var));
     }
 
+    public void sendIncorrectPOSTRequestAndCheckAnswer (String url,
+                                                        String var,
+                                                   Map<String, ?> params,
+                                                   Map<String, ?> header,
+                                                   JSONObject jsonObject) {
+        String urlValue = urlValue(url);
+        RequestSpecification requestSpecification =
+                given().log().headers().log().body()
+                        .headers(header)
+                        .queryParams(params)
+                        .body(jsonObject.toString());
+        Response response =
+                requestSpecification.when().post(urlValue);
+        codes.add(response.getStatusCode());
+        varsForFullAnswer.put(var, (Response) response.getBody());
+        System.out.println("\nЗапрос на сервер:" + jsonObject);
+    }
+
     public void sendPOSTRequestAndCheckStatusAndSaveAnswer(String url,
                                                            String var,
                                                            int code,
