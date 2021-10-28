@@ -54,11 +54,9 @@ public class ApiMainLogic extends Base {
         return null;
     }
 
-    public void sendIncorrectData(String jsonField, String url, String nameOfJson, Map<String, Object> params, Map<String, String> headers) {
+    public void sendIncorrectData(String jsonField, String url, JSONObject jsonObject, Map<String, Object> params, Map<String, String> headers, Integer index) {
         Field[] incorrectFields = IncorrectData.class.getFields();
-        codes.clear();
         for (Field field: incorrectFields) {  // Перечисляем некорректные типы данных в цикле
-            JSONObject jsonObject = takeJsonToSend(nameOfJson);
             Object data = null;
             try {
                 data = field.get(new IncorrectData());  // Получаем значения полей класса с некорректными данными
@@ -73,7 +71,10 @@ public class ApiMainLogic extends Base {
                 }
             }
             middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
-            sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value", 0, params, headers, jsonObject);
+            String suffix = "";
+            if (index != null)
+                suffix += "_" + (index + 1);
+            sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value" + suffix, 0, params, headers, jsonObject);
         }
     }
 //
