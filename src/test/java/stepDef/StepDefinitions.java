@@ -23,6 +23,7 @@ public class StepDefinitions {
     Map<String, Object> params = new HashMap<>();
     String endPointForDelete = null;
     String field = "";
+    int sizeOfJSONArray = 1;
 
     private void prepareData(List<List<String>> table) {
         for (List<String> strings : table) {
@@ -228,16 +229,35 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-        apiMainLogic.sendIncorrectData(field, url, nameOfJson, params, headers);
+        JSONArray jsonArray = takeJsonsTosend(nameOfJson);
+        ApiMainLogic.codes.clear();
+        if (jsonArray != null) {
+            sizeOfJSONArray = jsonArray.size();
+            for (int i = 0; i < sizeOfJSONArray; i++) {
+                apiMainLogic.sendIncorrectData(field, url, (JSONObject) jsonArray.get(i), params, headers, i);
+            }
+        } else {
+            apiMainLogic.sendIncorrectData(field, url, takeJsonToSend(nameOfJson), params, headers, null);
+        }
+
     }
 
     @Когда("проверить коды ответов для замененных значений полей значениями некорректных типов данных")
     public void checkAnswersCodes(DataTable dataTable) {
-        List<String> strCodes = dataTable.asLists(String.class).get(1);
+        List<String> strSetsCodes = dataTable.asLists(String.class).get(1);
+        List<String> sortedStrCodes =new ArrayList<>();
         List<Integer> codes = new ArrayList<>();
-        for (String code: strCodes) {
-            codes.add(Integer.parseInt(code));
+        for (int i = 0; i < sizeOfJSONArray; i++) {
+            for (String strSetCodes : strSetsCodes) {
+                String[] strCodes = strSetCodes.split(",");
+                sortedStrCodes.add(strCodes[i].trim());
+            }
         }
+        for (String code: sortedStrCodes) {
+            codes.add(Integer.parseInt(code.trim()));
+        }
+        System.out.println("\nОжидаемые коды: " + codes);
+        System.out.println("Реальные  коды: " + ApiMainLogic.codes);
         Assert.assertEquals(codes, ApiMainLogic.codes);
     }
 

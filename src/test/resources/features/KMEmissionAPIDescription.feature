@@ -42,32 +42,27 @@
 
   @id-2.1
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, проверка ответов сервера на некорректные данные)
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выбираем следующие поля JSONа для замены некорректными данными
+      |<Поле>|
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с замененными вышеперечисленными полями некорректными данными
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-      | BODY |  | <Jsons> |
-    Когда выбираем следующие поля JSONа для замены некорректными данными
-      |<Поле>|
+      | BODY |  | orderCreation/myJson |
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-    Когда проверить ответы сервера
-      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-      |response_with_double_type_value |<response_with_double_type_value> |
-      |response_with_int_type_value    |<response_with_int_type_value>    |
-      |response_with_string_type_value |<response_with_string_type_value> |
-      |response_with_null_type_value   |<response_with_null_type_value>   |
+#    Когда проверить ответы сервера
+#      |response_with_boolean_type_value|<response_with_boolean_type_value>|
+#      |response_with_double_type_value |<response_with_double_type_value> |
+#      |response_with_int_type_value    |<response_with_int_type_value>    |
+#      |response_with_string_type_value |<response_with_string_type_value> |
+#      |response_with_null_type_value   |<response_with_null_type_value>   |
     Примеры:
-      |Поле        |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |cisType     |400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"cisType: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
-      |productGroup|500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-    Примеры:
-      |Jsons|
-      |orderCreation/myJson1|
-      |orderCreation/myJson2|
-      |orderCreation/myJson3|
-      |orderCreation/myJson4|
+      |Поле        |Код null   |Код int    |Код double |Код string |Код empty string|Код bool   |response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
+      |cisType     |400,400,400|200,200,200|400,400,400|400,400,400|400, 400, 400   |400,400,400|{"errorCode":9991,"errorText":"cisType: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
+      |productGroup|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+
 #    нужен фикс бага для кейса №2, + подобрать ошибки + внести возможность менять cisType для каждого джейсона с индивидуальными ошибками
 
 #  @id-2.2
