@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 
+import java.beans.AppletInitializer;
 import java.util.*;
 
 import static MCDN.ApiMainLogic.takeJsonToSend;
@@ -306,19 +307,28 @@ public class StepDefinitions {
         System.out.println(table);
         prepareData(table);
         JSONArray jsonArray = takeJsonsTosend(nameOfJson);
-        JSONObject test = new JSONObject(takeJsonToSend(nameOfJson));
-        Object test1 = test.remove(jsonField);
-//        System.out.println(test1);
-
+        ApiMainLogic.codes.clear();
         if (jsonArray != null) {
             for (int i = 0; i < jsonArray.size(); i++) {
-                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
+                sizeOfJSONArray = jsonArray.size();
+                JSONObject test = (JSONObject) jsonArray.get(i);
+                test.remove(jsonField);
+                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + "_" + (i + 1), params, headers, test);
             }
-        } else
+        } else {
+            JSONObject test = takeJsonToSend(nameOfJson);
+            test.remove(jsonField);
             apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, test);
-        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
+        }
     }
 
+    @Когда("проверить коды ответов (.*) для JSONов с измененными или удаленными полями в (.*)")
+    public void checkCodesWithRemovedFields(String strGluedCodes, String var) {
+        String[] strCodes = strGluedCodes.split(",");
+        for (int i = 0; i < sizeOfJSONArray; i++) {
+            Assert.assertEquals(Integer.parseInt(strCodes[i].trim()), (int) ApiMainLogic.codes.get(i));
+        }
+    }
 
 //        if (jsonArray != null) {
 //            for (int i = 0; i < jsonArray.size(); i++) {
@@ -374,48 +384,39 @@ public class StepDefinitions {
         System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
     }
 
-    @Когда("^проверить ответы сервера в переменной (.*) с учетом изменения JSON файла - (.*), (.*) и (.*)$")
-    public void jSONAnswerChecking(String perem, String jsonField, String code, String textError, DataTable dataTable) {
-        List<List<String>> table = dataTable.asLists(String.class);
-        System.out.println(table);
-        prepareData(table);
-        JSONArray jsonArray = takeJsonsTosend(nameOfJson);
-//        if (jsonArray != null) {
-//            for (int i = 0; i < jsonArray.size(); i++) {
-//                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
-//            }
-//        } else
-//            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
-//        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
-    }
-
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и значения элементов (.*) из JSON файла изменены на (.*), ответ сохранить в переменную (.*)$")
-    public void jSONRowDeleting(String url, String jsonField, String changingValue, String var, DataTable dataTable) {
+    public void jSONRowDeleting(String url, String jsonField, Object changingValue, String var, DataTable dataTable) {
         List<List<String>> table = dataTable.asLists(String.class);
         System.out.println(table);
         prepareData(table);
+        ApiMainLogic.codes.clear();
         JSONArray jsonArray = takeJsonsTosend(nameOfJson);
         if (jsonArray != null) {
             for (int i = 0; i < jsonArray.size(); i++) {
-                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
+                sizeOfJSONArray = jsonArray.size();
+                JSONObject test = (JSONObject) jsonArray.get(i);
+                test.put(jsonField, changingValue);
+                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, test);
             }
-        } else
-            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
+        } else {
+            JSONObject test = takeJsonToSend(nameOfJson);
+            test.put(jsonField, changingValue);
+            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, test);
+        }
+
         System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
     }
 
-    @Когда("^проверить ответы сервера в переменной (.*) с учетом изменения JSON файла - (.*), (.*), (.*) и (.*)$")
-    public void jSONAnswerChecking(String perem, String jsonField, String changingValue, String code, String textError, DataTable dataTable) {
-        List<List<String>> table = dataTable.asLists(String.class);
-        System.out.println(table);
-        prepareData(table);
-        JSONArray jsonArray = takeJsonsTosend(nameOfJson);
-//        if (jsonArray != null) {
-//            for (int i = 0; i < jsonArray.size(); i++) {
-//                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
-//            }
-//        } else
-//            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
-//        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
+    @Когда("^проверить ответы сервера для JSONов с измененными или удаленными полями в (.*)$")
+    public void jSONAnswerChecking(String var) {
+        ArrayList<String> keys = new ArrayList<>(ApiMainLogic.varsForFullAnswer.keySet());
+        for (String key: keys) {
+            if (key.contains(var) && !Integer.toString(ApiMainLogic.varsForFullAnswer.get(key).getStatusCode()).startsWith("2")) {
+                HashMap<String,Object> result = new Gson().fromJson(ApiMainLogic.varsForFullAnswer.get(key).getBody().asString(), HashMap.class);
+                ArrayList<String> errorKeysActual = new ArrayList<>(result.keySet());
+                Collections.sort(errorKeysActual);
+                Assert.assertEquals(errorKeysExpected, errorKeysActual);
+            }
+        }
     }
 }

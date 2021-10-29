@@ -69,19 +69,21 @@
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-      | BODY |  | orderCreation/myJson4 |
-#    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <code> и <text error>
+      | BODY |  | orderCreation/myJson |
+    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp
+    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp
     Примеры:
-      |field            |  code | text error  |
-      |gtin             |  400  |{"errorCode": 9991,"errorText": "gtin: не должно равняться null"}|
-      |quantity         |  400  |{"errorCode": 9991,"errorText": "quantity: должно быть не меньше 1"}|
-      |serialNumberType |  400  |{"errorCode": 9991,"errorText": "serialNumberType: не должно равняться null"}|
-      |serialNumbers    |  400  |{"errorCode": 9991,"errorText": "При значении \"Пользователем (SELF_MADE)\" параметра \"Способ формирования серийного номера\" {serialNumberType} должны быть указаны серийные номера"}|
-      |cisType          |  400  |{"errorCode": 9991,"errorText": "Не указан тип КМ"}|
-      |releaseMethodType|  400  |{"errorCode": 9991,"errorText": "ReleaseMethodType не указан"}|
-      |attributes       |  200  |               |
-      |productGroup     |  400  |{"errorCode": 9991,"errorText": "productGroup: не должно равняться null"}|
-      |productionOrderId|  200  |               |
+      |field            |  code       |
+      |gtin             |400, 400, 400|
+      |quantity         |400, 400, 400|
+      |serialNumberType |400, 400, 400|
+      |serialNumbers    |400, 400, 400|
+      |cisType          |400, 400, 400|
+      |releaseMethodType|400, 400, 400|
+      |attributes       |200, 200, 200|
+      |productGroup     |400, 400, 400|
+      |productionOrderId|200, 200, 200|
+
 
   @id-2.4
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой на некорректные значения)
@@ -90,18 +92,19 @@
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
-    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <changingValue>, <code> и <text error>
+    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp
+    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp
     Примеры:
-      |field            |changingValue|  code | text error  |
-      |gtin             |      ""     |  400  |{"errorCode": 9991,"errorText": "gtin: должно соответствовать \"^[0-9]{14}$\""}|
-      |quantity         |      0      |  400  |{"errorCode": 9991,"errorText": "quantity: должно быть не меньше 1"}|
-      |serialNumberType |   OPERATOR  |  400  |{"errorCode": 9991,"errorText": "При значении \"Автоматически (OPERATOR)\" параметра \"Способ формирования серийного номера\" {serialNumberType} не должны быть указаны серийные номера"}|
-      |serialNumbers    |      ""     |  400  |{"errorCode": 9991,"errorText": "Количество серийных номеров не соответствует количеству КМ в заказе"}|
-      |cisType          |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.CisType` value (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.CisType` value (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 10, column: 14] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"cisType\"])"}|
-      |releaseMethodType|      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.ReleaseMethodType` value (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to `codes.mcdn.common.model.order.ReleaseMethodType` value (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 11, column: 24] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"releaseMethodType\"])"}|
-      |attributes       |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to element of `java.util.LinkedHashMap<java.lang.String,java.lang.Object>` (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to element of `java.util.LinkedHashMap<java.lang.String,java.lang.Object>` (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 12, column: 17] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"attributes\"])"}|
-      |productGroup     |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot construct instance of `codes.mcdn.common.model.ProductGroupType`, problem: `java.lang.IllegalArgumentException`; nested exception is com.fasterxml.jackson.databind.exc.ValueInstantiationException: Cannot construct instance of `codes.mcdn.common.model.ProductGroupType`, problem: `java.lang.IllegalArgumentException`\n at [Source: (PushbackInputStream); line: 17, column: 19] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"productGroup\"])"}|
-      |productionOrderId|      ""     |  400  |{"errorCode": 9991,"errorText": "productionOrderId: должно соответствовать \"^([^\\x00-\\x1F]{1,256})$\""}|
+      |field            |changingValue|  code |
+      |gtin             |      ""     |400, 400, 400|
+      |quantity         |      0      |400, 400, 400|
+      |serialNumberType |   OPERATOR  |400, 400, 400|
+      |serialNumbers    |      ""     |400, 400, 400|
+      |cisType          |      ""     |400, 400, 400|
+      |releaseMethodType|      ""     |400, 400, 400|
+      |attributes       |      ""     |400, 400, 400|
+      |productGroup     |      ""     |400, 400, 400|
+      |productionOrderId|      ""     |200, 200, 200|
 
   @id-2.5
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой cisType)
@@ -183,17 +186,12 @@
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-    Когда проверить ответы сервера
-      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-      |response_with_double_type_value |<response_with_double_type_value> |
-      |response_with_int_type_value    |<response_with_int_type_value>    |
-      |response_with_string_type_value |<response_with_string_type_value> |
-      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Когда проверить ответы сервера при некорректных отправленных данных
     Примеры:
-      |Поле       |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |orderId    |400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"orderId: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
-      |quantity   |500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
-      |recipientId|500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+      |Поле       |Код null|Код int|Код double|Код string|Код empty string|Код bool|
+      |orderId    |400     |400    |400       |400       |400             |400     |
+      |quantity   |500     |400    |400       |400       |400             |400     |
+      |recipientId|500     |400    |400       |400       |400             |400     |
 # после фикса бага исправить результаты ошибок + добавить проверку на неверные вводимые значения + проверка ключа + добавить проверку на вэлью ответа (возможно на длину строки и не содержание недопустимых символов)
 
   @id-6
@@ -275,10 +273,10 @@
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-      | BODY |  | orderCreation/myJson1 |
+      | BODY |  | orderCreation/myJson |
     Когда выбираем следующие поля JSONа для замены некорректными данными
       |<Поле>|
-    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с замененными вышеперечисленными полями некорректными данными
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
@@ -286,15 +284,10 @@
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-    Когда проверить ответы сервера
-      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-      |response_with_double_type_value |<response_with_double_type_value> |
-      |response_with_int_type_value    |<response_with_int_type_value>    |
-      |response_with_string_type_value |<response_with_string_type_value> |
-      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Когда проверить ответы сервера при некорректных отправленных данных
     Примеры:
-      |Поле       |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                          |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |sntinsCount|400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"sntinsCount: не должно равняться null"} |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
+      |Поле       |Код null   |Код int    |Код double |Код string |Код empty string|Код bool   |
+      |sntinsCount|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|
 
 #    после фикса бага, прописать правильные ответы и коды ошибок
 
@@ -323,22 +316,17 @@
   Структура сценария: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, с отправкой неправильных данных в JSON файле)
     Когда выбираем следующие поля JSONа для замены некорректными данными
       |<Поле>|
-    Когда выполнен POST запрос на URL "/api/mcdn/token/check" с параметрами из таблицы. Значение из "valid" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/token/check" с замененными вышеперечисленными полями некорректными данными
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | securityMarker |
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-    Когда проверить ответы сервера
-      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-      |response_with_double_type_value |<response_with_double_type_value> |
-      |response_with_int_type_value    |<response_with_int_type_value>    |
-      |response_with_string_type_value |<response_with_string_type_value> |
-      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Когда проверить ответы сервера при некорректных отправленных данных
     Примеры:
-      |Поле |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                          |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |valid|400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"valid: не должно равняться null"} |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
+      |Поле |Код null|Код int|Код double|Код string|Код empty string|Код bool|
+      |valid|200     |200    |200       |200       |200             |200     |
 
 #    после фикса бага, прописать правильные ответы и коды ошибок
 
