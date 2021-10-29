@@ -48,9 +48,7 @@ public class ApiMainLogic extends Base {
 
         try {
             return (JSONArray) readJsonSimpleDemo(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) {}
         return null;
     }
 

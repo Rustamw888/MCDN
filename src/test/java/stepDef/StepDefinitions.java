@@ -322,7 +322,7 @@ public class StepDefinitions {
         }
     }
 
-    @Когда("проверить коды ответов (.*) для JSONов с удаленными полями в (.*)")
+    @Когда("проверить коды ответов (.*) для JSONов с измененными или удаленными полями в (.*)")
     public void checkCodesWithRemovedFields(String strGluedCodes, String var) {
         String[] strCodes = strGluedCodes.split(",");
         for (int i = 0; i < sizeOfJSONArray; i++) {
@@ -385,21 +385,29 @@ public class StepDefinitions {
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и значения элементов (.*) из JSON файла изменены на (.*), ответ сохранить в переменную (.*)$")
-    public void jSONRowDeleting(String url, String jsonField, String changingValue, String var, DataTable dataTable) {
+    public void jSONRowDeleting(String url, String jsonField, Object changingValue, String var, DataTable dataTable) {
         List<List<String>> table = dataTable.asLists(String.class);
         System.out.println(table);
         prepareData(table);
+        ApiMainLogic.codes.clear();
         JSONArray jsonArray = takeJsonsTosend(nameOfJson);
         if (jsonArray != null) {
             for (int i = 0; i < jsonArray.size(); i++) {
-                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
+                sizeOfJSONArray = jsonArray.size();
+                JSONObject test = (JSONObject) jsonArray.get(i);
+                test.put(jsonField, changingValue);
+                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, test);
             }
-        } else
-            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
+        } else {
+            JSONObject test = takeJsonToSend(nameOfJson);
+            test.put(jsonField, changingValue);
+            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, test);
+        }
+
         System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
     }
 
-    @Когда("^проверить ответы сервера для JSONов с удаленными полями в (.*)$")
+    @Когда("^проверить ответы сервера для JSONов с измененными или удаленными полями в (.*)$")
     public void jSONAnswerChecking(String var) {
         ArrayList<String> keys = new ArrayList<>(ApiMainLogic.varsForFullAnswer.keySet());
         for (String key: keys) {
