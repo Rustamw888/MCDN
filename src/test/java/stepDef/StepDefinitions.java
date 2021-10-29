@@ -2,6 +2,7 @@ package stepDef;
 
 import MCDN.ApiMainLogic;
 import MCDN.CreateJson;
+import com.google.gson.Gson;
 import cucumber.api.DataTable;
 import cucumber.api.java.ru.Когда;
 import org.json.simple.JSONArray;
@@ -24,6 +25,13 @@ public class StepDefinitions {
     String endPointForDelete = null;
     String field = "";
     int sizeOfJSONArray = 1;
+    static final ArrayList<String> errorKeysExpected = new ArrayList();
+    static {
+        errorKeysExpected.add("errorCode");
+        errorKeysExpected.add("errorText");
+        Collections.sort(errorKeysExpected);
+    }
+
 
     private void prepareData(List<List<String>> table) {
         for (List<String> strings : table) {
@@ -261,35 +269,19 @@ public class StepDefinitions {
         Assert.assertEquals(codes, ApiMainLogic.codes);
     }
 
-    @Когда("проверить ответы сервера")
-    public void checkServersAnswers(Map<String, String> table) {
-        Map<String, String> responses = new HashMap<>();
+    @Когда("проверить ответы сервера при некорректных отправленных данных")
+    public void checkServersAnswers() {
         ArrayList<String> keys = new ArrayList<>(ApiMainLogic.varsForFullAnswer.keySet());
-        Collections.sort(keys);
-        for (String key: keys) {
-            responses.put(key, ApiMainLogic.varsForFullAnswer.get(key).getBody().asString().replace("\\n", ""));
-        }
 
-        ArrayList<String> tableKeys = new ArrayList<>(table.keySet());
-        ArrayList<String> allTableKeys = new ArrayList<>();
-        Map<String, String> tableData = new HashMap<>();
-        Map<String, String> middleTableData = new HashMap<>();
-        for (String key: tableKeys) {
-            String[] values = table.get(key).split(",");
-            for (int i = 0; i < sizeOfJSONArray; i++) {
-                String indexedKey = key + "_" + (i + 1);
-                allTableKeys.add(indexedKey);
-                middleTableData.put(indexedKey, values[i].trim());
+        for (String key: keys) {
+            if (!Integer.toString(ApiMainLogic.varsForFullAnswer.get(key).getStatusCode()).startsWith("2")) {
+                HashMap<String,Object> result = new Gson().fromJson(ApiMainLogic.varsForFullAnswer.get(key).getBody().asString(), HashMap.class);
+                ArrayList<String> errorKeysActual = new ArrayList<>(result.keySet());
+                Collections.sort(errorKeysActual);
+                Assert.assertEquals(errorKeysExpected, errorKeysActual);
             }
         }
-        Collections.sort(allTableKeys);
-        for (String key: allTableKeys) {
-            tableData.put(key, middleTableData.get(key).replace("\\n", ""));
-        }
 
-        System.out.println("\nОжидаемые ответы: " + tableData);
-        System.out.println("Реальные  ответы: " + responses);
-//        Assert.assertEquals(responses, tableData);
     }
 
 }

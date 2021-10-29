@@ -52,16 +52,11 @@
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-    Когда проверить ответы сервера
-      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-      |response_with_double_type_value |<response_with_double_type_value> |
-      |response_with_int_type_value    |<response_with_int_type_value>    |
-      |response_with_string_type_value |<response_with_string_type_value> |
-      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Когда проверить ответы сервера при некорректных отправленных данных
     Примеры:
-      |Поле        |Код null   |Код int    |Код double |Код string |Код empty string|Код bool   |response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |cisType     |400,400,400|200,200,200|400,400,400|400,400,400|400, 400, 400   |400,400,400|{1}, {2}, {3}                  |{1}, {2}, {3}  |{1}, {2}, {3}     |{1}, {2}, {3}  |{1}, {2}, {3}   |
-#      |productGroup|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+      |Поле        |Код null   |Код int    |Код double |Код string |Код empty string|Код bool   |
+      |cisType     |400,400,400|200,200,200|400,400,400|400,400,400|400, 400, 400   |400,400,400|
+      |productGroup|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|
 
 #    нужен фикс бага для кейса №2, + подобрать ошибки + внести возможность менять cisType для каждого джейсона с индивидуальными ошибками
 
@@ -320,16 +315,12 @@
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-    Когда проверить ответы сервера
-      |response_with_boolean_type_value|<response_with_boolean_type_value>|
-      |response_with_double_type_value |<response_with_double_type_value> |
-      |response_with_int_type_value    |<response_with_int_type_value>    |
-      |response_with_string_type_value |<response_with_string_type_value> |
-      |response_with_null_type_value   |<response_with_null_type_value>   |
+    Когда проверить ответы сервера при некорректных отправленных данных
     Примеры:
-      |Поле                        |Код null|Код int|Код double|Код string|Код empty string|Код bool|response_with_null_type_value                                                       |response_with_int_type_value                           |response_with_double_type_value                        |response_with_string_type_value                        |response_with_boolean_type_value                       |
-      |orderId                     |400     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"orderId: не должно равняться null"}                  |{"errorCode":9991,"errorText":"Заказ 0 не найден"}     |{"errorCode":9991,"errorText":"Заказ 0.0 не найден"}   |{"errorCode":9991,"errorText":"Заказ test не найден"}  |{"errorCode":9991,"errorText":"Заказ false не найден"} |
-      |aggregationUnits.sntins.code|500     |400    |400       |400       |400             |400     |{"errorCode":9991,"errorText":"HV000028: Unexpected exception during isValid call."}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|{"errorCode":9991,"errorText":"Формат КМ некорректный"}|
+      |Поле                            |Код null|Код int|Код double|Код string|Код empty string|Код bool|
+      |orderId                         |400     |400    |400       |400       |400             |400     |
+      |aggregationUnits.sntins.code    |500     |400    |400       |400       |400             |400     |
+      |aggregationUnits.aggregationType|400     |200    |400       |400       |400             |400     |
 
   @id-10.2
   Структура сценария: Метод «Отправить отчет об агрегации КМ» (негативный тест, проверка данных ответа с неправильным форматом)
