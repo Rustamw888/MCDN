@@ -94,18 +94,20 @@
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
-    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <code> и <text error>
+    Когда проверить коды ответов <code> для JSONов с удаленными полями в mainResp
+    Когда проверить ответы сервера для JSONов с удаленными полями в mainResp
     Примеры:
-      |field            |  code | text error  |
-      |gtin             |  400  |{"errorCode": 9991,"errorText": "gtin: не должно равняться null"}|
-      |quantity         |  400  |{"errorCode": 9991,"errorText": "quantity: должно быть не меньше 1"}|
-      |serialNumberType |  400  |{"errorCode": 9991,"errorText": "serialNumberType: не должно равняться null"}|
-      |serialNumbers    |  400  |{"errorCode": 9991,"errorText": "При значении \"Пользователем (SELF_MADE)\" параметра \"Способ формирования серийного номера\" {serialNumberType} должны быть указаны серийные номера"}|
-      |cisType          |  400  |{"errorCode": 9991,"errorText": "Не указан тип КМ"}|
-      |releaseMethodType|  400  |{"errorCode": 9991,"errorText": "ReleaseMethodType не указан"}|
-      |attributes       |  200  |               |
-      |productGroup     |  400  |{"errorCode": 9991,"errorText": "productGroup: не должно равняться null"}|
-      |productionOrderId|  200  |               |
+      |field            |  code       |
+      |gtin             |400, 400, 400|
+      |quantity         |400, 400, 400|
+      |serialNumberType |400, 400, 400|
+      |serialNumbers    |400, 400, 400|
+      |cisType          |400, 400, 400|
+      |releaseMethodType|400, 400, 400|
+      |attributes       |200, 200, 200|
+      |productGroup     |400, 400, 400|
+      |productionOrderId|200, 200, 200|
+
 
   @id-2.4
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой на некорректные значения)

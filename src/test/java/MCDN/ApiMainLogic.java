@@ -276,8 +276,6 @@ public class ApiMainLogic extends Base {
                 requestSpecification.when().post(urlValue);
         codes.add(response.getStatusCode());
         varsForFullAnswer.put(var, (Response) response.getBody());
-        System.out.println("\nЗапрос на сервер:" + jsonObject);
-        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
     }
 
     public void sendPOSTRequestAndCheckStatusAndSaveAnswer(String url,
