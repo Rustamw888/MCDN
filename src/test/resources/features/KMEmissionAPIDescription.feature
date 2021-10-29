@@ -39,7 +39,6 @@
       | BODY |  | orderCreation/myJson |
     Когда рандомное значение в переменной mainResp соответствует формату, длина равна 36
 
-
   @id-2.1
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, проверка ответов сервера на некорректные данные)
     Когда выбираем следующие поля JSONа для замены некорректными данными
@@ -58,34 +57,11 @@
       |cisType     |400,400,400|200,200,200|400,400,400|400,400,400|400, 400, 400   |400,400,400|
       |productGroup|400,400,400|400,400,400|400,400,400|400,400,400|400, 400, 400   |400,400,400|
 
-#    нужен фикс бага для кейса №2, + подобрать ошибки + внести возможность менять cisType для каждого джейсона с индивидуальными ошибками
+#    1) проверка на некорректные параметры запроса
+#    2) подобрать ошибки под измененные строки джэйсона
+#    3) подобрать ошибки под удаленные строки джэйсона
+#    4) внести возможность менять cisType для каждого джейсона с индивидуальными ошибками
 
-#  @id-2.2
-#  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, проверка ответов сервера)
-#    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "omsId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-#      | BODY |  | <Jsons> |
-#    Когда значение в переменной mainResp не равно
-#      |<Значение>|
-#    Примеры:
-#      |Значение|
-#      | 12 |
-#    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-#      | BODY |  | <Jsons> |
-#    Когда рандомное значение в переменной mainResp не соответствует формату, длина не равна 36
-#    Примеры:
-#      |Jsons|
-#      |orderCreation/myJson1|
-#      |orderCreation/myJson2|
-#      |orderCreation/myJson3|
-#      |orderCreation/myJson4|
-#    нужен фикс бага для кейса №2,+ доработка негативных проверок (улучшить разными типами данных) + проверить проверку на длину, сможет ли отправить запрос (возможно удалить негативную проверку)
-# + добавить проверки на ключи
 
   @id-2.3
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с удалением)
@@ -93,8 +69,8 @@
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-      | BODY |  | orderCreation/myJson |
-    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <code> и <text error>
+      | BODY |  | orderCreation/myJson4 |
+#    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <code> и <text error>
     Примеры:
       |field            |  code | text error  |
       |gtin             |  400  |{"errorCode": 9991,"errorText": "gtin: не должно равняться null"}|
@@ -126,6 +102,51 @@
       |attributes       |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot coerce empty String (\"\") to element of `java.util.LinkedHashMap<java.lang.String,java.lang.Object>` (but could if coercion was enabled using `CoercionConfig`); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot coerce empty String (\"\") to element of `java.util.LinkedHashMap<java.lang.String,java.lang.Object>` (but could if coercion was enabled using `CoercionConfig`)\n at [Source: (PushbackInputStream); line: 12, column: 17] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"attributes\"])"}|
       |productGroup     |      ""     |  400  |{"errorCode": 9991,"errorText": "JSON parse error: Cannot construct instance of `codes.mcdn.common.model.ProductGroupType`, problem: `java.lang.IllegalArgumentException`; nested exception is com.fasterxml.jackson.databind.exc.ValueInstantiationException: Cannot construct instance of `codes.mcdn.common.model.ProductGroupType`, problem: `java.lang.IllegalArgumentException`\n at [Source: (PushbackInputStream); line: 17, column: 19] (through reference chain: codes.mcdn.common.model.order.McdnOrderDto[\"productGroup\"])"}|
       |productionOrderId|      ""     |  400  |{"errorCode": 9991,"errorText": "productionOrderId: должно соответствовать \"^([^\\x00-\\x1F]{1,256})$\""}|
+
+  @id-2.5
+  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой cisType)
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | BODY |  | orderCreation/myJson |
+#    Когда проверить ответы сервера в переменной mainResp с учетом изменения JSON файла - <field>, <changingValue>, <code> и <text error>
+    Примеры:
+      |field   |  changingValue  |  code | text error  |
+      |cisType |      "UNIT"     |  200  ||
+      |cisType |      "GROUP"    |  200  ||
+      |cisType |      "SET"      |  200  ||
+#    вместо обычной проверки лучше использовать проверку из 2.4. + возможно имеет смысл обыграть в цикле для файла myJson(уточнить)
+#
+#  @id-2.6
+#  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой cisType для товарной группы water)
+#    Когда выполнен POST запрос на URL "/api/mcdn/order" с замененными вышеперечисленными полями некорректными данными
+#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+#      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+#      | BODY |  | orderCreation/myJsonWater |
+#    Когда проверить ответы сервера при некорректных отправленных данных
+#    Примеры:
+#      |Поле |Код null|
+#      |UNIT |   200  |
+#      |GROUP|   200  |
+#      |SET  |   200  |
+##    вместо обычной проверки лучше использовать проверку из 2.3.
+#
+#  @id-2.7
+#  Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой cisType для товарной группы beer)
+#    Когда выполнен POST запрос на URL "/api/mcdn/order" с замененными вышеперечисленными полями некорректными данными
+#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+#      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+#      | BODY |  | orderCreation/myJsonBeer |
+#    Когда проверить ответы сервера при некорректных отправленных данных
+#    Примеры:
+#      |Поле |Код null|
+#      |UNIT |   200  |
+#      |GROUP|   200  |
+#      |SET  |   200  |
+##    вместо обычной проверки лучше использовать проверку из 2.3.
 
   @id-3
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок
