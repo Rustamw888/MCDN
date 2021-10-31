@@ -9,7 +9,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 
-import java.beans.AppletInitializer;
 import java.util.*;
 
 import static MCDN.ApiMainLogic.takeJsonToSend;
@@ -322,7 +321,7 @@ public class StepDefinitions {
         }
     }
 
-    @Когда("проверить коды ответов (.*) для JSONов с измененными или удаленными полями в (.*)")
+    @Когда("^проверить коды ответов (.*) для JSONов с измененными или удаленными полями в (.*)$")
     public void checkCodesWithRemovedFields(String strGluedCodes, String var) {
         String[] strCodes = strGluedCodes.split(",");
         for (int i = 0; i < sizeOfJSONArray; i++) {
