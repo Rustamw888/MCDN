@@ -388,6 +388,9 @@ public class StepDefinitions {
         List<List<String>> table = dataTable.asLists(String.class);
         System.out.println(table);
         prepareData(table);
+        if (changingValue.equals("\"\"")) {
+            changingValue = "";
+        }
         ApiMainLogic.codes.clear();
         JSONArray jsonArray = takeJsonsTosend(nameOfJson);
         if (jsonArray != null) {
