@@ -3,16 +3,6 @@
 
 Функционал: Описание API Эмиссии КМ
 
-  @all @id-6
-  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos[0].orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: kMOrders
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | quantity | 1 |
-      | PARAMS | orderId | mainResp4 |
-
   @all @id-1
   Сценарий: Метод «Проверить доступность», проверка формата ответа на запрос
     Когда выполнен GET запрос на URL "/api/mcdn/ping" с параметрами из таблицы. Значение из "success" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
@@ -211,6 +201,16 @@
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | betweenProviders |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendCodes.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+
+  @all @id-6
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки»
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: kMOrders
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | PARAMS | quantity | 1 |
+      | PARAMS | orderId | mainResp4 |
 
   @all @id-6.1
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра clientToken)
