@@ -116,6 +116,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
+//        value = "orderInfos[orderStatus == \"READY\"].orderId";
         apiMainLogic.sendGETRequestCheckAndSaveAnswer(url, value, var, code, params, headers);
     }
 
