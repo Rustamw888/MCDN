@@ -46,10 +46,16 @@ public class StepDefinitions {
 
                     break;
                 case ("PARAMS"):
-                    if (strings.get(2).equals("mainResp")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp"));
-                    } else if (strings.get(2).equals("secondResp")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("secondResp"));
+                    if (strings.get(2).equals("mainResp0")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp0"));
+                    } else if (strings.get(2).equals("mainResp1")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp1"));
+                    } else if (strings.get(2).equals("mainResp2")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp2"));
+                    } else if (strings.get(2).equals("mainResp3")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp3"));
+                    } else if (strings.get(2).equals("mainResp4")) {
+                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp4"));
                     } else {
                         params.put(strings.get(1), strings.get(2));
                     }

@@ -5,10 +5,10 @@
 
   @all @id-1
   Сценарий: Метод «Проверить доступность», проверка формата ответа на запрос
-    Когда выполнен GET запрос на URL "/api/mcdn/ping" с параметрами из таблицы. Значение из "success" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/ping" с параметрами из таблицы. Значение из "success" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-    Когда значение в переменной mainResp и равно true
+    Когда значение в переменной mainResp0 и равно true
 
   @all @id-1.1
   Сценарий: Проверка запроса на некорректный эндпоинт
@@ -74,13 +74,13 @@
 
   @all @id-2.3
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с удалением)
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и удаленным элементом <field> из JSON файла, ответ сохранить в переменную mainResp
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и удаленным элементом <field> из JSON файла, ответ сохранить в переменную mainResp0
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
-    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp
-    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp
+    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp0
+    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp0
     Примеры:
       |field            |  code       |
       |gtin             |400, 400, 400|
@@ -95,13 +95,13 @@
 
   @all @id-2.4
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой на некорректные значения)
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp0
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
-    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp
-    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp
+    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp0
+    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp0
     Примеры:
       |field            |changingValue|  code |
       |gtin             |      ""     |400, 400, 400|
@@ -116,13 +116,13 @@
 
   @all @id-2.5
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой cisType)
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp0
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
-    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp
-    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp
+    Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp0
+    Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp0
     Примеры:
       |field    |changingValue|     code    |
       |cisType  |    UNIT     |200, 200, 200|
@@ -169,7 +169,7 @@
 
   @id-5
   Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами»
-    Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Значение из "recipientOrderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Значение из "recipientOrderId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | betweenProviders |
@@ -197,10 +197,13 @@
 
   @all @id-6
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки»
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos[0].orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
     Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: kMOrders
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | quantity | 1 |
-      | PARAMS | orderId | 41d88ee3-e3c7-4350-8e4e-f206326058ad |
+      | PARAMS | orderId | mainResp4 |
 
   @all @id-6.1
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра clientToken)
@@ -389,23 +392,23 @@
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
-    Когда рандомное значение в переменной secondResp соответствует формату, длина равна 36
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда рандомное значение в переменной mainResp3 соответствует формату, длина равна 36
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
-    Когда значение в переменной secondResp и равно 2
+    Когда значение в переменной mainResp3 и равно 2
 #    добавить негативный на некорректные данные в запросе + проверка, что длина не равна 36(уточнить необходимость + было описано выше) + проверка ключей + улучшить проверку значений в ответе
 
   @id-10.1
   Структура сценария: Метод «Отправить отчет об агрегации КМ» (негативный тест, с отправкой неправильных данных в JSON файле)
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
     Когда выбираем следующие поля JSONа для замены некорректными данными
@@ -427,21 +430,21 @@
 
   @id-10.2
   Структура сценария: Метод «Отправить отчет об агрегации КМ» (негативный тест, проверка данных ответа с неправильным форматом)
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
-    Когда рандомное значение в переменной secondResp соответствует формату, длина равна 36
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда рандомное значение в переменной mainResp3 соответствует формату, длина равна 36
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | agregationOrderSending |
-    Когда значение в переменной secondResp не равно
+    Когда значение в переменной mainResp3 не равно
       |<Значение>|
     Примеры:
       |Значение|
@@ -450,21 +453,21 @@
 
   @id-11
   Структура сценария: Метод «Отправить отчет об использовании (нанесении) КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | <Jsons> |
-    Когда рандомное значение в переменной mainResp соответствует формату, длина равна 36
-    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда рандомное значение в переменной mainResp0 соответствует формату, длина равна 36
+    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | <Jsons> |
-    Когда значение в переменной secondResp и равно 2
+    Когда значение в переменной mainResp3 и равно 2
     Примеры:
       |Jsons|
       |utilisationReports/utilisationReport1|
@@ -550,21 +553,21 @@
 
   @id-12
   Структура сценария: Метод «Отправить отчет о валидации КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/validation" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/validation" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | <Jsons> |
-    Когда рандомное значение в переменной mainResp соответствует формату, длина равна 36
-    Когда выполнен POST запрос на URL "/api/mcdn/report/validation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда рандомное значение в переменной mainResp0 соответствует формату, длина равна 36
+    Когда выполнен POST запрос на URL "/api/mcdn/report/validation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | <Jsons> |
-    Когда значение в переменной secondResp и равно 2
+    Когда значение в переменной mainResp3 и равно 2
     Примеры:
       |Jsons|
       |validationReports/validationReport1|
@@ -573,65 +576,65 @@
 
   @id-13
   Сценарий: Метод «Отправить отчет об агрегации КМ Типографии»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | aggregationReport |
-    Когда рандомное значение в переменной mainResp соответствует формату, длина равна 36
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда рандомное значение в переменной mainResp0 соответствует формату, длина равна 36
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | ownerId | mainResp |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | aggregationReport |
-    Когда значение в переменной secondResp и равно 2
+    Когда значение в переменной mainResp3 и равно 2
 #  "errorText": "aggregationUnit: не должно равняться null" хотя в постмане и сваггере все нормально
 
   @id-14
   Сценарий:	Метод «Получить список заказов КМ по идентификатору производственного заказа»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/list" с параметрами из таблицы. Значение из "orderIds" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/list" с параметрами из таблицы. Значение из "orderIds" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | productionOrderId | b6ddf431-4296-4ae5-9f4b-198ab92bc4ff |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-    Когда значение в переменной mainResp и равно []
+    Когда значение в переменной mainResp0 и равно []
 #    Уточнить по поводу пустой строки вместо данных
 
   @id-15
   Сценарий:	Метод «Получить список отчетов о нанесении КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/report/utilisation/list" с параметрами из таблицы. Значение из "reportIds" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/report/utilisation/list" с параметрами из таблицы. Значение из "reportIds" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | productionOrderId | b6ddf431-4296-4ae5-9f4b-198ab92bc4ff |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-    Когда значение в переменной mainResp и равно []
+    Когда значение в переменной mainResp0 и равно []
 #    Уточнить по поводу пустой строки вместо данных
 
   @id-16
   Сценарий:	Метод «Получить список отчетов об агрегации КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/list" с параметрами из таблицы. Значение из "reportIds" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/list" с параметрами из таблицы. Значение из "reportIds" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | productionOrderId | b6ddf431-4296-4ae5-9f4b-198ab92bc4ff |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
-    Когда значение в переменной mainResp и равно []
+    Когда значение в переменной mainResp0 и равно []
 #    Уточнить по поводу пустой строки вместо данных
 
   @id-17
   Структура сценария: Метод «Получить список КИ из отчета о нанесении КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем secondResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | ownerId | mainResp |
+      | PARAMS | ownerId | mainResp0 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | <Jsons> |
     Когда выполнен GET запрос на URL "/api/mcdn/report/utilisation/cis/list" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: utilisationIgnore
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | reportId | secondResp |
+      | PARAMS | reportId | mainResp3 |
     Примеры:
       |Jsons|
       |utilisationReports/utilisationReport1|
@@ -644,17 +647,17 @@
 
   @id-18
   Сценарий:	Метод «Получить список КИ из отчета об агрегации КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | ownerId | mainResp |
+      | PARAMS | ownerId | mainResp0 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | BODY |  | aggregationReport |
     Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/cis/list" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: aggregationIgnore
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | reportId | secondResp |
+      | PARAMS | reportId | mainResp3 |
 #    Блокер "errorText": "aggregationUnit: не должно равняться null"
 #    уточнить проверку джэйсонов с игнором вэльюсов для данного случая
 
@@ -673,10 +676,10 @@
 
   @id-19
   Сценарий:	Метод «Получить код агрегата из отчета об агрегации Типографии по КИ»
-    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Значение из "aggregationCemUnits" присутствует. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Значение из "aggregationCemUnits" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | PARAMS | cis | 010467834657283921598765 |
-    Когда значение в переменной mainResp и равно []
+    Когда значение в переменной mainResp0 и равно []
 #  Это второй вариант
 #    Уточнить как получать cis"
 #    уточнить почему в данном случае ответ "aggregationCemUnits": []
