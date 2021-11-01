@@ -18,8 +18,6 @@
     "productionLineName":"Линия 1",
     "senderype" : "manufacturer",
     "shiftNumber":"8ed74f90-0119-48f2-b289-379707934e2f",
-    "batchStartTime":"2020-12-03T10:15:30.000+0300",
-    "batchCloseTime":"2020-12-03T22:15:30.000+0300",
     "devices": [{
           "id":"1cecc8fb-fb47-4c8a-af3d-d34c1ead8c4f",
           "description":"Устройство 1"

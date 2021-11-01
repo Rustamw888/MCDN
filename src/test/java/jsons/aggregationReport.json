@@ -6,22 +6,22 @@
     "additionalProp3": {}
   },
   "orderId": "dd3bb528-22f7-4e2b-a460-5513e5c75f34",
-  "aggregationUnits": [
-    {
-      "aggregatedItemsCount": 48,
-      "aggregationType": "AGGREGATION",
-      "aggregationUnitCapacity": 50,
-      "unitSerialNumber": "123456789012345678",
-      "sntins": [
-        {
-          "code": "010000000066698821QbUMR5MABzU48",
-          "quality": "A"
-        },
-        {
-          "code": "010000000066698821r2Aw4GeABzU24",
-          "quality": "A"
-        }
-      ]
-    }
-  ]
+  "aggregationUnit": {
+    "aggregatedItemsCount": 48,
+    "aggregationType": "AGGREGATION",
+    "aggregationUnitCapacity": 50,
+    "sntins": [
+      {
+        "code": "0104008638435016215JDYQZ93dGVz",
+        "quality": "A",
+        "index": "0"
+      },
+      {
+        "code": "0104008638435016215JDEQZ93dGVA",
+        "quality": "A",
+        "index": "1"
+      }
+    ],
+    "unitSerialNumber": "87e62902-e6e4-4654-9e4a-7d6085b4865a"
+  }
 }

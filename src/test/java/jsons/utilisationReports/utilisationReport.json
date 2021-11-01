@@ -1,0 +1,63 @@
+[
+  {
+    "orderId": "dd3bb528-22f7-4e2b-a460-5513e5c75f34",
+    "productGroup": "milk",
+    "sntins":
+    [
+      {
+        "code":"SNTIN1",
+        "quality":"A"
+      },
+      {
+        "code":"SNTIN2",
+        "quality":"A"
+      }
+    ],
+    "usageType": "PRINTED",
+    "attributes": {
+      "expDate": "210816",
+      "cisType": "UNIT"
+    }
+  },
+  {
+    "orderId": "1cecc8fb-fb47-4c8a-af3d-d34c1ead8c4f",
+    "productGroup": "otp",
+    "sntins":
+    [
+      {
+        "code":"SNTIN1",
+        "quality":"A"
+      },
+      {
+        "code":"SNTIN2",
+        "quality":"A"
+      }
+    ],
+    "usageType": "PRINTED",
+    "attributes": {
+      "productionLineId" : "1",
+      "productionOrderId":"123",
+      "brandcode" : "2212Brandcode",
+      "sourceReportId":"8ed74f90-0119-48f2-b289-379707934e2f"
+    }
+  },
+  {
+    "orderId": "1cecc8fb-fb47-4c8a-af3d-d34c1ead8c4f",
+    "productGroup": "water",
+    "sntins":
+    [
+      {
+        "code":"SNTIN1",
+        "quality":"A"
+      },
+      {
+        "code":"SNTIN2",
+        "quality":"A"
+      }
+    ],
+    "usageType": "PRINTED",
+    "attributes": {
+      "productionOrderId":"production_order_id"
+    }
+  }
+]
