@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = {"stepDef", "runners"},
 //        tags = {"@all", "~@ignore"},
-        tags = {"@id-11", "~@ignore"},
+        tags = {"@id-4", "~@ignore"},
 //        tags = {"@mock", "~@ignore"},
         strict = true,
         snippets = SnippetType.CAMELCASE,

@@ -149,9 +149,10 @@
 
   @all @id-4
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: orderSecond
+#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: orderSecond
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+      | PARAMS | orderId | 6eb312e2-c654-48ef-8ce3-dbfca158d2ce |
 
   @all @id-4.1
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра clientToken)
@@ -402,24 +403,22 @@
 
   @id-11
   Сценарий: Метод «Отправить отчет об использовании (нанесении) КМ»
-    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+    Когда выполнен GET запрос на URL "http://194.195.240.115:40000/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | 4c0c8613-1fc5-4436-a710-d3a095cc8260 |
+    Когда выполнен POST запрос на URL "http://194.195.240.115:40000/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | PARAMS | ownerId | mainResp0 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | BODY |  | utilisationReports/utilisationReport |
+      | BODY |  | utilisationReports/utilisationReport4 |
     Когда рандомное значение в переменной mainResp1 соответствует формату, длина равна 36
-#    Когда выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | ownerId | mainResp |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | BODY |  | utilisationReports/utilisationReport |
-#    Когда значение в переменной mainResp2 и равно 2
+    Когда выполнен POST запрос на URL "http://194.195.240.115:40000/api/mcdn/report/utilisation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | ownerId | mainResp0 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | utilisationReports/utilisationReport4 |
+    Когда значение в переменной mainResp2 и равно 2
 
-#    блокер, не верный формат КМ
-#    добавить негативный на некорректные данные в запросе
   @id-11.1
   Сценарий: Метод «Отправить отчет об использовании (нанесении) КМ» (негативный тест, проверка с использованием некорректного параметра clientToken)
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.ownerId" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
