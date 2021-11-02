@@ -415,9 +415,9 @@ public class StepDefinitions {
         Assert.assertNotNull(var.replace("[", "").replace("]", "").replace("{","").replace("}",""));
     }
 
-    @Когда("^сохраняем параметр (.*) из переменной (.*) в файл$")
-    public void saveParameterInFile(String param, String var) {
-        apiMainLogic.saveParameterInFile(param, var);
+    @Когда("^сохраняем параметр (.*) из переменной (.*) в файл(.*)$")
+    public void saveParameterInFile(String param, String var, String lastParam) {
+        apiMainLogic.saveParameterInFile(param, var, lastParam, params);
     }
 
 //    @Когда("^удаление файлов с сохраненными данными$")

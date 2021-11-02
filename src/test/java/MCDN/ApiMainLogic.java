@@ -417,8 +417,12 @@ public class ApiMainLogic extends Base {
         vars.put(var, str);
     }
 
-    public void saveParameterInFile(String param, String var) {
+    public void saveParameterInFile(String param, String var, String lastParam, Map<String, Object> params) {
         try {
+            if (!lastParam.equals("")) {
+                String[] preparedLastParam = lastParam.split("=");
+                param = param.replace("*", params.get((preparedLastParam[preparedLastParam.length - 1]).trim()).toString());
+            }
             String[] filaname = param.split("\\.");
             FileWriter fw = new FileWriter(pathToData() + filaname[filaname.length - 1] + ".tmp");
             String value = (new JsonPath(varsForFullAnswer.get(var).asString())).getString(param).replace("[", "").replace("]", "").replace("{","").replace("}","");
