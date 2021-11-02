@@ -24,8 +24,8 @@
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"ping.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
 
-  @all @id-2
-  Сценарий: Метод «Создать заявку на эмиссию кодов маркировки»
+  @all @id-2.0
+  Сценарий: Метод «Создать заявку на эмиссию кодов маркировки» тесты на проверку параметров заявки
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "omsId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
