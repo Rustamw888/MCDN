@@ -427,6 +427,21 @@ public class ApiMainLogic extends Base {
         } catch (Exception ignored) {}
     }
 
+//    public void deleteFiles(File folder) {
+//
+//            File[] files = folder.listFiles();
+//            if(files!=null) {
+//                for(File f: files) {
+//                    if(f.isDirectory()) {
+//                        deleteFiles(f);
+//                    } else {
+//                        f.delete();
+//                    }
+//                }
+//            }
+//            folder.delete();
+//    }
+
     public void checkAnswerWithAssert(String varResp, String varValue){
         for (String key: vars.keySet()) {
             if (key.contains(varResp))

@@ -420,4 +420,10 @@ public class StepDefinitions {
         apiMainLogic.saveParameterInFile(param, var);
     }
 
+//    @Когда("^удаление файлов с сохраненными данными$")
+//    public void deleteFiles(String name) {
+//        apiMainLogic.deleteFiles(name);
+//
+//    }
+
 }
