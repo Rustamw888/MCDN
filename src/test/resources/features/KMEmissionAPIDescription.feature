@@ -26,7 +26,7 @@
 
   @all @id-2
   Сценарий: Метод «Создать заявку на эмиссию кодов маркировки» с сохранением в файл
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
@@ -162,7 +162,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | PARAMS | orderId | file |
-    Когда сохраняем параметр orderInfos.find{it.orderId == 'READY'}.productionOrderId из переменной mainResp1 в файл
+    Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.productionOrderId из переменной mainResp1 в файл, где * = orderId
 
   @all @id-4.1
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра clientToken)
