@@ -38,13 +38,13 @@
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "omsId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
     Когда значение в переменной mainResp1 и равно a2a16a41-42b0-4309-9ae1-c19d53cc544f
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
     Когда рандомное значение в переменной mainResp1 соответствует формату, длина равна 36
 
@@ -160,8 +160,9 @@
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки
 #    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: orderSecond
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-      | PARAMS | orderId | f9bd9419-bb86-48cc-a6ca-d457019c185c |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | file |
+    Когда сохраняем параметр orderInfos.find{it.orderId == 'READY'}.productionOrderId из переменной mainResp1 в файл
 
   @all @id-4.1
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра clientToken)
@@ -649,3 +650,8 @@
 #  "errorCode": 9991,
 #  "errorText": "JSON parse error: Unrecognized token 'aggregationCodesIgnore': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false'); nested exception is com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'aggregationCodesIgnore': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: (PushbackInputStream); line: 1, column: 23]"
 #  }
+
+  @id-21
+  Сценарий: Удаление файлов с сохраненными данными
+
+    Когда сохраняем параметр orderInfos.productionOrderId из переменной mainResp1 в файл

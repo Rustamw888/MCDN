@@ -11,7 +11,6 @@ import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
 import org.openqa.selenium.Cookie;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -420,7 +419,8 @@ public class ApiMainLogic extends Base {
 
     public void saveParameterInFile(String param, String var) {
         try {
-            FileWriter fw = new FileWriter(pathToData() + param + ".tmp");
+            String[] filaname = param.split("\\.");
+            FileWriter fw = new FileWriter(pathToData() + filaname[filaname.length - 1] + ".tmp");
             String value = (new JsonPath(varsForFullAnswer.get(var).asString())).getString(param).replace("[", "").replace("]", "").replace("{","").replace("}","");
             fw.write(value);
             fw.close();
