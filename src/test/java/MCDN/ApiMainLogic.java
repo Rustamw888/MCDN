@@ -11,14 +11,15 @@ import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
 import org.openqa.selenium.Cookie;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static MCDN.Paths.getPropertiesInstance;
-import static MCDN.Paths.pathToJsons;
+import static MCDN.Paths.*;
 import static io.restassured.RestAssured.given;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.json;
@@ -415,6 +416,15 @@ public class ApiMainLogic extends Base {
         String str = jPath.getString(jp);
         str = str.replace("[", "").replace("]", "").replace("{","").replace("}","");
         vars.put(var, str);
+    }
+
+    public void saveParameterInFile(String param, String var) {
+        try {
+            FileWriter fw = new FileWriter(pathToData() + param + ".tmp");
+            String value = (new JsonPath(varsForFullAnswer.get(var).asString())).getString(param).replace("[", "").replace("]", "").replace("{","").replace("}","");
+            fw.write(value);
+            fw.close();
+        } catch (Exception ignored) {}
     }
 
     public void checkAnswerWithAssert(String varResp, String varValue){

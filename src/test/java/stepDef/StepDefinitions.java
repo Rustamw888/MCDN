@@ -9,10 +9,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.*;
 
 import static MCDN.ApiMainLogic.takeJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonsTosend;
+import static MCDN.Paths.pathToData;
 
 public class StepDefinitions {
 
@@ -43,21 +46,35 @@ public class StepDefinitions {
 //                    else {
                         nameOfJson = strings.get(2);
 //                    }
-
+//            BufferedReader br = new BufferedReader(new FileReader(pathToData() + param + ".txt"));
                     break;
                 case ("PARAMS"):
-                    if (strings.get(2).equals("mainResp0")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp0"));
-                    } else if (strings.get(2).equals("mainResp1")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp1"));
-                    } else if (strings.get(2).equals("mainResp2")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp2"));
-                    } else if (strings.get(2).equals("mainResp3")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp3"));
-                    } else if (strings.get(2).equals("mainResp4")) {
-                        params.put(strings.get(1), ApiMainLogic.vars.get("mainResp4"));
-                    } else {
-                        params.put(strings.get(1), strings.get(2));
+                    switch (strings.get(2)) {
+                        case "file":
+                            try {
+                                BufferedReader br = new BufferedReader(new FileReader(pathToData() + strings.get(1) + ".tmp"));
+                                params.put(strings.get(1), br.readLine());
+                                br.close();
+                            } catch (Exception ignored) {}
+                            break;
+                        case "mainResp0":
+                            params.put(strings.get(1), ApiMainLogic.vars.get("mainResp0"));
+                            break;
+                        case "mainResp1":
+                            params.put(strings.get(1), ApiMainLogic.vars.get("mainResp1"));
+                            break;
+                        case "mainResp2":
+                            params.put(strings.get(1), ApiMainLogic.vars.get("mainResp2"));
+                            break;
+                        case "mainResp3":
+                            params.put(strings.get(1), ApiMainLogic.vars.get("mainResp3"));
+                            break;
+                        case "mainResp4":
+                            params.put(strings.get(1), ApiMainLogic.vars.get("mainResp4"));
+                            break;
+                        default:
+                            params.put(strings.get(1), strings.get(2));
+                            break;
                     }
                     break;
                 case ("HEADER"):
@@ -397,4 +414,10 @@ public class StepDefinitions {
     public void jSONAnswerCheckingNotEmpty(String var) {
         Assert.assertNotNull(var.replace("[", "").replace("]", "").replace("{","").replace("}",""));
     }
+
+    @Когда("^сохраняем параметр (.*) из переменной (.*) в файл$")
+    public void saveParameterInFile(String param, String var) {
+        apiMainLogic.saveParameterInFile(param, var);
+    }
+
 }

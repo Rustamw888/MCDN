@@ -31,6 +31,7 @@
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
       | BODY |  | orderCreation/myJson |
+    Когда сохраняем параметр orderId из переменной mainResp1 в файл
 
   @all @id-2.0
   Сценарий: Метод «Создать заявку на эмиссию кодов маркировки» тесты на проверку параметров заявки

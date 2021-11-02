@@ -16,6 +16,10 @@ public class Paths {
         return baseDir + "/src/test/java/jsons/";
     }
 
+    public static String pathToData() {
+        return baseDir + "/src/test/java/data/";
+    }
+
     /**
      * Вспомогательный метод, возвращает свойства из файла /application.properties
      *
