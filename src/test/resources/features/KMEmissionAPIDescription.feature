@@ -55,7 +55,7 @@
     Когда выполнен POST запрос на URL "/api/mcdn/order" с замененными вышеперечисленными полями некорректными данными
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
@@ -71,7 +71,7 @@
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson4 |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"createOrder.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
@@ -86,7 +86,7 @@
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и удаленным элементом <field> из JSON файла, ответ сохранить в переменную mainResp0
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
     Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp0
     Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp0
@@ -107,7 +107,7 @@
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp0
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
     Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp0
     Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp0
@@ -128,7 +128,7 @@
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp0
       | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
-      | PARAMS | omsId | a2a16a41-42b0-4309-9ae1-c19d53cc544f |
+      | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
     Когда проверить коды ответов <code> для JSONов с измененными или удаленными полями в mainResp0
     Когда проверить ответы сервера для JSONов с измененными или удаленными полями в mainResp0
@@ -163,6 +163,7 @@
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | PARAMS | orderId | file |
     Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.productionOrderId из переменной mainResp1 в файл, где * = orderId
+    Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.ownerId из переменной mainResp1 в файл, где * = orderId
 
   @all @id-4.1
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра clientToken)
