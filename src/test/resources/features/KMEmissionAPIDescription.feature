@@ -58,7 +58,7 @@
 
   @all @id-3
   Сценарий: Метод «Создать заявку на эмиссию кодов маркировки» с сохранением в файл
-    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp Ожидаемый код ответа: 200
+    Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
@@ -71,13 +71,13 @@
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
-      | BODY |  | orderCreation/myJson |
+      | BODY |  | orderCreation/myJson4 |
     Когда значение в переменной mainResp1 и равно a2a16a41-42b0-4309-9ae1-c19d53cc544f
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Значение из "orderId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
-      | BODY |  | orderCreation/myJson |
+      | BODY |  | orderCreation/myJson4 |
     Когда рандомное значение в переменной mainResp1 соответствует формату, длина равна 36
 
   @all @id-3.1
@@ -88,7 +88,7 @@
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
-      | BODY |  | orderCreation/myJson |
+      | BODY |  | orderCreation/myJson4 |
     Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
@@ -107,7 +107,7 @@
       | BODY |  | orderCreation/myJson4 |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"createOrder.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | abrakadabra |
       | BODY |  | orderCreation/myJson4 |
@@ -116,7 +116,7 @@
   @all @id-3.3
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с удалением)
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и удаленным элементом <field> из JSON файла, ответ сохранить в переменную mainResp0
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
@@ -137,7 +137,7 @@
   @all @id-3.4
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой на некорректные значения)
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp0
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
@@ -158,7 +158,7 @@
   @all @id-3.5
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с заменой cisType)
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы и значения элементов <field> из JSON файла изменены на <changingValue>, ответ сохранить в переменную mainResp0
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | application/json;charset=UTF-8 |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | orderCreation/myJson |
@@ -173,7 +173,7 @@
   @all @id-4
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: allOrders
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
 
   @all @id-4.1
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок (негативный тест, проверка с использованием некорректных параметров запроса)
@@ -184,7 +184,7 @@
   @all @id-4.2
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок (негативный тест, проверка с использованием некорректного параметра Content-Type)
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 200
-      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | affdbfbdfb |
 #    уточнить итоговое поведение в данном случае
 #
