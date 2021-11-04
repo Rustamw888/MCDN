@@ -75,6 +75,34 @@ public class ApiMainLogic extends Base {
             sendPOSTRequestAndCheckStatusAndSaveAnswer(url,"response_with_" + field.getType().toString().replace("class java.lang.S", "s").replace("class java.lang.Object", "null") + "_type_value" + suffix, 0, params, headers, jsonObject);
         }
     }
+
+    public void changingJSONFileParameters(String jsonFileName, String jsonField, Object newValue) {
+        File file = new File(pathToJsons() + jsonFileName + ".json");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = (JSONObject) readJsonSimpleDemo(file);
+        } catch (Exception ignored) {}
+        String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
+        JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
+        for (int i = 0; i < path.length - 1; i++) {
+            if (!path[i].contains("[")) {
+                middleWay = (JSONObject) middleWay.get(path[i]);
+            } else {
+                String strippedPath = path[i].replace("[", "").replace("]", "");
+                int index = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
+                strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
+                middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(index);
+            }
+        }
+        middleWay.put(path[path.length - 1], newValue);
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(jsonObject.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception ignored) {}
+    }
+
 //
 //    public static JSONObject takeIncorrectJsonToSend(String jsonFileName) {
 //        File file = new File(pathToJsons() + "incorrectData" + jsonFileName + ".json");
