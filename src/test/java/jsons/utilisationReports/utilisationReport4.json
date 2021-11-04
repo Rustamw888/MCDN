@@ -1,12 +1,1 @@
-{
-  "productGroup": "milk",
-  "sntins": [{"code":"01046400434609952157CU.V\u001d93dGVz","quality":"D"},{"code":"0104640043460995215TRCjM\u001d93dGVz","quality":"D"}],
-  "usageType": "PRINTED",
-  "orderId": "4c0c8613-1fc5-4436-a710-d3a095cc8260",
-  "attributes": {
-    "productionOrderId": "rigla1",
-    "cisType": "UNIT",
-    "expDate": "211121"
-
-  }
-}
+{"sntins":[{"code":"01046400434609952157CU.V\u001D93dGVz","quality":"D"},{"code":"0104640043460995215TRCjM\u001D93dGVz","quality":"D"}],"productGroup":"milk","orderId":"8adfe30b-e9f6-4c71-b391-97a810d28636","attributes":{"productionOrderId":"rigla1","cisType":"UNIT","expDate":"211121"},"usageType":"PRINTED"}

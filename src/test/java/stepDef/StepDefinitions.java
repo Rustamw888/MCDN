@@ -30,11 +30,11 @@ public class StepDefinitions {
     int sizeOfJSONArray = 1;
     static final ArrayList<String> errorKeysExpected = new ArrayList();
     static {
-        errorKeysExpected.add("errorCode");
-        errorKeysExpected.add("errorText");
+        errorKeysExpected.add("fieldErrors");
+        errorKeysExpected.add("globalErrors");
+        errorKeysExpected.add("success");
         Collections.sort(errorKeysExpected);
     }
-
 
     private void prepareData(List<List<String>> table) {
         for (List<String> strings : table) {
@@ -426,6 +426,21 @@ public class StepDefinitions {
     @Когда("^сохраняем параметр (.*) из переменной (.*) в файл(.*)$")
     public void saveParameterInFile(String param, String var, String lastParam) {
         apiMainLogic.saveParameterInFile(param, var, lastParam, params);
+    }
+
+    @Когда("^выделить части кода из файла (.*) и сохранить в файл (.*) и (.*)$")
+    public void selectPartOfTheCodeFromTheMainFileAndSaveItInTheOtherFiles(String mainCodes, String leftCodes, String rightCodes) {
+        apiMainLogic.selectPartOfTheCodeFromTheMainFileAndSaveItInTheOtherFiles(mainCodes, leftCodes, rightCodes);
+    }
+
+//    @Когда("^заменяет значение поля (.*) в JSON файле (.*) на значение из файла (.*)$")
+//    public void changingJSONFileParameters(String jsonField, String jsonFileName, Object newValue){
+//        apiMainLogic.changingJSONFileParameters(jsonField, jsonFileName, newValue);
+//    }
+
+    @Когда("^заменяет значение поля (.*) в JSON файле (.*) на значение из файла (.*)$")
+    public void changingJSONFileParameters(String jsonField, String jsonFileName, String fileName){
+        apiMainLogic.changingJSONFileParameters(jsonField, jsonFileName, fileName);
     }
 
 //    @Когда("^удаление файлов с сохраненными данными$")

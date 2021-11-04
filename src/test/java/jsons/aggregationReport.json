@@ -1,27 +1,45 @@
 {
   "productGroup": "milk",
+  "aggregationUnits": [
+    {
+      "aggregatedItemsCount": 2,
+      "aggregationType": "AGGREGATION",
+      "aggregationUnitCapacity": 2,
+      "unitSerialNumber": "046200627900000464",
+      "sntins": [
+        {
+          "code": "0104640043460995215VZzHc",
+          01046400434609952154?lWC
+          "quality": "B"
+        }
+      ]
+    }
+  ],
+  "orderId": "a9e6bf9c-2a9e-4003-9593-bca36c726193",
   "attributes": {
-    "additionalProp1": {},
-    "additionalProp2": {},
-    "additionalProp3": {}
-  },
-  "orderId": "dd3bb528-22f7-4e2b-a460-5513e5c75f34",
-  "aggregationUnit": {
-    "aggregatedItemsCount": 48,
-    "aggregationType": "AGGREGATION",
-    "aggregationUnitCapacity": 50,
-    "sntins": [
+    "productionLineName": "auto",
+    "shiftNumber": "011e7214-5947-4c0b-b91a-bef49294c517",
+    "senderType": "presshouse",
+    "senderId": "d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5",
+    "productionOrderId": "auto",
+    "sourceReportId": "71bc8149-7b39-4aa2-afb1-df1b6c8f80c0",
+    "reportCreatedTime": "2021-10-13T10:56:19.092+03:00",
+    "omsId": "d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5",
+    "issuerName": "ООО РИГЛА",
+    "orderExpired": "2021-10-30T00:00:00.000+04:00",
+    "aggregationType": 1,
+    "palletId": "224e7214-5947-4c0b-b91a-bef49294c517",
+    "batchStartTime": "2021-10-27T10:56:19.092+03:00",
+    "batchCloseTime": "2021-10-27T10:56:19.092+03:00",
+    "devices": [
       {
-        "code": "0104008638435016215JDYQZ93dGVz",
-        "quality": "A",
-        "index": "0"
+        "id": "114e7214-5947-4c0b-b91a-bef49294c517",
+        "description": "SPTS"
       },
       {
-        "code": "0104008638435016215JDEQZ93dGVA",
-        "quality": "A",
-        "index": "1"
+        "id": "224e7214-5947-4c0b-b91a-bef49294c517",
+        "description": "SPTS_a"
       }
-    ],
-    "unitSerialNumber": "87e62902-e6e4-4654-9e4a-7d6085b4865a"
+    ]
   }
 }
