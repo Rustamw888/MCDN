@@ -172,6 +172,9 @@
 
   @all @id-4
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок
+    Когда ожидаем статуса заявки READY
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | file |
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: allOrders
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
 

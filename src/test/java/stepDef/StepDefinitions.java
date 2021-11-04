@@ -177,6 +177,14 @@ public class StepDefinitions {
         apiMainLogic.sendGETRequestCheckWrongKey(url, var, code, params, headers);
     }
 
+    @Когда("^ожидаем статуса заявки (.*)$")
+    public void waitForAppearNeededStatus(String status, DataTable dataTable) {
+        String url = "/api/mcdn/order/status";
+        List<List<String>> table = dataTable.asLists(String.class);
+        prepareData(table);
+        apiMainLogic.waitForAppearNeededStatus(url, params, headers, status);
+    }
+
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
     public void sendPOSTRequestAndSaveAnswer(String url, String var, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
