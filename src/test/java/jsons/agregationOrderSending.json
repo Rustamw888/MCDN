@@ -17,15 +17,6 @@
   "orderId": "a9e6bf9c-2a9e-4003-9593-bca36c726193",
   "attributes": {
     "productionOrderId": "auto",
-    "sourceReportId": "71bc8149-7b39-4aa2-afb1-df1b6c8f80c0",
-    "reportCreatedTime": "2021-10-13T10:56:19.092+03:00",
-    "omsId": "d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5",
-    "issuerName": "ООО РИГЛА",
-    "orderExpired": "2021-10-30T00:00:00.000+04:00",
-    "aggregationType": 1,
-    "palletId": "224e7214-5947-4c0b-b91a-bef49294c517",
-    "batchStartTime": "2021-10-27T10:56:19.092+03:00",
-    "batchCloseTime": "2021-10-27T10:56:19.092+03:00",
-
+    "omsId": "d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5"
   }
 }
