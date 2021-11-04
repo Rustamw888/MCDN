@@ -187,31 +187,81 @@
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | HEADER | Content-Type  | affdbfbdfb |
 #    уточнить итоговое поведение в данном случае
-#
-#  @all @id-4
-#  Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки
-##    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: orderSecond
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
-#      | PARAMS | orderId | file |
-#    Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.productionOrderId из переменной mainResp1 в файл, где * = orderId
-#    Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.ownerId из переменной mainResp1 в файл, где * = orderId
-#
-#  @all @id-4.1
-#  Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра clientToken)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | abrakadabra |
-#      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
-#
-#  @all @id-4.2
-#  Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра orderId)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | orderId | abrakadabra |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.orderId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
-#
-#  @all @id-5
+
+  @all @id-5
+  Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки
+#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: orderSecond
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | 401bb83d-a3d9-4447-b6a0-966ee9394ec8 |
+    Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.productionOrderId из переменной mainResp1 в файл, где * = orderId
+    Когда сохраняем параметр orderInfos.find{it.orderId == '*'}.ownerId из переменной mainResp1 в файл, где * = orderId
+
+  @all @id-5.1
+  Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра clientToken)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | abrakadabra |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+
+  @all @id-5.2
+  Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной завяки (негативный тест, проверка с использованием некорректного параметра orderId)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | abrakadabra |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.orderId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+
+  @all @id-6
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки»
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: kMOrders
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | quantity | 2 |
+      | PARAMS | orderId | mainResp4 |
+
+  @all @id-6.1
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра clientToken)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | abrakadabra |
+      | PARAMS | quantity | 2 |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+
+  @all @id-6.2
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №1)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | quantity | 0 |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.quantity: должно быть не меньше 1"}
+
+  @all @id-6.3
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №2)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | quantity | 100001 |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.quantity: должно быть не больше 100000"}
+
+  @all @id-6.4
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №3)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | quantity | abrakadabra |
+      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"typeMismatch: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"abrakadabra\""}
+
+  @all @id-6.5
+  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра orderId)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | quantity | 2 |
+      | PARAMS | orderId | abrakadabra |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.orderId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+
+#  @all @id-6
 #  Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами»
 #    Когда выполнен POST запрос на URL "http://194.195.240.115:40000/api/mcdn/codes/send" с параметрами из таблицы. Значение из "recipientOrderId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
 #      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
@@ -219,12 +269,12 @@
 #      | BODY |  | betweenProviders |
 #    Когда рандомное значение в переменной mainResp1 соответствует формату, длина равна 36
 #
-#  @all @id-5.1
+#  @all @id-6.1
 #  Структура сценария: Метод «Передача кодов маркировки между сервис-провайдерами» (негативный тест, проверка ответов сервера на некорректные данные)
 #    Когда выбираем следующие поля JSONа для замены некорректными данными
 #      |<Поле>|
 #    Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с замененными вышеперечисленными полями некорректными данными
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
+#      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
 #      | HEADER | Content-Type  | application/json;charset=UTF-8 |
 #      | BODY |  | betweenProviders |
 #    Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
@@ -237,63 +287,14 @@
 #      |quantity   |400     |400    |400       |400       |400             |400     |
 #      |recipientId|400     |400    |400       |400       |400             |400     |
 #
-#  @all @id-5.2
+#  @all @id-6.2
 #  Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами» (негативный тест, проверка с использованием некорректного параметра clientToken)
 #    Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
 #      | HEADER | clientToken | abrakadabra |
 #      | HEADER | Content-Type  | application/json;charset=UTF-8 |
 #      | BODY |  | betweenProviders |
 #    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendCodes.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
-#
-#  @all @id-6
-#  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки»
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: kMOrders
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | quantity | 1 |
-#      | PARAMS | orderId | mainResp4 |
-#
-#  @all @id-6.1
-#  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра clientToken)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | abrakadabra |
-#      | PARAMS | quantity | 1 |
-#      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
-#
-#  @all @id-6.2
-#  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №1)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | quantity | 0 |
-#      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.quantity: должно быть не меньше 1"}
-#
-#  @all @id-6.3
-#  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №2)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | quantity | 100001 |
-#      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.quantity: должно быть не больше 100000"}
-#
-#  @all @id-6.4
-#  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №3)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | quantity | abrakadabra |
-#      | PARAMS | orderId | dd3bb528-22f7-4e2b-a460-5513e5c75f34 |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"typeMismatch: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"abrakadabra\""}
-#
-#  @all @id-6.5
-#  Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра orderId)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | quantity | 1 |
-#      | PARAMS | orderId | abrakadabra |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.orderId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+
 #
 #  @all @id-7
 #  Сценарий: Метод «Получить статус обработки отчета»
