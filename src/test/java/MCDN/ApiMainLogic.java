@@ -534,4 +534,25 @@ public class ApiMainLogic extends Base {
         response.then().log().body()
                 .statusCode(code);
     }
+
+    public void waitForAppearNeededStatus(String url, Map<String, ?> params, Map<String, ?> header, String status) {
+        String urlValue = urlValue(url);
+        String rstatus = "";
+        while (!rstatus.equals(status)) {
+            try {
+                Thread.sleep(500);
+            } catch (Exception ignored) {}
+            RequestSpecification requestSpecification =
+                    given().log().all()
+                            .headers(header)
+                            .queryParams(params);
+            Response response =
+                    requestSpecification.when().get(urlValue);
+            String rbody = response.asString();
+            JsonPath jp = new JsonPath(rbody);
+            rstatus = jp.getString("orderInfos[0].orderStatus");
+        }
+
+    }
+
 }
