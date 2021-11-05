@@ -610,4 +610,15 @@ public class ApiMainLogic extends Base {
 
     }
 
+    public void deleteFiles() {
+        String path = pathToData();
+        File dir = new File(path);
+        String[] allFiles = dir.list();
+        for (String file : allFiles) {
+            if (file.endsWith(".tmp")) {
+                (new File(path + file)).delete();
+            }
+        }
+    }
+
 }

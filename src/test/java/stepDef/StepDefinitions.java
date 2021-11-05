@@ -453,10 +453,9 @@ public class StepDefinitions {
 //        apiMainLogic.changingJSONFileParametersWithString(jsonField, jsonFileName, newValue);
 //    }
 
-//    @Когда("^удаление файлов с сохраненными данными$")
-//    public void deleteFiles(String name) {
-//        apiMainLogic.deleteFiles(name);
-//
-//    }
+    @Когда("^удаление временных файлов$")
+    public void deleteFiles() {
+        apiMainLogic.deleteFiles();
+    }
 
 }
