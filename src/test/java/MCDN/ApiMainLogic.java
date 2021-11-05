@@ -483,6 +483,9 @@ public class ApiMainLogic extends Base {
             String[] rowFilename = param.split("\\.");
             String fileName = rowFilename[rowFilename.length - 1];
             String filename = fileName.replace("]", "").split("\\[")[0];
+            if (param.contains("[")) {
+                filename = fileName.substring(0, filename.length() - 1);
+            }
             FileWriter fw = new FileWriter(pathToData() + filename + ".tmp");
             String value = (new JsonPath(varsForFullAnswer.get(var).asString())).getString(param).replace("[", "").replace("]", "").replace("{","").replace("}","");
             fw.write(value);
