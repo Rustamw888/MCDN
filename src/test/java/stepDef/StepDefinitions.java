@@ -425,7 +425,8 @@ public class StepDefinitions {
 
     @Когда("^значение в переменной (.*) соответствует формату$")
     public void jSONAnswerCheckingNotEmpty(String var) {
-        Assert.assertNotNull(var.replace("[", "").replace("]", "").replace("{","").replace("}",""));
+        ApiMainLogic.vars.get(var);
+        Assert.assertNotEquals(ApiMainLogic.vars.get(var), "");
     }
 
     @Когда("^сохраняем параметр (.*) из переменной (.*) в файл(.*)$")

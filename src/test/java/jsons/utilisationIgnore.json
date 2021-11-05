@@ -2,21 +2,35 @@
   "orderId": "${json-unit.ignore}",
   "productGroup": "${json-unit.ignore}",
   "sntins": [
-    [
-      {
-        "code": "${json-unit.ignore}",
-        "quality": "${json-unit.ignore}"
-      },
-      {
-        "code": "${json-unit.ignore}",
-        "quality": "${json-unit.ignore}"
-      }
-    ]
+    {
+      "code":"${json-unit.ignore}",
+      "quality": "${json-unit.ignore}"
+    }
   ],
   "usageType": "${json-unit.ignore}",
   "attributes": {
-    "additionalProp1": {},
-    "additionalProp2": {},
-    "additionalProp3": {}
+    "cisType": "${json-unit.ignore}",
+    "expDate": "${json-unit.ignore}",
+    "productionLineName": "${json-unit.ignore}",
+    "productionOrderId": "${json-unit.ignore}",
+    "shiftNumber": "${json-unit.ignore}",
+    "senderType": "${json-unit.ignore}",
+    "senderId": "${json-unit.ignore}",
+    "omsId": "${json-unit.ignore}",
+    "issuerName": "${json-unit.ignore}",
+    "expiredDate": "${json-unit.ignore}",
+    "batchStartTime": "${json-unit.ignore}",
+    "batchCloseTime": "${json-unit.ignore}",
+    "devices": [
+      {
+        "id": "${json-unit.ignore}",
+        "description": "${json-unit.ignore}"
+      },
+      {
+        "id": "${json-unit.ignore}",
+        "description": "${json-unit.ignore}"
+      }
+    ],
+    "reportCreatedTime": "${json-unit.ignore}"
   }
 }

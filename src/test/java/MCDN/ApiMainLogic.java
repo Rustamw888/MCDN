@@ -383,7 +383,7 @@ public class ApiMainLogic extends Base {
         String valueOfKey = jp.getString(value);
         valueOfKey = valueOfKey.replace("[", "").replace("]", "").replace("{","").replace("}","");
         vars.put(var, valueOfKey);
-        System.out.println(vars.get(var));
+        System.out.println("\nСохраненный в переменную ответ:\n" + vars.get(var));
     }
 
     public void test (String url,
@@ -463,8 +463,8 @@ public class ApiMainLogic extends Base {
                 String[] preparedLastParam = lastParam.split("=");
                 param = param.replace("*", params.get((preparedLastParam[preparedLastParam.length - 1]).trim()).toString());
             }
-            String[] filaname = param.split("\\.");
-            FileWriter fw = new FileWriter(pathToData() + filaname[filaname.length - 1].replace("[", "").replace("]", "").replace("{","").replace("}","") + ".tmp");
+            String[] filename = param.split("\\.");
+            FileWriter fw = new FileWriter(pathToData() + filename[filename.length - 1].replace("[", "").replace("]", "").replace("{","").replace("}","") + ".tmp");
             String value = (new JsonPath(varsForFullAnswer.get(var).asString())).getString(param).replace("[", "").replace("]", "").replace("{","").replace("}","");
             fw.write(value);
             fw.close();
