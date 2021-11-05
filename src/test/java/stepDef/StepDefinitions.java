@@ -215,6 +215,11 @@ public class StepDefinitions {
         apiMainLogic.checkFullAnswerWithAssert(varResp, varValue);
     }
 
+    @Когда("^ответ сервера, сохраненный в переменную (.*) содержит (.*)$")
+    public void checkAnswerWithContains(String varResp, String varValue){
+        apiMainLogic.checkAnswerWithContains(varResp, varValue);
+    }
+
     @Когда("^рандомное значение в переменной (.*) соответствует формату, длина равна (.*)")
     public void checkAnswerWithLength(String varResp, String varValue){
         apiMainLogic.checkAnswerWithLength(varResp, varValue);

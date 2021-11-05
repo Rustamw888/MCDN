@@ -508,6 +508,10 @@ public class ApiMainLogic extends Base {
         Assert.assertEquals(varValue, varsForFullAnswer.get(varResp).asString());
     }
 
+    public void checkAnswerWithContains(String varResp, String varValue){
+        Assert.assertTrue(varsForFullAnswer.get(varResp).asString().contains(varValue));
+    }
+
     public void checkAnswerWithAssertNotEquals(String varResp, String varValue){
         Assert.assertNotEquals(varValue, vars.get(varResp));
     }

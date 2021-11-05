@@ -550,7 +550,30 @@
       | BODY |  | aggregationReport |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[],"globalErrors":["Площадка abracadabra не найдена"],"success":false}
 
-  @all @id-11
+  @id-11
+  Сценарий: Метод «Получить коды маркировки из отчета об агрегации КМ Типографии»
+    Когда заменяет значение поля reportId в JSON файле aggregationPrinteryCodes на значение из файла reportId
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | aggregationPrinteryCodes |
+
+  @id-11.0
+  Сценарий: Метод «Получить коды маркировки из отчета об агрегации КМ Типографии» (позитивный тест, проверка структуры ответа)
+    Когда POST запрос выполнен на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: aggregationPrinteryCodesIgnore
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | aggregationPrinteryCodes |
+
+  @id-11.1
+  Сценарий: Метод «Получить коды маркировки из отчета об агрегации КМ Типографии» (негативный тест, проверка с использованием некорректного параметра clientToken)
+    Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | abracadabra |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | aggregationPrinteryCodes |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCodesFromAggregationCem.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
+
+  @all @id-12
   Сценарий: Метод «Получить статус обработки отчета» (позитивный тест, проверка структуры ответа для отчета об агрегации КМ Типографии)
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportId" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
@@ -561,21 +584,21 @@
       | PARAMS | reportId | file |
     Когда значение в переменной mainResp2 и равно SENT_SYSTEM
 
-  @all @id-11.1
+  @all @id-12.1
   Сценарий: Метод «Получить статус обработки отчета» (негативный тест, проверка с использованием некорректного параметра clientToken)
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
       | PARAMS | reportId | file |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getReportStatus.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
-  @all @id-11.2
+  @all @id-12.2
   Сценарий: Метод «Получить статус обработки отчета» (негативный тест, проверка с использованием некорректного параметра reportId)
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
       | PARAMS | reportId | abrakadabra |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getReportStatus.reportId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
-  @all @id-12
+  @all @id-13
   Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами»
     Когда заменяет значение поля recipientId в JSON файле betweenProviders на значение из файла d1bc2222-7b39-4aa2-afb1-df1b6c8f80c5
     Когда заменяет значение поля orderId в JSON файле betweenProviders на значение из файла orderId
@@ -587,7 +610,7 @@
 #    с параметром recipientOrderId можно начать всю процедуру заново начиная с проверки статуса и получения кода, НО ownerID будет другой
 #    уточнить насколько это нужно сейчас и откуда брать овнерайди в этом случае
   
-  @all @id-12.0
+  @all @id-13.0
   Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами» (позитивный тест, проверка структуры ответа)
     Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Значение из "recipientOrderId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
@@ -595,7 +618,7 @@
       | BODY |  | betweenProviders |
     Когда рандомное значение в переменной mainResp1 соответствует формату, длина равна 36
 
-  @all @id-12.1
+  @all @id-13.1
   Структура сценария: Метод «Передача кодов маркировки между сервис-провайдерами» (негативный тест, проверка ответов сервера на некорректные данные)
     Когда выбираем следующие поля JSONа для замены некорректными данными
       |<Поле>|
@@ -613,7 +636,7 @@
       |quantity   |400     |400    |400       |400       |400             |400     |
       |recipientId|400     |400    |400       |400       |400             |400     |
 
-  @all @id-12.2
+  @all @id-13.2
   Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами» (негативный тест, проверка с использованием некорректного параметра clientToken)
     Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
@@ -621,54 +644,67 @@
       | BODY |  | betweenProviders |
     Когда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"sendCodes.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
+  @all @id-14
+  Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки»
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | mainResp4 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | closeOrder |
+
+  @all @id-14.1
+  Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра clientToken)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | abracadabra |
+      | PARAMS | orderId | mainResp4 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | closeOrder |
+    Когда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"closeOrder.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
+
+  @all @id-14.2
+  Структура сценария: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, с отправкой неправильных данных в JSON файле)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+    Когда выбираем следующие поля JSONа для замены некорректными данными
+      |<Поле>|
+    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с замененными вышеперечисленными полями некорректными данными
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | mainResp4 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | closeOrder |
+    Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
+      |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
+      |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
+    Когда проверить ответы сервера при некорректных отправленных данных
+    Примеры:
+      |Поле       |Код null|Код int|Код double |Код string |Код empty string|Код bool|
+      |sntinsCount|  200   |  400  |    400    |    400    |      400       |   400  |
+
+  @all @id-14.3
+  Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, попытка закрыть уже закрытый заказ)
+    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | mainResp4 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | closeOrder |
+    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+      | HEADER | clientToken | d1bc1111-7b39-4aa2-afb1-df1b6c8f80c5 |
+      | PARAMS | orderId | mainResp4 |
+      | HEADER | Content-Type  | application/json;charset=UTF-8 |
+      | BODY |  | closeOrder |
+    Когда ответ сервера, сохраненный в переменную errorResp содержит {"fieldErrors":[],"globalErrors":["Заказ
+    Когда ответ сервера, сохраненный в переменную errorResp содержит уже был закрыт"],"success":false}
 
 
 
 
 
-
-
-
-#  @all @id-8
-#  Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки»
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | orderId | mainResp4 |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | BODY |  | closeOrder |
-#
-#  @all @id-8.1
-#  Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра clientToken)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-#      | HEADER | clientToken | abracadabra |
-#      | PARAMS | orderId | mainResp4 |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | BODY |  | closeOrder |
-#    Когда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"closeOrder.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
-#
-#  @all @id-8.2
-#  Структура сценария: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, с отправкой неправильных данных в JSON файле)
-#    Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Значение из "orderInfos.find{it.orderStatus == 'READY'}.orderId" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#    Когда выбираем следующие поля JSONа для замены некорректными данными
-#      |<Поле>|
-#    Когда выполнен POST запрос на URL "/api/mcdn/order/close" с замененными вышеперечисленными полями некорректными данными
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | PARAMS | orderId | mainResp4 |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | BODY |  | closeOrder |
-#    Когда проверить коды ответов для замененных значений полей значениями некорректных типов данных
-#      |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
-#      |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
-#    Когда проверить ответы сервера при некорректных отправленных данных
-#    Примеры:
-#      |Поле       |Код null|Код int|Код double |Код string |Код empty string|Код bool|
-#      |sntinsCount|  200   |  400  |    400    |    400    |      400       |   400  |
-#
 
 
 
@@ -788,19 +824,7 @@
 #    Уточнить как получать cis"
 #    уточнить почему в данном случае ответ "aggregationCemUnits": []
 #
-#  @id-20
-#  Сценарий: Метод «Получить коды маркировки из отчета об агрегации КМ Типографии»
-#    Когда POST запрос выполнен на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: aggregationCodesIgnore
-#      | HEADER | clientToken | 123fdb5c-c6bd-4a5f-81ab-6230668d9cdd |
-#      | HEADER | Content-Type  | application/json;charset=UTF-8 |
-#      | BODY |  | aggregationPrinteryCodes |
-#
-##    переделано под метод POST, проверить правильность
-##    блокер, "Указаны параметры индекса и параметры по значению КМ для определения диапазона КМ"
-##  {
-##  "errorCode": 9991,
-##  "errorText": "JSON parse error: Unrecognized token 'aggregationCodesIgnore': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false'); nested exception is com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'aggregationCodesIgnore': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: (PushbackInputStream); line: 1, column: 23]"
-##  }
+
 #
 #  @id-21
 #  Сценарий: Удаление файлов с сохраненными данными
