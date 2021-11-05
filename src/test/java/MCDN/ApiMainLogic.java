@@ -53,26 +53,27 @@ public class ApiMainLogic extends Base {
         return null;
     }
 
-    public void sendIncorrectData(String jsonField, String url, JSONObject jsonObject, Map<String, Object> params, Map<String, String> headers, Integer index) {
+    public void sendIncorrectData(String jsonPath, String url, JSONObject jsonObject, Map<String, Object> params, Map<String, String> headers, Integer index) {
         Field[] incorrectFields = IncorrectData.class.getFields();
         for (Field field: incorrectFields) {  // Перечисляем некорректные типы данных в цикле
             Object data = null;
             try {
                 data = field.get(new IncorrectData());  // Получаем значения полей класса с некорректными данными
             } catch (Exception ignored) {}
-            String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
-            JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
-            for (int i = 0; i < path.length - 1; i++) {
-                if (!path[i].contains("[")) {
-                    middleWay = (JSONObject) middleWay.get(path[i]);
-                } else {
-                    String strippedPath = path[i].replace("[", "").replace("]", "");
-                    int arrayIndex = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
-                    strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
-                    middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(arrayIndex);
-                }
-            }
-            middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
+//            String[] path = jsonPath.split("\\.");  // Получаем путь к элементу JSONа
+//            JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
+//            for (int i = 0; i < path.length - 1; i++) {
+//                if (!path[i].contains("[")) {
+//                    middleWay = (JSONObject) middleWay.get(path[i]);
+//                } else {
+//                    String strippedPath = path[i].replace("[", "").replace("]", "");
+//                    int arrayIndex = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
+//                    strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
+//                    middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(arrayIndex);
+//                }
+//            }
+//            middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
+            changeJSONField(jsonPath, jsonObject, data);
             String suffix = "";
             if (index != null)
                 suffix += "_" + (index + 1);
@@ -80,24 +81,24 @@ public class ApiMainLogic extends Base {
         }
     }
 
-    public void changingJSONFileParameters(String jsonField, String jsonFileName, String fileName) {
+    public void changingJSONFileParameters(String jsonPath, String jsonFileName, String fileName) {
         File file = new File(pathToJsons() + jsonFileName + ".json");
         JSONObject jsonObject = null;
         try {
             jsonObject = (JSONObject) readJsonSimpleDemo(file);
         } catch (Exception ignored) {}
-        String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
-        JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
-        for (int i = 0; i < path.length - 1; i++) {
-            if (!path[i].contains("[")) {
-                middleWay = (JSONObject) middleWay.get(path[i]);
-            } else {
-                String strippedPath = path[i].replace("[", "").replace("]", "");
-                int index = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
-                strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
-                middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(index);
-            }
-        }
+//        String[] path = jsonPath.split("\\.");  // Получаем путь к элементу JSONа
+//        JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
+//        for (int i = 0; i < path.length - 1; i++) {
+//            if (!path[i].contains("[")) {
+//                middleWay = (JSONObject) middleWay.get(path[i]);
+//            } else {
+//                String strippedPath = path[i].replace("[", "").replace("]", "");
+//                int index = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
+//                strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
+//                middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(index);
+//            }
+//        }
         if (!fileName.contains("-")) {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(pathToData() + fileName + ".tmp"));
@@ -105,14 +106,30 @@ public class ApiMainLogic extends Base {
                 br.close();
             } catch (Exception ignored) {}
         }
-        middleWay.put(path[path.length - 1], fileName);
+//        middleWay.put(path[path.length - 1], fileName);
+        changeJSONField(jsonPath, jsonObject, fileName);
         try {
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(jsonObject.toJSONString());
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (Exception ignored) {}
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(jsonObject.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception ignored) {}
+    }
 
+    private void changeJSONField(String jsonPath, JSONObject jsonObject, Object data) {
+        String[] path = jsonPath.split("\\.");  // Получаем путь к элементу JSONа
+        JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
+        for (int i = 0; i < path.length - 1; i++) {
+            if (!path[i].contains("[")) {
+                middleWay = (JSONObject) middleWay.get(path[i]);
+            } else {
+                String strippedPath = path[i].replace("[", "").replace("]", "");
+                int arrayIndex = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
+                strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
+                middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(arrayIndex);
+            }
+        }
+        middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
     }
 
 //
