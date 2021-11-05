@@ -123,9 +123,9 @@ public class ApiMainLogic extends Base {
             if (!path[i].contains("[")) {
                 middleWay = (JSONObject) middleWay.get(path[i]);
             } else {
-                String strippedPath = path[i].replace("[", "").replace("]", "");
-                int arrayIndex = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
-                strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
+                String[] parts = path[i].replace("]", "").split("\\[");
+                String strippedPath = parts[0];
+                int arrayIndex = Integer.parseInt(parts[1]);
                 middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(arrayIndex);
             }
         }
