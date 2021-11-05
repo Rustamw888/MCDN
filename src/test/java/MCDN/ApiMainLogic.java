@@ -10,15 +10,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
 import org.openqa.selenium.Cookie;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-
 import static MCDN.Paths.*;
 import static io.restassured.RestAssured.given;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
@@ -30,12 +25,9 @@ public class ApiMainLogic extends Base {
     public static Map<String, Response> varsForFullAnswer = new HashMap<>(); // Переменная для сохранения ответов из запросов
     public static Map<String, List<String>> varsForArrays = new HashMap<>(); // Переменная для сохранения массивов
     public static List<Integer> codes = new ArrayList<>();
-    CreateJson createJson = new CreateJson();
-    private String[] arrProjectID;
 
     public static JSONObject takeJsonToSend(String jsonFileName) {
         File file = new File(pathToJsons() + jsonFileName + ".json");
-
         try {
             return (JSONObject) readJsonSimpleDemo(file);
         } catch (Exception e) {
@@ -46,7 +38,6 @@ public class ApiMainLogic extends Base {
 
     public static JSONArray takeJsonsTosend(String jsonFileName) {
         File file = new File(pathToJsons() + jsonFileName + ".json");
-
         try {
             return (JSONArray) readJsonSimpleDemo(file);
         } catch (Exception ignored) {}
@@ -60,19 +51,6 @@ public class ApiMainLogic extends Base {
             try {
                 data = field.get(new IncorrectData());  // Получаем значения полей класса с некорректными данными
             } catch (Exception ignored) {}
-//            String[] path = jsonPath.split("\\.");  // Получаем путь к элементу JSONа
-//            JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
-//            for (int i = 0; i < path.length - 1; i++) {
-//                if (!path[i].contains("[")) {
-//                    middleWay = (JSONObject) middleWay.get(path[i]);
-//                } else {
-//                    String strippedPath = path[i].replace("[", "").replace("]", "");
-//                    int arrayIndex = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
-//                    strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
-//                    middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(arrayIndex);
-//                }
-//            }
-//            middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
             changeJSONField(jsonPath, jsonObject, data);
             String suffix = "";
             if (index != null)
@@ -87,18 +65,6 @@ public class ApiMainLogic extends Base {
         try {
             jsonObject = (JSONObject) readJsonSimpleDemo(file);
         } catch (Exception ignored) {}
-//        String[] path = jsonPath.split("\\.");  // Получаем путь к элементу JSONа
-//        JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
-//        for (int i = 0; i < path.length - 1; i++) {
-//            if (!path[i].contains("[")) {
-//                middleWay = (JSONObject) middleWay.get(path[i]);
-//            } else {
-//                String strippedPath = path[i].replace("[", "").replace("]", "");
-//                int index = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
-//                strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
-//                middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(index);
-//            }
-//        }
         if (!fileName.contains("-")) {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(pathToData() + fileName + ".tmp"));
@@ -106,7 +72,6 @@ public class ApiMainLogic extends Base {
                 br.close();
             } catch (Exception ignored) {}
         }
-//        middleWay.put(path[path.length - 1], fileName);
         changeJSONField(jsonPath, jsonObject, fileName);
         try {
             FileWriter fileWriter = new FileWriter(file);
@@ -132,65 +97,12 @@ public class ApiMainLogic extends Base {
         middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
     }
 
-//
-//    public static JSONObject takeIncorrectJsonToSend(String jsonFileName) {
-//        File file = new File(pathToJsons() + "incorrectData" + jsonFileName + ".json");
-//
-//        try {
-//            return (JSONObject) readJsonSimpleDemo(file);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
-//    public static JSONObject takeJsonToSend(String jsonFileName) {
-//        File file = new File(pathToJsons() + jsonFileName + ".json");
-//        JSONObject signUpFile = null;
-//        if (jsonFileName.equals("signUpWebMaster") | jsonFileName.equals("signUpAgent") | jsonFileName.equals("signUpType-9")) {
-//            try {
-//                TestContext.correctPhone = UserData.correctPhoneNumber;
-//                TestContext.generatedEmail = UserData.getRandomEmail();
-//                if (jsonFileName.equals("signUpType-9")) {
-//                    TestContext.loginType9ForOtherCases = TestContext.generatedEmail;
-//                }
-//                signUpFile = (JSONObject) readJsonSimpleDemo(file);
-//                signUpFile.replace("partner_phone", TestContext.correctPhone);
-//                signUpFile.replace("email", TestContext.generatedEmail);
-//                return signUpFile;
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            /*
-//            if (jsonFileName.equals("signInType-9")){
-//                try {
-
-//                signUpFile = (JSONObject) readJsonSimpleDemo(file);
-//                signUpFile.replace("login", TestContext.loginType9ForOtherCases);
-//                return signUpFile;
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            */
-//            try {
-//                return (JSONObject) readJsonSimpleDemo(file);
-//            } catch (Exception ignored) {
-//
-//            }
-//        }
-//        return null;
-//    }
-
     private static String invoke(String aClass, String aMethod) throws Exception {
         String resp = "";
         Class<?> c = Class.forName(aClass);
         Method m = c.getDeclaredMethod(aMethod);
         Object i = c.newInstance();
         resp = m.invoke(i).toString();
-
         return resp;
     }
 
@@ -199,18 +111,14 @@ public class ApiMainLogic extends Base {
             return endPoint;
         Properties PROPERTIES = getPropertiesInstance();
         if (endPoint.startsWith("/")) {
-//            PROPERTIES.setProperty("baseURI", PagesUrls.mainPage);
             return PROPERTIES.getProperty("baseURI") + endPoint;
         }
-
         if (!endPoint.startsWith("http") && (!endPoint.startsWith("/"))) {
             PROPERTIES.setProperty("baseURI", PagesUrls.mainPage);
             return PROPERTIES.getProperty("baseURI") + PROPERTIES.getProperty(endPoint);
         }
-
         if (PROPERTIES.getProperty(endPoint).startsWith("http"))
             return PROPERTIES.getProperty(endPoint);
-
         PROPERTIES.setProperty("baseURI", PagesUrls.mainPage);
         return PROPERTIES.getProperty("baseURI") + PROPERTIES.getProperty(endPoint);
     }
@@ -241,7 +149,6 @@ public class ApiMainLogic extends Base {
     }
 
     public void preparationCookiesForSelenium() {
-
         try {
             Cookie ckName1 = new Cookie("nginx_unicom_ru",
                     TestContext.cookies.getList("nginx_unicom_ru").get(0).getValue(),
@@ -249,8 +156,6 @@ public class ApiMainLogic extends Base {
                     TestContext.cookies.getList("nginx_unicom_ru").get(0).getExpiryDate());
             driver.manage().addCookie(ckName1);
         } catch (Exception ignored) {}
-
-
         Cookie ckName2 = new Cookie("csrftoken",
                 TestContext.cookies.getList("csrftoken").get(0).getValue(),
                 TestContext.cookies.getList("csrftoken").get(0).getPath(),
@@ -260,8 +165,6 @@ public class ApiMainLogic extends Base {
                 TestContext.cookies.getList("sessionid").get(0).getValue(),
                 TestContext.cookies.getList("sessionid").get(0).getPath(),
                 TestContext.cookies.getList("sessionid").get(0).getExpiryDate());
-
-//        driver.manage().addCookie(ckName1);
         driver.manage().addCookie(ckName2);
         driver.manage().addCookie(ckName3);
     }
@@ -422,9 +325,6 @@ public class ApiMainLogic extends Base {
         JsonPath jp = new JsonPath(rbody);
         String valueOfKey = jp.getString(value);
         valueOfKey = valueOfKey.replace("[", "").replace("]", "").replace("]", "").replace("{","").replace("}","");
-//        String[] split1 = rbody.split(":");
-//        split = split1.asString().replace("[", "").replace("]", "").replace("]", "").replace("{","").replace("}","").replace("\"","").replace("}","");
-//        System.out.println(split);
         vars.put(var, valueOfKey);
         System.out.println(vars.get(var));
     }
@@ -493,6 +393,19 @@ public class ApiMainLogic extends Base {
         } catch (Exception ignored) {}
     }
 
+    public void saveJSONParameterInFile(String jsonPath, String nameOfJson, String newFileName) {
+        try {
+            JSONObject jsonObject = takeJsonToSend(nameOfJson);
+            if (jsonObject != null) {
+                JsonPath jp = new JsonPath(jsonObject.toJSONString());
+                String param = jp.getString(jsonPath);
+                FileWriter fw = new FileWriter(pathToData() + newFileName + ".tmp");
+                fw.write(param);
+                fw.close();
+            }
+        } catch (Exception ignored) {}
+    }
+
     public void selectPartOfTheCodeFromTheMainFileAndSaveItInTheOtherFiles(String mainCodes, String leftCodes, String rightCodes) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(pathToData() + mainCodes + ".tmp"));
@@ -506,21 +419,6 @@ public class ApiMainLogic extends Base {
             fwRight.close();
         } catch (Exception ignored) {}
     }
-
-//    public void deleteFiles(File folder) {
-//
-//            File[] files = folder.listFiles();
-//            if(files!=null) {
-//                for(File f: files) {
-//                    if(f.isDirectory()) {
-//                        deleteFiles(f);
-//                    } else {
-//                        f.delete();
-//                    }
-//                }
-//            }
-//            folder.delete();
-//    }
 
     public void checkAnswerWithAssert(String varResp, String varValue){
         for (String key: vars.keySet()) {
@@ -632,7 +530,6 @@ public class ApiMainLogic extends Base {
             JsonPath jp = new JsonPath(rbody);
             rstatus = jp.getString("orderInfos[0].orderStatus");
         }
-
     }
 
     public void deleteFiles() {
@@ -645,5 +542,4 @@ public class ApiMainLogic extends Base {
             }
         }
     }
-
 }

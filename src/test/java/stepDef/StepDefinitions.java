@@ -1,18 +1,15 @@
 package stepDef;
 
 import MCDN.ApiMainLogic;
-import MCDN.CreateJson;
 import com.google.gson.Gson;
 import cucumber.api.DataTable;
 import cucumber.api.java.ru.Когда;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
-
 import static MCDN.ApiMainLogic.takeJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonsTosend;
 import static MCDN.Paths.pathToData;
@@ -20,15 +17,13 @@ import static MCDN.Paths.pathToData;
 public class StepDefinitions {
 
     ApiMainLogic apiMainLogic = new ApiMainLogic();
-    CreateJson createJson = new CreateJson();
     String nameOfJson = null;
-    boolean isDataCorrect = true;
     Map<String, String> headers = new HashMap<>();
     Map<String, Object> params = new HashMap<>();
     String endPointForDelete = null;
     String field = "";
     int sizeOfJSONArray = 1;
-    static final ArrayList<String> errorKeysExpected = new ArrayList();
+    static final ArrayList<String> errorKeysExpected = new ArrayList<>();
     static {
         errorKeysExpected.add("fieldErrors");
         errorKeysExpected.add("globalErrors");
@@ -40,13 +35,7 @@ public class StepDefinitions {
         for (List<String> strings : table) {
             switch (strings.get(0)) {
                 case ("BODY"):
-//                    if (strings.get(1).equals("incorrect data")) {
-//                        isDataCorrect = false;
-//                    }
-//                    else {
-                        nameOfJson = strings.get(2);
-//                    }
-//            BufferedReader br = new BufferedReader(new FileReader(pathToData() + param + ".txt"));
+                    nameOfJson = strings.get(2);
                     break;
                 case ("PARAMS"):
                     switch (strings.get(2)) {
@@ -95,10 +84,7 @@ public class StepDefinitions {
     public void sendPOSTRequest(String url, int code, DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
         prepareData(table);
-//        if (isDataCorrect)
-            apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeJsonToSend(nameOfJson));
-//        else
-//            apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeIncorrectJsonToSend(nameOfJson));
+        apiMainLogic.sendPOSTRequestAndCheckStatus(url, code, headers, params, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. значение из \"([^\"]*)\" сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -106,10 +92,7 @@ public class StepDefinitions {
         List<List<String>> table = arg.asLists(String.class);
         System.out.println(table);
         prepareData(table);
-//        if (isDataCorrect)
-            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
-//        else
-//            apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeIncorrectJsonToSend(nameOfJson));
+        apiMainLogic.sendPOSTRequestAndCheckStatusAndSaveValue(url, value, var, code, params, headers, takeJsonToSend(nameOfJson));
     }
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы. Значение из \"([^\"]*)\" присутствует. Ответ сохранить в переменную с именем (.*) Ожидаемый код ответа: (.*)$")
@@ -287,7 +270,6 @@ public class StepDefinitions {
         } else {
             apiMainLogic.sendIncorrectData(field, url, takeJsonToSend(nameOfJson), params, headers, null);
         }
-
     }
 
     @Когда("проверить коды ответов для замененных значений полей значениями некорректных типов данных")
@@ -312,7 +294,6 @@ public class StepDefinitions {
     @Когда("проверить ответы сервера при некорректных отправленных данных")
     public void checkServersAnswers() {
         ArrayList<String> keys = new ArrayList<>(ApiMainLogic.varsForFullAnswer.keySet());
-
         for (String key: keys) {
             if (!Integer.toString(ApiMainLogic.varsForFullAnswer.get(key).getStatusCode()).startsWith("2")) {
                 HashMap<String,Object> result = new Gson().fromJson(ApiMainLogic.varsForFullAnswer.get(key).getBody().asString(), HashMap.class);
@@ -321,24 +302,7 @@ public class StepDefinitions {
                 Assert.assertEquals(errorKeysExpected, errorKeysActual);
             }
         }
-
     }
-
-//    @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и удаленным элементом (.*) из JSON файла, ответ сохранить в переменную (.*)$")
-//    public void jSONRowDeleting(String url, String jsonField, String var, DataTable dataTable) {
-//        List<List<String>> table = dataTable.asLists(String.class);
-//        System.out.println(table);
-//        prepareData(table);
-//        JSONArray jsonArray = takeJsonsTosend(nameOfJson);
-//        if (jsonArray != null) {
-//            for (int i = 0; i < jsonArray.size(); i++) {
-//                apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url,var + (i + 1), params, headers, (JSONObject) ((JSONObject) jsonArray.get(i)).remove(jsonField));
-//            }
-//        } else
-//            apiMainLogic.sendIncorrectPOSTRequestAndCheckAnswer(url, var, params, headers, (JSONObject) takeJsonToSend(nameOfJson).remove(jsonField));
-//        System.out.println("\nОтветы сервера:" + ApiMainLogic.vars);
-//    }
-
 
     @Когда("^выполнен POST запрос на URL \"([^\"]*)\" с параметрами из таблицы и удаленным элементом (.*) из JSON файла, ответ сохранить в переменную (.*)$")
     public void jSONRowDeleting(String url, String jsonField, String var, DataTable dataTable) {
@@ -434,29 +398,23 @@ public class StepDefinitions {
         apiMainLogic.saveParameterInFile(param, var, lastParam, params);
     }
 
+    @Когда("^считываем параметр (.*) с JSON файла (.*) и записываем в файл (.*)$")
+    public void saveJSONParameterInFile(String param, String nameOfJson, String newFileName) {
+        apiMainLogic.saveJSONParameterInFile(param, nameOfJson, newFileName);
+    }
+
     @Когда("^выделить части кода из файла (.*) и сохранить в файл (.*) и (.*)$")
     public void selectPartOfTheCodeFromTheMainFileAndSaveItInTheOtherFiles(String mainCodes, String leftCodes, String rightCodes) {
         apiMainLogic.selectPartOfTheCodeFromTheMainFileAndSaveItInTheOtherFiles(mainCodes, leftCodes, rightCodes);
     }
-
-//    @Когда("^заменяет значение поля (.*) в JSON файле (.*) на значение из файла (.*)$")
-//    public void changingJSONFileParameters(String jsonField, String jsonFileName, Object newValue){
-//        apiMainLogic.changingJSONFileParameters(jsonField, jsonFileName, newValue);
-//    }
 
     @Когда("^заменяет значение поля (.*) в JSON файле (.*) на значение из файла (.*)$")
     public void changingJSONFileParameters(String jsonField, String jsonFileName, String fileName){
         apiMainLogic.changingJSONFileParameters(jsonField, jsonFileName, fileName);
     }
 
-//    @Когда("^заменяет значение поля (.*) в JSON файле (.*) на значение (.*)$")
-//    public void changingJSONFileParametersWithString(String jsonField, String jsonFileName, String newValue){
-//        apiMainLogic.changingJSONFileParametersWithString(jsonField, jsonFileName, newValue);
-//    }
-
     @Когда("^удаление временных файлов$")
     public void deleteFiles() {
         apiMainLogic.deleteFiles();
     }
-
 }
