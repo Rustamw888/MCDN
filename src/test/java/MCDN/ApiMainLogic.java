@@ -480,8 +480,10 @@ public class ApiMainLogic extends Base {
                 String[] preparedLastParam = lastParam.split("=");
                 param = param.replace("*", params.get((preparedLastParam[preparedLastParam.length - 1]).trim()).toString());
             }
-            String[] filename = param.split("\\.");
-            FileWriter fw = new FileWriter(pathToData() + filename[filename.length - 1].replace("[", "").replace("]", "").replace("{","").replace("}","") + ".tmp");
+            String[] rowFilename = param.split("\\.");
+            String fileName = rowFilename[rowFilename.length - 1];
+            String filename = fileName.replace("]", "").split("\\[")[0];
+            FileWriter fw = new FileWriter(pathToData() + filename + ".tmp");
             String value = (new JsonPath(varsForFullAnswer.get(var).asString())).getString(param).replace("[", "").replace("]", "").replace("{","").replace("}","");
             fw.write(value);
             fw.close();
