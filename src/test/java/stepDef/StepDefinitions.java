@@ -443,6 +443,11 @@ public class StepDefinitions {
         apiMainLogic.changingJSONFileParameters(jsonField, jsonFileName, fileName);
     }
 
+//    @Когда("^заменяет значение поля (.*) в JSON файле (.*) на значение (.*)$")
+//    public void changingJSONFileParametersWithString(String jsonField, String jsonFileName, String newValue){
+//        apiMainLogic.changingJSONFileParametersWithString(jsonField, jsonFileName, newValue);
+//    }
+
 //    @Когда("^удаление файлов с сохраненными данными$")
 //    public void deleteFiles(String name) {
 //        apiMainLogic.deleteFiles(name);
