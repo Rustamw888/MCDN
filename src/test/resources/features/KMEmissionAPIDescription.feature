@@ -455,7 +455,7 @@
     Примеры:
       |Поле                            |Код null|Код int|Код double|Код string|Код empty string|Код bool|
       |orderId                         |400     |400    |400       |400       |400             |400     |
-      |aggregationUnits.sntins.code    |500     |400    |400       |400       |400             |400     |
+      |aggregationUnits.sntins[0].code    |500     |400    |400       |400       |400             |400     |
       |aggregationUnits.aggregationType|400     |200    |400       |400       |400             |400     |
 
   @all @id-9.2
@@ -529,7 +529,7 @@
     Примеры:
       |Поле                           |Код null|Код int|Код double|Код string|Код empty string|Код bool|
       |orderId                        |400     |400    |400       |400       |400             |400     |
-      |aggregationUnit.sntins.code    |400     |200    |200       |200       |400             |200     |
+      |aggregationUnit.sntins[0].code    |400     |200    |200       |200       |400             |200     |
       |aggregationUnit.aggregationType|400     |200    |400       |400       |400             |400     |
 
   @all @id-10.2

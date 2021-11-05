@@ -63,10 +63,13 @@ public class ApiMainLogic extends Base {
             String[] path = jsonField.split("\\.");  // Получаем путь к элементу JSONа
             JSONObject middleWay = jsonObject;  // Добираемся до нужного поля в JSONе
             for (int i = 0; i < path.length - 1; i++) {
-                try {
+                if (!path[i].contains("[")) {
                     middleWay = (JSONObject) middleWay.get(path[i]);
-                } catch (Exception e) {
-                    middleWay = (JSONObject) ((JSONArray) middleWay.get(path[i])).get(0);
+                } else {
+                    String strippedPath = path[i].replace("[", "").replace("]", "");
+                    int arrayIndex = Integer.parseInt(strippedPath.substring(strippedPath.length() - 1));
+                    strippedPath = strippedPath.replace(strippedPath.substring(strippedPath.length() - 1), "");
+                    middleWay = (JSONObject) ((JSONArray) middleWay.get(strippedPath)).get(arrayIndex);
                 }
             }
             middleWay.put(path[path.length - 1], data);  // Присваиваем полю некорректное значение
