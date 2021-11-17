@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.util.*;
 import static MCDN.ApiMainLogic.takeJsonToSend;
 import static MCDN.ApiMainLogic.takeJsonsTosend;
+import static MCDN.Paths.getPropertiesInstance;
 import static MCDN.Paths.pathToData;
 
 public class StepDefinitions {
@@ -25,9 +26,11 @@ public class StepDefinitions {
     int sizeOfJSONArray = 1;
     static final ArrayList<String> errorKeysExpected = new ArrayList<>();
     static {
-        errorKeysExpected.add("fieldErrors");
-        errorKeysExpected.add("globalErrors");
-        errorKeysExpected.add("success");
+//        errorKeysExpected.add("fieldErrors");
+//        errorKeysExpected.add("globalErrors");
+//        errorKeysExpected.add("success");
+        errorKeysExpected.add("errorCode");
+        errorKeysExpected.add("errorText");
         Collections.sort(errorKeysExpected);
     }
 
@@ -44,7 +47,8 @@ public class StepDefinitions {
                                 BufferedReader br = new BufferedReader(new FileReader(pathToData() + strings.get(1) + ".tmp"));
                                 params.put(strings.get(1), br.readLine());
                                 br.close();
-                            } catch (Exception ignored) {}
+                            } catch (Exception ignored) {
+                            }
                             break;
                         case "mainResp0":
                             params.put(strings.get(1), ApiMainLogic.vars.get("mainResp0"));
@@ -67,7 +71,12 @@ public class StepDefinitions {
                     }
                     break;
                 case ("HEADER"):
-                    if (ApiMainLogic.vars.containsKey(strings.get(2)) && ApiMainLogic.vars.containsKey("token")) {
+                    Properties PROPERTIES = getPropertiesInstance();
+                    if (strings.get(2).startsWith("properties")) {
+                        headers.put(strings.get(1), PROPERTIES.getProperty(strings.get(1)));
+                    } else if (strings.get(2).startsWith("ContentTypeProperties")) {
+                        headers.put(strings.get(1), PROPERTIES.getProperty(strings.get(1)));
+                    } else if (ApiMainLogic.vars.containsKey(strings.get(2)) && ApiMainLogic.vars.containsKey("token")) {
                         headers.put(strings.get(1), "Bearer: " + ApiMainLogic.vars.get(strings.get(2)));
                     } else if (ApiMainLogic.vars.containsKey(strings.get(2))) {
                         headers.put(strings.get(1), ApiMainLogic.vars.get(strings.get(2)));
