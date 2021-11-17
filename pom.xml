@@ -96,7 +96,7 @@
                             <!-- CucumberOptions.monochrome property -->
                             <monochrome>true</monochrome>
                             <!-- The tags to run, maps to CucumberOptions.tags property -->
-                            <tags>"@id-9"</tags>
+                            <tags>"@id-all"</tags>
                             <!-- If set to true, only feature files containing the required
                             tags shall be generated. -->
                             <!-- Excluded tags (~@notMe) are ignored. -->
