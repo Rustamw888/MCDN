@@ -17,7 +17,7 @@
       | HEADER | clientToken | abracadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/securityMarker |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"checkToken.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"checkToken.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-1.2
   Структура сценария: Метод «Проверить маркер безопасности» (негативный тест, с отправкой неправильных данных в JSON файле)
@@ -54,7 +54,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/ping" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"ping.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"ping.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-3
   Сценарий: Метод «Создать заявку на эмиссию кодов маркировки» с сохранением в файл
@@ -106,13 +106,13 @@
       | HEADER | Content-Type  | ContentTypeProperties |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
       | BODY |  | JsonsToRequests/orderCreation/myJson4 |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"createOrder.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"createOrder.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
     Когда выполнен POST запрос на URL "/api/mcdn/order" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | properties |
       | HEADER | Content-Type  | ContentTypeProperties |
       | PARAMS | omsId | abrakadabra |
       | BODY |  | JsonsToRequests/orderCreation/myJson4 |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"createOrder.omsId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"createOrder.omsId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-3.3
   Структура сценария: Метод «Создать заявку на эмиссию кодов маркировки» (негативный тест, изменения в JSON файлах с удалением)
@@ -180,7 +180,7 @@
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок (негативный тест, проверка с использованием некорректных параметров запроса)
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderStatus.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-4.2
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для всех заявок (негативный тест, проверка с использованием некорректного параметра Content-Type)
@@ -213,14 +213,14 @@
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
       | PARAMS | orderId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderStatus.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-5.2
   Сценарий: Метод «Получить статус заявки на эмиссию кодов маркировки» для конкретной заявки (негативный тест, проверка с использованием некорректного параметра orderId)
     Когда выполнен GET запрос на URL "/api/mcdn/order/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | properties |
       | PARAMS | orderId | abrakadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderStatus.orderId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderStatus.orderId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-6
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (позитивный тест, проверка структуры ответа)
@@ -244,7 +244,7 @@
       | HEADER | clientToken | abrakadabra |
       | PARAMS | quantity | 2 |
       | PARAMS | orderId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderCodes.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-6.2
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №1)
@@ -252,7 +252,7 @@
       | HEADER | clientToken | properties |
       | PARAMS | quantity | 0 |
       | PARAMS | orderId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.quantity: должно быть не меньше 1"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderCodes.quantity","fieldError":"должно быть не меньше 1"}],"globalErrors":[],"success":false}
 
   @all @id-6.3
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №2)
@@ -260,7 +260,7 @@
       | HEADER | clientToken | properties |
       | PARAMS | quantity | 100001 |
       | PARAMS | orderId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.quantity: должно быть не больше 100000"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderCodes.quantity","fieldError":"должно быть не больше 100000"}],"globalErrors":[],"success":false}
 
   @all @id-6.4
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра quantity №3)
@@ -268,7 +268,7 @@
       | HEADER | clientToken | properties |
       | PARAMS | quantity | abrakadabra |
       | PARAMS | orderId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"typeMismatch: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"abrakadabra\""}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[],"globalErrors":["Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"abrakadabra\""],"success":false}
 
   @all @id-6.5
   Сценарий: Метод «Получить КМ из заявки на эмиссию кодов маркировки» (негативный тест, проверка с использованием некорректного параметра orderId)
@@ -276,12 +276,12 @@
       | HEADER | clientToken | properties |
       | PARAMS | quantity | 2 |
       | PARAMS | orderId | abrakadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderCodes.orderId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderCodes.orderId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-7
   Сценарий: Метод «Отправить отчет об использовании (нанесении) КМ»
     Когда заменяет значение поля orderId в JSON файле JsonsToRequests/utilisationReports/utilisationReport4 на значение из файла orderId
-    И заменяет значение поля sntins[0].code в JSON файле JsonsToRequests/utilisationReports/utilisationReport4 на значение из файла codes0
+    И заменяет значение поля sntins[0].code в JSON файле JsonsToRequests/utilisationReports/utilisationReport4 на значение из файла code
     И выполнен POST запрос на URL "/api/mcdn/report/utilisation" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
@@ -298,7 +298,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportStatus" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | reportId | file |
-    Тогда значение в переменной mainResp2 и равно SENT_SYSTEM
+    Тогда значение в переменной mainResp2 и равно PENDING,SENT
 
   @all @id-7.0
   Сценарий: Метод «Отправить отчет об использовании (нанесении) КМ» (позитивный тест, проверка структуры ответа)
@@ -322,7 +322,7 @@
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/utilisationReports/utilisationReport4 |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendUtilisationReport.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"sendUtilisationReport.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-7.2
   Сценарий: Метод «Отправить отчет об использовании (нанесении) КМ» (негативный тест, проверка с использованием некорректного параметра ownerId)
@@ -331,7 +331,7 @@
       | PARAMS | ownerId | abracadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/utilisationReports/utilisationReport4 |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":": \n: Формат КМ некорректный"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[],"globalErrors":["Площадка abracadabra не найдена"],"success":false}
 
   @all @id-8
   Сценарий: Метод «Получить список КИ из отчета о нанесении КМ»
@@ -344,19 +344,19 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/utilisation/cis/list" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abracadabra |
       | PARAMS | reportId | 3c2520e7-7b1c-43d7-aed9-4405cb2595ed |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getCisListFromUtilisationReport.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCisListFromUtilisationReport.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-8.2
   Сценарий: Метод «Получить список КИ из отчета о нанесении КМ»
     Когда выполнен GET запрос на URL "/api/mcdn/report/utilisation/cis/list" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | properties |
       | PARAMS | reportId | abracadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getCisListFromUtilisationReport.reportId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCisListFromUtilisationReport.reportId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-9
   Структура сценария: Метод «Отправить отчет о валидации КМ»
-    Когда заменяет значение поля orderId в JSON файле validationReports/validationReport1 на значение из файла orderId
-    И заменяет значение поля sntins[0].code в JSON файле validationReports/validationReport1 на значение из файла codes0
+    Когда заменяет значение поля ownerId в JSON файле JsonsToRequests/validationReports/validationReport1 на значение из файла ownerId
+    И заменяет значение поля codes[0] в JSON файле JsonsToRequests/validationReports/validationReport1 на значение из файла code
     И выполнен POST запрос на URL "/api/mcdn/report/validation" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
@@ -376,7 +376,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportStatus" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | reportId | file |
-    Тогда значение в переменной mainResp2 и равно SENT_SYSTEM
+    Тогда значение в переменной mainResp2 и равно PENDING,SENT
 
 
   @all @id-9.0
@@ -404,7 +404,7 @@
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | <Jsons> |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendValidationReport.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"sendValidationReport.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
     Примеры:
       |Jsons|
       |JsonsToRequests/validationReports/validationReport1|
@@ -416,21 +416,21 @@
       | PARAMS | ownerId | abracadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | <Jsons> |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"Площадка abracadabra не найдена"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[],"globalErrors":["Площадка abracadabra не найдена"],"success":false}
     Примеры:
       |Jsons|
       |JsonsToRequests/validationReports/validationReport1|
 
   @all @id-10
   Сценарий: Метод «Отправить отчет об агрегации КМ»
-    Когда заменяет значение поля orderId в JSON файле JsonsToRequests/agregationOrderSending на значение из файла orderId
-    И выделить части кода из файла codes0 и сохранить в файл cis и codesRight
-    И заменяет значение поля aggregationUnits[0].sntins[0].code в JSON файле JsonsToRequests/agregationOrderSending на значение из файла cis
+    Когда заменяет значение поля orderId в JSON файле JsonsToRequests/aggregationOrderSending на значение из файла orderId
+    И выделить части кода из файла code и сохранить в файл cis и codesRight
+    И заменяет значение поля aggregationUnits[0].sntins[0].code в JSON файле JsonsToRequests/aggregationOrderSending на значение из файла cis
     Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/agregationOrderSending |
+      | BODY |  | JsonsToRequests/aggregationOrderSending |
     Тогда сохраняем параметр reportId из переменной mainResp4 в файл
 
   @all @id-10.0.0
@@ -442,7 +442,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportStatus" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | reportId | file |
-    Тогда значение в переменной mainResp2 и равно SENT_SYSTEM
+    Тогда значение в переменной mainResp2 и равно PENDING,SENT
 
   @all @id-10.0
   Сценарий: Метод «Отправить отчет об агрегации КМ» (позитивный тест, проверка структуры ответа)
@@ -450,13 +450,13 @@
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/agregationOrderSending |
+      | BODY |  | JsonsToRequests/aggregationOrderSending |
     Тогда рандомное значение в переменной mainResp3 соответствует формату, длина равна 36
     Когда выполнен POST запрос на URL "/api/mcdn/report/aggregation" с параметрами из таблицы. Значение из "sntinsCount" присутствует. Ответ сохранить в переменную с именем mainResp4 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/agregationOrderSending |
+      | BODY |  | JsonsToRequests/aggregationOrderSending |
     Тогда значение в переменной mainResp4 и равно 1
 
   @all @id-10.1
@@ -467,16 +467,16 @@
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/agregationOrderSending |
+      | BODY |  | JsonsToRequests/aggregationOrderSending |
     Тогда проверить коды ответов для замененных значений полей значениями некорректных типов данных
       |null      |целое число|дробное число|пустая строка     |строка      |значение логического типа|
       |<Код null>|<Код int>  |<Код double> |<Код empty string>|<Код string>|<Код bool>               |
     Тогда проверить ответы сервера при некорректных отправленных данных
     Примеры:
-      |Поле                            |Код null|Код int|Код double|Код string|Код empty string|Код bool|
-      |orderId                         |400     |400    |400       |400       |400             |400     |
-      |aggregationUnits.sntins[0].code |500     |400    |400       |400       |400             |400     |
-      |aggregationUnits.aggregationType|400     |200    |400       |400       |400             |400     |
+      |Поле                               |Код null|Код int|Код double|Код string|Код empty string|Код bool|
+      |orderId                            |200     |400    |400       |400       |400             |400     |
+      |aggregationUnits[0].sntins[0].code |500     |400    |400       |400       |400             |400     |
+      |aggregationUnits[0].aggregationType|400     |200    |400       |400       |400             |400     |
 
   @all @id-10.2
   Сценарий: Метод «Отправить отчет об агрегации КМ» (негативный тест, проверка с использованием некорректного параметра clientToken)
@@ -484,8 +484,8 @@
       | HEADER | clientToken | abracadabra |
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/agregationOrderSending |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendAggregationReport.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+      | BODY |  | JsonsToRequests/aggregationOrderSending |
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"sendAggregationReport.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-10.3
   Сценарий: Метод «Отправить отчет об агрегации КМ» (негативный тест, проверка с использованием некорректного параметра ownerId)
@@ -493,13 +493,13 @@
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | abracadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/agregationOrderSending |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":": Формат КМ некорректный\n: "}
+      | BODY |  | JsonsToRequests/aggregationOrderSending |
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[],"globalErrors":["Площадка abracadabra не найдена"],"success":false}
 
   @all @id-11
   Сценарий: Метод «Отправить отчет об агрегации КМ Типографии»
-    Когда заменяет значение поля orderId в JSON файле aggregationReport на значение из файла orderId
-    И заменяет значение поля aggregationUnit.sntins[0].code в JSON файле aggregationReport на значение из файла codes0
+    Когда заменяет значение поля orderId в JSON файле JsonsToRequests/aggregationReport на значение из файла orderId
+    И заменяет значение поля aggregationUnit.sntins[0].code в JSON файле JsonsToRequests/aggregationReport на значение из файла code
     И выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | ownerId | file |
@@ -516,7 +516,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportStatus" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | reportId | file |
-    Тогда значение в переменной mainResp2 и равно SENT_SYSTEM
+    Тогда значение в переменной mainResp2 и равно PENDING,SENT
 
   @all @id-11.0
   Сценарий: Метод «Отправить отчет об агрегации КМ Типографии» (позитивный тест, проверка структуры ответа)
@@ -559,7 +559,7 @@
       | PARAMS | ownerId | file |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/aggregationReport |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendAggregationCemReport.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"sendAggregationCemReport.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-11.3
   Сценарий: Метод «Отправить отчет об агрегации КМ Типографии» (негативный тест, проверка с использованием некорректного параметра ownerId)
@@ -568,32 +568,32 @@
       | PARAMS | ownerId | abracadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/aggregationReport |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"Площадка abracadabra не найдена"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[],"globalErrors":["Площадка abracadabra не найдена"],"success":false}
 
-  @all @id-12
-  Сценарий: Метод «Получить код агрегата из отчета об агрегации Типографии по КИ»
-    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Значение из "aggregationCemUnits" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
-      | HEADER | clientToken | properties |
-      | PARAMS | cis | file |
-    Тогда значение в переменной mainResp0 соответствует формату
-
-  @all @id-12.1
-  Сценарий: Метод «Получить код агрегата из отчета об агрегации Типографии по КИ» (негативный тест, проверка с использованием некорректного параметра clientToken)
-    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
-      | HEADER | clientToken | abracadabra |
-      | PARAMS | cis | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getCodesFromAggregationCem.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
-
-  @all @id-12.2
-  Сценарий: Метод «Получить код агрегата из отчета об агрегации Типографии по КИ» (негативный тест, проверка с использованием некорректного параметра cis)
-    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Значение из "aggregationCemUnits" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
-      | HEADER | clientToken | properties |
-      | PARAMS | cis | abracadabra |
-    Тогда значение в переменной mainResp1 и равно []
+#  @all @id-12
+#  Сценарий: Метод «Получить код агрегата из отчета об агрегации Типографии по КИ»
+#    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Значение из "aggregationCemUnits" присутствует. Ответ сохранить в переменную с именем mainResp0 Ожидаемый код ответа: 200
+#      | HEADER | clientToken | properties |
+#      | PARAMS | cis | file |
+#    Тогда значение в переменной mainResp0 соответствует формату
+#
+#  @all @id-12.1
+#  Сценарий: Метод «Получить код агрегата из отчета об агрегации Типографии по КИ» (негативный тест, проверка с использованием некорректного параметра clientToken)
+#    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
+#      | HEADER | clientToken | abracadabra |
+#      | PARAMS | cis | file |
+#    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCodesFromAggregationCem.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
+#
+#  @all @id-12.2
+#  Сценарий: Метод «Получить код агрегата из отчета об агрегации Типографии по КИ» (негативный тест, проверка с использованием некорректного параметра cis)
+#    Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/printery/unit" с параметрами из таблицы. Значение из "metadata" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
+#      | HEADER | clientToken | properties |
+#      | PARAMS | cis | abracadabra |
+#    Тогда значение в переменной mainResp1 и равно []
 
   @all @id-13
   Сценарий: Метод «Получить коды маркировки из отчета об агрегации КМ Типографии»
-    Когда заменяет значение поля reportId в JSON файле aggregationPrinteryCodes на значение из файла reportId
+    Когда заменяет значение поля reportId в JSON файле JsonsToRequests/aggregationPrinteryCodes на значение из файла reportId
     Тогда выполнен POST запрос на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | HEADER | Content-Type  | ContentTypeProperties |
@@ -601,7 +601,7 @@
 
   @all @id-13.0
   Сценарий: Метод «Получить коды маркировки из отчета об агрегации КМ Типографии» (позитивный тест, проверка структуры ответа)
-    Когда POST запрос выполнен на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: JsonsToCheckTheContent/aggregationPrinteryCodesIgnore
+    Когда POST запрос выполнен на URL "/api/mcdn/report/aggregation/printery/codes" с параметрами из таблицы. Ожидаемый код ответа: 200, ожидаемая структура ответа: JsonsToCheckTheContent/aggregationPrinteryCodesIgnoreT
       | HEADER | clientToken | properties |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/aggregationPrinteryCodes |
@@ -612,7 +612,7 @@
       | HEADER | clientToken | abracadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/aggregationPrinteryCodes |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getCodesFromAggregationCem.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCodesFromAggregationCem.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-14
   Сценарий: Метод «Получить статус обработки отчета» (позитивный тест, проверка структуры ответа для отчета об агрегации КМ Типографии)
@@ -620,42 +620,35 @@
       | HEADER | clientToken | properties |
       | PARAMS | reportId | file |
     Тогда рандомное значение в переменной mainResp2 соответствует формату, длина равна 36
-    Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportStatus" присутствует. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
+    Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Значение из "reportStatus" присутствует. Ответ сохранить в переменную с именем mainResp3 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | PARAMS | reportId | file |
-    Тогда значение в переменной mainResp2 и равно SENT_SYSTEM
+    Тогда значение в переменной mainResp3 и равно PENDING,SENT
 
   @all @id-14.1
   Сценарий: Метод «Получить статус обработки отчета» (негативный тест, проверка с использованием некорректного параметра clientToken)
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abrakadabra |
       | PARAMS | reportId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getReportStatus.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getReportStatus.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-14.2
   Сценарий: Метод «Получить статус обработки отчета» (негативный тест, проверка с использованием некорректного параметра reportId)
     Когда выполнен GET запрос на URL "/api/mcdn/report/status" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | properties |
       | PARAMS | reportId | abrakadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getReportStatus.reportId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getReportStatus.reportId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-15
   Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами»
-    Когда заменяет значение поля recipientId в JSON файле betweenProviders на значение из файла d1bc2222-7b39-4aa2-afb1-df1b6c8f80c5
-    И заменяет значение поля orderId в JSON файле betweenProviders на значение из файла orderId
-    И выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Ответ сохранить в переменную с именем mainResp2 Ожидаемый код ответа: 200
-      | HEADER | clientToken | properties |
-      | HEADER | Content-Type  | ContentTypeProperties |
-      | BODY |  | JsonsToRequests/betweenProviders |
-    Тогда сохраняем параметр recipientOrderId из переменной mainResp2 в файл
-
-  @all @id-15.0
-  Сценарий: Метод «Передача кодов маркировки между сервис-провайдерами» (позитивный тест, проверка структуры ответа)
+    Когда заменяет значение поля recipientId в JSON файле JsonsToRequests/betweenProviders на значение из файла d1bc2222-7b39-4aa2-afb1-df1b6c8f80c5
+    И заменяет значение поля orderId в JSON файле JsonsToRequests/betweenProviders на значение из файла orderId
     Когда выполнен POST запрос на URL "/api/mcdn/codes/send" с параметрами из таблицы. Значение из "recipientOrderId" присутствует. Ответ сохранить в переменную с именем mainResp1 Ожидаемый код ответа: 200
       | HEADER | clientToken | properties |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/betweenProviders |
     Тогда рандомное значение в переменной mainResp1 соответствует формату, длина равна 36
+    Тогда сохраняем параметр recipientOrderId из переменной mainResp1 в файл
 
   @all @id-15.1
   Структура сценария: Метод «Передача кодов маркировки между сервис-провайдерами» (негативный тест, проверка ответов сервера на некорректные данные)
@@ -681,7 +674,7 @@
       | HEADER | clientToken | abrakadabra |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/betweenProviders |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"sendCodes.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"sendCodes.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-16
   Сценарий: Метод «Закрыть заявку на эмиссию кодов маркировки»
@@ -702,7 +695,7 @@
       | PARAMS | orderId | mainResp4 |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/closeOrder |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"closeOrder.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"closeOrder.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-16.2
   Структура сценария: Метод «Закрыть заявку на эмиссию кодов маркировки» (негативный тест, с отправкой неправильных данных в JSON файле)
@@ -737,8 +730,8 @@
       | PARAMS | orderId | mainResp4 |
       | HEADER | Content-Type  | ContentTypeProperties |
       | BODY |  | JsonsToRequests/closeOrder |
-    Тогда ответ сервера, сохраненный в переменную errorResp содержит {"errorCode": 9991,"errorText": "Заказ
-    Тогда ответ сервера, сохраненный в переменную errorResp содержит уже был закрыт"}
+    Тогда ответ сервера, сохраненный в переменную errorResp содержит {"fieldErrors":[],"globalErrors":["Заказ
+    Тогда ответ сервера, сохраненный в переменную errorResp содержит уже был закрыт"],"success":false}
 
   @all @id-17
   Сценарий:   Метод «Получить список заказов КМ по идентификатору производственного заказа»
@@ -754,7 +747,7 @@
       | HEADER | clientToken | abracadabra |
       | PARAMS | productionOrderId | file |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getOrderList.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getOrderList.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-17.2
   Сценарий:   Метод «Получить список заказов КМ по идентификатору производственного заказа» (негативный тест, проверка с использованием некорректного параметра clientToken)
@@ -770,8 +763,8 @@
       | HEADER | clientToken | properties |
       | PARAMS | productionOrderId | file |
       | PARAMS | omsId | abracadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp содержит {"errorCode":104092,"errorText":"Отсутствует связь эмитента abracadabra с площадкой
-    Тогда ответ сервера, сохраненный в переменную errorResp содержит "}
+    Тогда ответ сервера, сохраненный в переменную errorResp содержит {"fieldErrors":[],"globalErrors":["Отсутствует связь эмитента abracadabra с площадкой
+    Тогда ответ сервера, сохраненный в переменную errorResp содержит ],"success":false}
 
   @all @id-18
   Сценарий:   Метод «Получить список отчетов о нанесении КМ»
@@ -787,7 +780,7 @@
       | HEADER | clientToken | abracadabra |
       | PARAMS | productionOrderId | file |
       | PARAMS | omsId | d1bc8149-7b39-4aa2-afb1-df1b6c8f80c5 |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getUtilisationReportList.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getUtilisationReportList.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-18.2
   Сценарий:   Метод «Получить список заказов КМ по идентификатору производственного заказа» (негативный тест, проверка с использованием некорректного параметра productionOrderId)
@@ -824,7 +817,7 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/list" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abracadabra |
       | PARAMS | productionOrderId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getAggregationReportList.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getAggregationReportList.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-19.2
   Сценарий: Метод «Получить список отчетов об агрегации КМ» (негативный тест, проверка с использованием некорректного параметра productionOrderId)
@@ -844,14 +837,14 @@
     Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/cis/list" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | abracadabra |
       | PARAMS | reportId | file |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getCisListFromAggregationReport.clientToken: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCisListFromAggregationReport.clientToken","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @id-20.2
   Сценарий: Метод «Получить список КИ из отчета об агрегации КМ» (негативный тест, проверка с использованием некорректного параметра reportId)
     Когда выполнен GET запрос на URL "/api/mcdn/report/aggregation/cis/list" с параметрами из таблицы. Ответ сохранить в переменную с именем errorResp Ожидаемый код ответа: 400
       | HEADER | clientToken | properties |
       | PARAMS | reportId | abracadabra |
-    Тогда ответ сервера, сохраненный в переменную errorResp равен {"errorCode":9991,"errorText":"getCisListFromAggregationReport.reportId: Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}
+    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCisListFromAggregationReport.reportId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
   @all @del
   Сценарий: удалить все временные файлы

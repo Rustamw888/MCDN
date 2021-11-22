@@ -26,11 +26,11 @@ public class StepDefinitions {
     int sizeOfJSONArray = 1;
     static final ArrayList<String> errorKeysExpected = new ArrayList<>();
     static {
-//        errorKeysExpected.add("fieldErrors");
-//        errorKeysExpected.add("globalErrors");
-//        errorKeysExpected.add("success");
-        errorKeysExpected.add("errorCode");
-        errorKeysExpected.add("errorText");
+        errorKeysExpected.add("fieldErrors");
+        errorKeysExpected.add("globalErrors");
+        errorKeysExpected.add("success");
+//        errorKeysExpected.add("errorCode");
+//        errorKeysExpected.add("errorText");
         Collections.sort(errorKeysExpected);
     }
 
@@ -199,7 +199,7 @@ public class StepDefinitions {
 
     @Когда("^значение в переменной (.*) и равно (.*)$")
     public void checkStrippedAnswerWithAssert(String varResp, String varValue){
-        apiMainLogic.checkAnswerWithAssert(varResp, varValue.replace("[", "").replace("]", "").replace("{","").replace("}",""));
+        apiMainLogic.checkAnswerWithAssert(varResp, varValue);
     }
 
     @Когда("^ответ сервера, сохраненный в переменную (.*) равен (.*)$")

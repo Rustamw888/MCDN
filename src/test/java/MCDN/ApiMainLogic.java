@@ -65,14 +65,23 @@ public class ApiMainLogic extends Base {
         try {
             jsonObject = (JSONObject) readJsonSimpleDemo(file);
         } catch (Exception ignored) {}
+        String fileValue = null;
         if (!fileName.contains("-")) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(pathToData() + fileName + ".tmp"));
+                fileValue = br.readLine();
+                br.close();
+            } catch (Exception ignored) {}
+            changeJSONField(jsonPath, jsonObject, fileValue);
+        } else {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(pathToData() + fileName + ".tmp"));
                 fileName = br.readLine();
                 br.close();
             } catch (Exception ignored) {}
+            changeJSONField(jsonPath, jsonObject, fileName);
         }
-        changeJSONField(jsonPath, jsonObject, fileName);
+
         try {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(jsonObject.toJSONString());
@@ -421,9 +430,12 @@ public class ApiMainLogic extends Base {
     }
 
     public void checkAnswerWithAssert(String varResp, String varValue){
-        for (String key: vars.keySet()) {
-            if (key.contains(varResp))
-                Assert.assertEquals(varValue, vars.get(key));
+        if(!Objects.equals(varValue, "[]")) {
+            Set<String> values = new HashSet<>(Arrays.asList(varValue.split(",")));
+            for (String key: vars.keySet()) {
+                if (key.contains(varResp))
+                    Assert.assertTrue(values.contains(vars.get(key)));
+            }
         }
     }
 
@@ -492,7 +504,7 @@ public class ApiMainLogic extends Base {
                 given().log().headers().log().body()
                         .headers(header)
                         .queryParams(params)
-                        .body(jsonFileName);
+                        .body(jsonObject);
         Response response =
                 requestSpecification.when().post(urlValue);
         response.then().log().body()

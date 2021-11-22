@@ -13,7 +13,8 @@
       "expiredDate": "${json-unit.ignore}",
       "createdTimestamp": "${json-unit.ignore}",
       "productGroup": "${json-unit.ignore}",
-      "ownerId": "${json-unit.ignore}"
+      "ownerId": "${json-unit.ignore}",
+      "releaseMethodType": "${json-unit.ignore}"
     }
   ]
 }

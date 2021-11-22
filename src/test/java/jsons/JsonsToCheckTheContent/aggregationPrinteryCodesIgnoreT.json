@@ -1,0 +1,17 @@
+{
+  "@class": "${json-unit.ignore}",
+  "productGroup": "${json-unit.ignore}",
+  "attributes": {
+    "productionOrderId": "${json-unit.ignore}",
+    "productionLineName": "${json-unit.ignore}",
+    "reportCreatedTime": "${json-unit.ignore}"
+  },
+  "orderId": "${json-unit.ignore}",
+  "sntins": [
+    {
+      "code":"${json-unit.ignore}",
+      "quality": "${json-unit.ignore}",
+      "index": "${json-unit.ignore}"
+    }
+  ]
+}

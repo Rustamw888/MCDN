@@ -1,1 +1,33 @@
-{"unitSerialNumber":"${json-unit.ignore}","reportId":"${json-unit.ignore}"}
+{
+  "@class": "${json-unit.ignore}",
+  "productGroup": "${json-unit.ignore}",
+  "attributes": {
+    "productionLineName": "${json-unit.ignore}",
+    "shiftNumber": "${json-unit.ignore}",
+    "senderType": "${json-unit.ignore}",
+    "senderId": "${json-unit.ignore}",
+    "productionOrderId": "${json-unit.ignore}",
+    "reportCreatedTime": "${json-unit.ignore}",
+    "omsId": "${json-unit.ignore}",
+    "issuerName": "${json-unit.ignore}",
+    "orderExpired": "${json-unit.ignore}",
+    "aggregationType": "${json-unit.ignore}",
+    "palletId": "${json-unit.ignore}",
+    "batchStartTime": "${json-unit.ignore}",
+    "batchCloseTime": "${json-unit.ignore}",
+    "devices": [
+      {
+        "id": "${json-unit.ignore}",
+        "description": "${json-unit.ignore}"
+      }
+    ]
+  },
+  "orderId": "${json-unit.ignore}",
+  "sntins": [
+    {
+      "code":"${json-unit.ignore}",
+      "quality": "${json-unit.ignore}",
+      "index": "${json-unit.ignore}"
+    }
+  ]
+}
