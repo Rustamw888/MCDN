@@ -853,6 +853,6 @@
 #      | PARAMS | reportId | abracadabra |
 #    Тогда ответ сервера, сохраненный в переменную errorResp равен {"fieldErrors":[{"fieldName":"getCisListFromAggregationReport.reportId","fieldError":"Значение идентификатора в соответствии с ISO/IEC 9834-8. Не соответствует шаблону [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}],"globalErrors":[],"success":false}
 
-#  @all @del @positive
-#  Сценарий: удалить все временные файлы
-#    Когда удаление временных файлов
+  @all @del @positive
+  Сценарий: удалить все временные файлы
+    Когда удаление временных файлов
