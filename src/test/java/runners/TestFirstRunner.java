@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
         tags = {"@all", "~@ignore"},
 //        tags = {"@id-15", "~@ignore"},
 //        tags = {"@mock", "~@ignore"},
+//        tags = {"@negative", "~@ignore"},
         strict = true,
         snippets = SnippetType.CAMELCASE,
         monochrome = true,

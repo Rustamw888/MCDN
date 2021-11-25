@@ -15,9 +15,28 @@
     }
   ],
   "attributes": {
+    "senderId": "${json-unit.ignore}",
+    "aggregationType": "${json-unit.ignore}",
     "productionOrderId": "${json-unit.ignore}",
+    "orderExpired": "${json-unit.ignore}",
+    "devices": [
+      {
+        "description": "${json-unit.ignore}",
+        "id": "${json-unit.ignore}"
+      },
+      {
+        "description": "${json-unit.ignore}",
+        "id": "${json-unit.ignore}"
+      }
+    ],
+    "issuerName": "${json-unit.ignore}",
+    "palletId": "${json-unit.ignore}",
+    "shiftNumber": "${json-unit.ignore}",
+    "reportCreatedTime": "${json-unit.ignore}",
+    "productionLineName": "${json-unit.ignore}",
+    "senderType": "${json-unit.ignore}",
     "omsId": "${json-unit.ignore}",
-    "participantId": "${json-unit.ignore}",
-    "reportCreatedTime": "${json-unit.ignore}"
+    "participantId": "${json-unit.ignore}"
   }
 }
+

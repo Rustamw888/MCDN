@@ -26,11 +26,11 @@ public class StepDefinitions {
     int sizeOfJSONArray = 1;
     static final ArrayList<String> errorKeysExpected = new ArrayList<>();
     static {
-        errorKeysExpected.add("fieldErrors");
-        errorKeysExpected.add("globalErrors");
-        errorKeysExpected.add("success");
-//        errorKeysExpected.add("errorCode");
-//        errorKeysExpected.add("errorText");
+//        errorKeysExpected.add("fieldErrors");
+//        errorKeysExpected.add("globalErrors");
+//        errorKeysExpected.add("success");
+        errorKeysExpected.add("errorCode");
+        errorKeysExpected.add("errorText");
         Collections.sort(errorKeysExpected);
     }
 
